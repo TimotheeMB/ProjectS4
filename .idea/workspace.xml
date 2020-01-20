@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b95475bb-0e85-41ec-9a0e-5e795fc99324" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\timot\Documents\Programation\Java\ProjectS4\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1WZrrTZSi3slIt3c2FzBzPtCjX5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\timot\Documents\Programation\Java\ProjectS4" />
+      <recent name="C:\Users\timot\Documents\Programation\Java\ProjectS4\.idea" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="ProjectS4" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b95475bb-0e85-41ec-9a0e-5e795fc99324" name="Default Changelist" comment="" />
+      <created>1579368156405</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579368156405</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1579432932457</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1579432932457</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Trying to remove .iml and .class">
+      <created>1579540295786</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1579540295786</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_WIDTH">
+                <map>
+                  <entry key="2" value="86" />
+                  <entry key="3" value="117" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Trying to remove .iml and .class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying to remove .iml and .class" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="278" y="34" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1579432813158">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="278" y="34" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog/0.0.1280.689@0.0.1280.689" timestamp="1579432813158" />
+    <state x="269" y="0" width="743" height="688" key="CommitChangelistDialog2" timestamp="1579553487862">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="269" y="0" width="743" height="688" key="CommitChangelistDialog2/0.0.1280.689@0.0.1280.689" timestamp="1579553487862" />
+    <state x="122" y="57" key="DiffContextDialog" timestamp="1579537364335">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="122" y="57" key="DiffContextDialog/0.0.1280.689@0.0.1280.689" timestamp="1579537364335" />
+    <state width="1237" height="166" key="GridCell.Tab.0.bottom" timestamp="1579540660781">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="166" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1579540660781" />
+    <state width="1237" height="166" key="GridCell.Tab.0.center" timestamp="1579540660781">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="166" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1579540660781" />
+    <state width="1237" height="166" key="GridCell.Tab.0.left" timestamp="1579540660781">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="166" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1579540660781" />
+    <state width="1237" height="166" key="GridCell.Tab.0.right" timestamp="1579540660781">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="166" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1579540660781" />
+    <state x="233" y="79" key="Vcs.Push.Dialog.v2" timestamp="1579553490496">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="233" y="79" key="Vcs.Push.Dialog.v2/0.0.1280.689@0.0.1280.689" timestamp="1579553490496" />
+    <state x="450" y="263" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579540711579">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="450" y="263" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.689@0.0.1280.689" timestamp="1579540711579" />
+  </component>
+</project>
