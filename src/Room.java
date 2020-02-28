@@ -23,7 +23,7 @@ public class Room {
 
     public void addObstacle(Obstacle o){
         obstacles.add(o);
-        map[o.pos[0]][o.pos[1]]=true;
+        //map...=true;
     }
 
     public void nextStep(){
