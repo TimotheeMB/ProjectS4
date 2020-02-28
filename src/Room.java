@@ -1,8 +1,10 @@
+import java.util.LinkedList;
+
 public class Room {
     final int SIZE;
     boolean [][] map;
-    Person [] persons;
-    Obstacle [] obstacles;
+    LinkedList<Person> persons;
+    LinkedList<Obstacle> obstacles;
 
     public Room(int size) {
         SIZE = size;
@@ -11,6 +13,24 @@ public class Room {
             for (int j = 0; j <SIZE ; j++) {
                 map[i][j]=false;
             }
+        }
+    }
+
+    public void addPerson(Person p){
+        persons.add(p);
+        map[p.pos[0]][p.pos[1]]=true;
+    }
+
+    public void addObstacle(Obstacle o){
+        obstacles.add(o);
+        map[o.pos[0]][o.pos[1]]=true;
+    }
+
+    public void nextStep(){
+        for (Person p : persons) {
+            map[p.pos[0]][p.pos[1]]=false;
+            p.move();
+            map[p.pos[0]][p.pos[1]]=true;
         }
     }
 
