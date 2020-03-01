@@ -8,18 +8,16 @@ public class GUI extends JFrame{
         this.setLocation(200,20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panneauChoix = new JPanel();
-        panneauChoix.setBounds(1165,10,300, 720);
-        panneauChoix.setLayout(null);
-        panneauChoix.setBackground(Color.cyan);
+        JPanel choicesPan = new JPanel();
+        choicesPan.setBounds(1165,10,300, 720);
+        choicesPan.setLayout(null);
+        choicesPan.setBackground(Color.cyan);
 
-
-
-        JPanel panneauGlobal = new JPanel();
-        panneauGlobal.setBounds(0,0,1500,800);
-        panneauGlobal.setLayout(null);
-        panneauGlobal.add(panneauChoix);
-        this.add(panneauGlobal);
+        JPanel totalPan = new JPanel();
+        totalPan.setBounds(0,0,1500,800);
+        totalPan.setLayout(null);
+        totalPan.add(choicesPan);
+        this.add(totalPan);
 
         this.setVisible(true);
     }
