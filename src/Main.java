@@ -3,7 +3,7 @@ public class  Main {
     public static void main(String[] args) {
 
         boolean finished=false;
-        GUI display = new GUI();
+        GUI display = new GUI(100);
 
         Room gopher= new Room(500);
         int[] whereIsBrian={250,250};
