@@ -1,5 +1,5 @@
 public class Obstacle {
-
+/*
     // attributes
     public int [] angle1 ;
     public int [] angle2 ;
@@ -22,5 +22,5 @@ public class Obstacle {
 
 
 
-
+*/
 }

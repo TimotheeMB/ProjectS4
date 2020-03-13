@@ -7,6 +7,7 @@ public class Room {
     LinkedList<Obstacle> obstacles;
 
     public Room(int size) {
+        persons=new LinkedList<Person>();
         SIZE = size;
         map = new boolean[SIZE][SIZE];
         for (int i = 0; i <SIZE; i++) {
