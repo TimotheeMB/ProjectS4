@@ -44,22 +44,33 @@ public class GUI extends JFrame implements ActionListener {
         this.setVisible(true);
     } */
 
-    public GUI(Simulation simulation, int DisplayInterval){
+    public GUI(Simulation simulation, int DisplayInterval) {
+
+        this.simulation = simulation;
+        this.DisplayInterval = DisplayInterval;
+        t = new Timer(DisplayInterval, this); // Création du timer
+        t.start();
 
         this.setTitle(" Welcome to our Crowd Simulator");
-        this.setSize(1500,800);
-        this.setLocation(200,20);
+        this.setSize(1500, 800);
+        this.setLocation(200, 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel choicesPan = new JPanel();
-        choicesPan.setBounds(1165,10,300, 720);
+        choicesPan.setBounds(1165, 10, 300, 720);
         choicesPan.setLayout(null);
         choicesPan.setBackground(Color.cyan);
 
+        DisplayPanel displayPan = new DisplayPanel(simulation);
+        displayPan.setBounds(10, 10, 1145, 720);
+        displayPan.setLayout(null);
+        displayPan.setBackground(Color.white);
+
         JPanel totalPan = new JPanel();
-        totalPan.setBounds(0,0,1500,800);
+        totalPan.setBounds(0, 0, 1500, 800);
         totalPan.setLayout(null);
         totalPan.add(choicesPan);
+        totalPan.add(displayPan);
         this.add(totalPan);
 
         /* JComboBox choosePersonNumber = new JComboBox();
@@ -92,24 +103,17 @@ public class GUI extends JFrame implements ActionListener {
         choicesPan.add(timing);
 
         this.setVisible(true);
-
-        this.DisplayInterval=DisplayInterval;
-        t = new Timer(DisplayInterval, this); // Création du timer
-        t.start();
-        this.simulation=simulation;
     }
 
-    // Méthode exécutée à chaque réveil du Timer
+
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==start){
-            simulation.start();
-        }else if(e.getSource()==t){
-            int timeInMin = (int) simulation.time / 60000;
+        if (e.getSource() == start) {
+            simulation.start();     //If we press start, we start the simulation
+        } else if (e.getSource() == t) {
+            int timeInMin = (int) simulation.time / 60000;      //each 10ms we update the time display
             int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
             timing.setText("Time = " + timeInMin + " : " + timeInSec);
+            repaint();
         }
     }
-
-
-
 }

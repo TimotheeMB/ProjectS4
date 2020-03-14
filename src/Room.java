@@ -19,7 +19,7 @@ public class Room {
 
     public void addPerson(Person p){
         persons.add(p);
-        map[p.pos[0]][p.pos[1]]=true;
+        map[p.pos.x][p.pos.y]=true;
     }
 
     public void addObstacle(Obstacle o){
@@ -29,9 +29,9 @@ public class Room {
 
     public void nextStep(){
         for (Person p : persons) {
-            map[p.pos[0]][p.pos[1]]=false;
+            map[p.pos.x][p.pos.y]=false;
             p.move();
-            map[p.pos[0]][p.pos[1]]=true;
+            map[p.pos.x][p.pos.y]=true;
         }
     }
 

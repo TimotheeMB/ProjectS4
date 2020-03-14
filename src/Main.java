@@ -6,8 +6,8 @@ public class  Main {
         Room gopher= new Room(500);
 
         //We create a person
-        int[] whereIsBrian={250,250};
-        int[] whereBrianWantsToGo={0,0};
+        Point whereIsBrian=new Point(250,250);
+        Point whereBrianWantsToGo=new Point(100,400);
         Person Brian= new Person(whereIsBrian,whereBrianWantsToGo);
 
         //We put the person in the room
