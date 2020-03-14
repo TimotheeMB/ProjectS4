@@ -29,19 +29,15 @@ public class Person {
     }
 
     public int chooseDirection(){
-        System.out.println("I choose direction");
         int direction=0;
         double minDistance=around[0].distance(target);
-        System.out.println("d= "+direction+" min= "+minDistance);
         for (int i = 1; i < 8 ; i++) {
             double distance=around[i].distance(target);
             if(distance<minDistance){
                 minDistance=distance;
                 direction=i;
-                System.out.println("d= "+direction+" min= "+minDistance);
             }
         }
-        System.out.println("my decision ="+direction);
         return direction;
 
     }
