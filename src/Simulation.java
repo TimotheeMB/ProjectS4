@@ -5,11 +5,14 @@ import java.awt.event.ActionListener;
 public class Simulation implements ActionListener {
     Room room;
     Timer timer;
-    GUI GUI;
+    long time;
+    int StepDuration;
 
-    public Simulation(Room room, int interval) {
+    public Simulation(Room room, int StepDuration) {
         this.room = room;
-        this.timer = new Timer(interval,this);
+        this.StepDuration = StepDuration;
+        this.timer = new Timer(StepDuration,this);
+        this.time=0;
     }
 
     public void start(){
@@ -19,10 +22,7 @@ public class Simulation implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==GUI.start){
-            start();//We start the simulation
-            GUI.t.start(); // On lance le chrono
-        }
+        time += StepDuration; // On incrémente le temps
         room.nextStep();
     }
 }

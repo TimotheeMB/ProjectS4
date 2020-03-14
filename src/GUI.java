@@ -3,8 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GUI extends JFrame implements ActionListener {
-    public long time;
-    public int interval;
+    public int DisplayInterval;
     public Timer t;
     public JLabel timing;
     public Simulation simulation;
@@ -45,7 +44,7 @@ public class GUI extends JFrame implements ActionListener {
         this.setVisible(true);
     } */
 
-    public GUI(Simulation simulation, int interval){
+    public GUI(Simulation simulation, int DisplayInterval){
 
         this.setTitle(" Welcome to our Crowd Simulator");
         this.setSize(1500,800);
@@ -81,7 +80,7 @@ public class GUI extends JFrame implements ActionListener {
         start = new JButton("Start simulation!!!");
         start.setBounds(10, 640, 280, 70);
         start.setLayout(null);
-        start.addActionListener(simulation);
+        start.addActionListener(this);
         choicesPan.add(start);
 
         Font f = new Font("Caliban", Font.BOLD, 20);
@@ -94,18 +93,23 @@ public class GUI extends JFrame implements ActionListener {
 
         this.setVisible(true);
 
-        this.interval=interval;
-        t = new Timer(interval, this); // Création du timer
-        time = 0; // On initialise le temps à 0
-
+        this.DisplayInterval=DisplayInterval;
+        t = new Timer(DisplayInterval, this); // Création du timer
+        t.start();
+        this.simulation=simulation;
     }
+
     // Méthode exécutée à chaque réveil du Timer
-
     public void actionPerformed(ActionEvent e) {
-        time+=interval; // On incrémente le temps
-        System.out.println("Start since "+time+" ms");
-        int timeInMin = (int) time/60000;
-        int timeInSec = (int) time/1000 - timeInMin*60;
-        timing.setText("Time = "+timeInMin+" : " + timeInSec);
+        if(e.getSource()==start){
+            simulation.start();
+        }else if(e.getSource()==t){
+            int timeInMin = (int) simulation.time / 60000;
+            int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
+            timing.setText("Time = " + timeInMin + " : " + timeInSec);
+        }
     }
+
+
+
 }
