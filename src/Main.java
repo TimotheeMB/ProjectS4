@@ -2,24 +2,23 @@ public class  Main {
 
     public static void main(String[] args) {
 
-        boolean finished=false;
-        GUI display = new GUI(100);
-
+        //We create a room
         Room gopher= new Room(500);
+
+        //We create a person
         int[] whereIsBrian={250,250};
         int[] whereBrianWantsToGo={0,0};
         Person Brian= new Person(whereIsBrian,whereBrianWantsToGo);
+
+        //We put the person in the room
         gopher.addPerson(Brian);
 
-        while(!finished){
-            gopher.nextStep();
-            //display.refresh();
-            System.out.println(Brian.pos[0]+"   "+Brian.pos[1]);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        //We create a simulation that will make the room live (every 10ms)
+        Simulation test = new Simulation(gopher,10);
+
+        //We display and control this simulation thanks to a GUI
+        GUI display = new GUI(test,100);
+        test.GUI=display;
+
     }
 }

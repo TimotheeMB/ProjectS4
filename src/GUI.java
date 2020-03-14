@@ -7,6 +7,9 @@ public class GUI extends JFrame implements ActionListener {
     public int interval;
     public Timer t;
     public JLabel timing;
+    public Simulation simulation;
+    JButton start;
+
     /*public GUI () {
         this.setTitle(" Welcome to our Crowd Simulator");
         this.setSize(1500,800);
@@ -42,7 +45,7 @@ public class GUI extends JFrame implements ActionListener {
         this.setVisible(true);
     } */
 
-    public GUI (int interval){
+    public GUI(Simulation simulation, int interval){
 
         this.setTitle(" Welcome to our Crowd Simulator");
         this.setSize(1500,800);
@@ -75,10 +78,10 @@ public class GUI extends JFrame implements ActionListener {
         obstacle.setLayout(null);
         choicesPan.add(obstacle);
 
-        JButton start = new JButton("Start simulation!!!");
+        start = new JButton("Start simulation!!!");
         start.setBounds(10, 640, 280, 70);
         start.setLayout(null);
-        start.addActionListener(this);
+        start.addActionListener(simulation);
         choicesPan.add(start);
 
         Font f = new Font("Caliban", Font.BOLD, 20);
@@ -99,7 +102,6 @@ public class GUI extends JFrame implements ActionListener {
     // Méthode exécutée à chaque réveil du Timer
 
     public void actionPerformed(ActionEvent e) {
-        t.start(); // On lance le chrono
         time+=interval; // On incrémente le temps
         System.out.println("Start since "+time+" ms");
         int timeInMin = (int) time/60000;
