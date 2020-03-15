@@ -17,7 +17,7 @@ public class  Main {
         Simulation test = new Simulation(gopher,10);
 
         //We display and control this simulation thanks to a GUI
-        GUI display = new GUI(test,10);
+        GUI display = new GUI(test,50);
 
     }
 }

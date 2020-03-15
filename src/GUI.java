@@ -9,41 +9,6 @@ public class GUI extends JFrame implements ActionListener {
     public Simulation simulation;
     JButton start;
 
-    /*public GUI () {
-        this.setTitle(" Welcome to our Crowd Simulator");
-        this.setSize(1500,800);
-        this.setLocation(200,20);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel choicesPan = new JPanel();
-        choicesPan.setBounds(1165,10,300, 720);
-        choicesPan.setLayout(null);
-        choicesPan.setBackground(Color.cyan);
-
-        JPanel totalPan = new JPanel();
-        totalPan.setBounds(0,0,1500,800);
-        totalPan.setLayout(null);
-        totalPan.add(choicesPan);
-        this.add(totalPan);
-
-        JComboBox choosePersonNumber = new JComboBox();
-        choosePersonNumber.setBounds(10, 10, 280 , 70);
-        choosePersonNumber.setLayout(null);
-        choicesPan.add(choosePersonNumber);
-
-        JButton person = new JButton("Add a person");
-        person.setBounds(10, 10, 280, 70);
-        person.setLayout(null);
-        choicesPan.add(person);
-
-        JButton obstacle = new JButton("Add an obstacle");
-        obstacle.setBounds(10, 90, 280, 70);
-        obstacle.setLayout(null);
-        choicesPan.add(obstacle);
-
-        this.setVisible(true);
-    } */
-
     public GUI(Simulation simulation, int DisplayInterval) {
 
         this.simulation = simulation;
@@ -72,11 +37,6 @@ public class GUI extends JFrame implements ActionListener {
         totalPan.add(choicesPan);
         totalPan.add(displayPan);
         this.add(totalPan);
-
-        /* JComboBox choosePersonNumber = new JComboBox();
-        choosePersonNumber.setBounds(10, 10, 280 , 70);
-        choosePersonNumber.setLayout(null);
-        choicesPan.add(choosePersonNumber);*/
 
         JButton person = new JButton("Add a person");
         person.setBounds(10, 10, 280, 70);
