@@ -90,7 +90,10 @@ public class GUI extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start) {
-            simulation.start();     //If we press start, we start the simulation
+            simulation.start();//If we press start, we start the simulation
+            person.setVisible(false);
+            obstacle.setVisible(false);
+            exit.setVisible(false);
         }
         if (e.getSource() == timer) {
             int timeInMin = (int) simulation.time / 60000;      //each 10ms we update the time display
