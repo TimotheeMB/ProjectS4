@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Room {
     final int SIZE;
-    boolean [][] map;
+    public boolean [][] map;
     LinkedList<Person> persons;
     LinkedList<Obstacle> obstacles;
 

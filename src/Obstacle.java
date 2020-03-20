@@ -22,14 +22,12 @@ public class Obstacle {
         return (y2-y1) ;
     }
 
-    public boolean [][] isAvailable (){
-        boolean [][] available = new boolean [this.length()][this.height()] ;
+    public void isAvailable (boolean [][] map){
         for (int i = this.x1 ; i<=this.x2 ; i++){
             for (int j = this.y1 ; j<=this.y2 ; j++){
-                available [i][j] = false ;
+                map [i][j] = false ;
             }
         }
-        return available ;
     }
 
 }
