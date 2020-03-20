@@ -1,30 +1,26 @@
 public class Obstacle {
 
     // attributes
-    public int x1 ;
-    public int y1 ;
-    public int x2 ;
-    public int y2 ;
+    public Point pointA  ;
+    public Point pointB ;
 
     //constructor
-    public Obstacle (int x1, int y1, int x2, int y2) {
-        this.x1 = x1 ;
-        this.y1 = y1 ;
-        this.x2 = x2 ;
-        this.y2 = y2 ;
+    public Obstacle (Point A, Point B) {
+        this.pointA = A ;
+        this.pointB = B ;
     }
 
     public int length (){
-        return (x2-x1) ;
+        return (pointB.x-pointA.x) ;
     }
 
     public int height (){
-        return (y2-y1) ;
+        return (pointB.y-pointA.y) ;
     }
 
     public void isAvailable (boolean [][] map){
-        for (int i = this.x1 ; i<=this.x2 ; i++){
-            for (int j = this.y1 ; j<=this.y2 ; j++){
+        for (int i = this.pointA.x ; i<=this.pointB.x ; i++){
+            for (int j = this.pointA.y ; j<=this.pointB.y ; j++){
                 map [i][j] = false ;
             }
         }
