@@ -3,50 +3,73 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GUI extends JFrame implements ActionListener {
+
+    // attributes
     public int DisplayInterval;
-    public Timer t;
+    public Timer timer;
     public JLabel timing;
     public Simulation simulation;
+    public DisplayPanel disp;
+    JButton person;
+    JButton obstacle;
     JButton start;
+    JButton exit;
 
+    // constructor
     public GUI(Simulation simulation, int DisplayInterval) {
 
+        disp = new DisplayPanel(simulation);
         this.simulation = simulation;
         this.DisplayInterval = DisplayInterval;
-        t = new Timer(DisplayInterval, this); // Création du timer
-        t.start();
+        timer = new Timer(DisplayInterval, this); // Timer creation
+        timer.start();
 
+        //Window initialization
         this.setTitle(" Welcome to our Crowd Simulator");
-        this.setSize(1500, 800);
+        this.setSize(1070, 800);
         this.setLocation(200, 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //Panel for choices
         JPanel choicesPan = new JPanel();
-        choicesPan.setBounds(1165, 10, 300, 720);
+        choicesPan.setBounds(740, 10, 300, 720);
         choicesPan.setLayout(null);
         choicesPan.setBackground(Color.cyan);
 
+        //Panel to display simulation
         DisplayPanel displayPan = new DisplayPanel(simulation);
-        displayPan.setBounds(10, 10, 1145, 720);
+        displayPan.setBounds(10, 10, 720, 720);
         displayPan.setLayout(null);
         displayPan.setBackground(Color.white);
 
         JPanel totalPan = new JPanel();
-        totalPan.setBounds(0, 0, 1500, 800);
+        totalPan.setBounds(0, 0, 1050, 800);
         totalPan.setLayout(null);
         totalPan.add(choicesPan);
         totalPan.add(displayPan);
         this.add(totalPan);
 
-        JButton person = new JButton("Add a person");
+        //all the buttons
+        person = new JButton("Add a person");
         person.setBounds(10, 10, 280, 70);
+        person.setBackground(Color.white);
         person.setLayout(null);
+        person.addActionListener(this);
         choicesPan.add(person);
 
-        JButton obstacle = new JButton("Add an obstacle");
+        obstacle = new JButton("Add an obstacle");
         obstacle.setBounds(10, 90, 280, 70);
+        obstacle.setBackground(Color.white);
         obstacle.setLayout(null);
+        obstacle.addActionListener(this);
         choicesPan.add(obstacle);
+
+        exit = new JButton("Add exit");
+        exit.setBounds(10, 170, 280, 70);
+        exit.setBackground(Color.white);
+        exit.setLayout(null);
+        exit.addActionListener(this);
+        choicesPan.add(exit);
 
         start = new JButton("Start simulation!!!");
         start.setBounds(10, 640, 280, 70);
@@ -54,8 +77,8 @@ public class GUI extends JFrame implements ActionListener {
         start.addActionListener(this);
         choicesPan.add(start);
 
-        Font f = new Font("Caliban", Font.BOLD, 20);
-
+        //Display timer
+        Font f = new Font("Calibri", Font.BOLD, 20);
         timing = new JLabel(" ");
         timing.setBounds(10, 560, 280, 70);
         timing.setLayout(null);
@@ -65,15 +88,36 @@ public class GUI extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start) {
             simulation.start();     //If we press start, we start the simulation
-        } else if (e.getSource() == t) {
+        }
+        if (e.getSource() == timer) {
             int timeInMin = (int) simulation.time / 60000;      //each 10ms we update the time display
             int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
             timing.setText("Time = " + timeInMin + " : " + timeInSec);
             repaint();
+            if (!disp.waitAddPerson) {
+                person.setBackground(Color.white);
+            }
+            if (!disp.waitAddObstacle) {
+                obstacle.setBackground(Color.white);
+            }
+            if (!disp.waitAddExit) {
+                exit.setBackground(Color.white);
+            }
+        }
+        if (e.getSource() == person) {
+            disp.waitAddPerson = true;
+            person.setBackground(Color.red);
+        }
+        if (e.getSource() == obstacle) {
+            disp.waitAddObstacle = true;
+            obstacle.setBackground(Color.red);
+        }
+        if (e.getSource() == exit) {
+            disp.waitAddExit = true;
+            exit.setBackground(Color.red);
         }
     }
 }
