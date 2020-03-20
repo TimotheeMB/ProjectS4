@@ -37,6 +37,9 @@ public class Person extends Entity{
     }
 
     public void move(){
+        for (Point point:pos) {
+            map[point.x][point.y]=0;
+        }
         Point nextPos=nextPos();
         this.pos = new Point[]{
                 nextPos,
@@ -75,7 +78,7 @@ public class Person extends Entity{
         Point nextPos=pos[0];
         double minDistance=pos[0].distance(target);
         for (int i = 1; i < 24 ; i++) {
-            if(map[pos[i].x][pos[i].y]!=signature){
+            if(map[pos[i].x][pos[i].y]==0){
                 double distance = pos[i].distance(target);
                 if (distance < minDistance) {
                     minDistance = distance;

@@ -34,6 +34,7 @@ public class Room {
             if(e instanceof Person){
                 Person p=(Person)e;
                 p.move();
+                System.out.println("I move");
             }
         }
     }
