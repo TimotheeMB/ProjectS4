@@ -23,7 +23,7 @@ public class DisplayPanel extends JPanel {
         for (int x = 0; x < simulation.room.SIZE; x++) {
             for (int y = 0; y < simulation.room.SIZE; y++) {
                 if(simulation.room.map[x][y]!=0){
-                    g.fillRect(x,y,5,5);
+                    g.fillRect(x,y,1,1);
                 }
             }
         }
