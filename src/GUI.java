@@ -9,6 +9,7 @@ public class GUI extends JFrame implements ActionListener {
     public Timer timer;
     public JLabel timing;
     public Simulation simulation;
+    public DisplayPanel disp;
     JButton person;
     JButton obstacle;
     JButton start;
@@ -17,6 +18,7 @@ public class GUI extends JFrame implements ActionListener {
     // constructor
     public GUI(Simulation simulation, int DisplayInterval) {
 
+        disp = new DisplayPanel(simulation);
         this.simulation = simulation;
         this.DisplayInterval = DisplayInterval;
         timer = new Timer(DisplayInterval, this); // Timer creation
@@ -47,20 +49,24 @@ public class GUI extends JFrame implements ActionListener {
         totalPan.add(displayPan);
         this.add(totalPan);
 
+        //all the buttons
         person = new JButton("Add a person");
         person.setBounds(10, 10, 280, 70);
+        person.setBackground(Color.white);
         person.setLayout(null);
         person.addActionListener(this);
         choicesPan.add(person);
 
         obstacle = new JButton("Add an obstacle");
         obstacle.setBounds(10, 90, 280, 70);
+        obstacle.setBackground(Color.white);
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
         choicesPan.add(obstacle);
 
         exit = new JButton("Add exit");
         exit.setBounds(10, 170, 280, 70);
+        exit.setBackground(Color.white);
         exit.setLayout(null);
         exit.addActionListener(this);
         choicesPan.add(exit);
@@ -71,7 +77,7 @@ public class GUI extends JFrame implements ActionListener {
         start.addActionListener(this);
         choicesPan.add(start);
 
-
+        //Display timer
         Font f = new Font("Calibri", Font.BOLD, 20);
         timing = new JLabel(" ");
         timing.setBounds(10, 560, 280, 70);
@@ -82,7 +88,6 @@ public class GUI extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start) {
             simulation.start();     //If we press start, we start the simulation
@@ -92,6 +97,27 @@ public class GUI extends JFrame implements ActionListener {
             int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
             timing.setText("Time = " + timeInMin + " : " + timeInSec);
             repaint();
+            if (!disp.waitAddPerson) {
+                person.setBackground(Color.white);
+            }
+            if (!disp.waitAddObstacle) {
+                obstacle.setBackground(Color.white);
+            }
+            if (!disp.waitAddExit) {
+                exit.setBackground(Color.white);
+            }
+        }
+        if (e.getSource() == person) {
+            disp.waitAddPerson = true;
+            person.setBackground(Color.red);
+        }
+        if (e.getSource() == obstacle) {
+            disp.waitAddObstacle = true;
+            obstacle.setBackground(Color.red);
+        }
+        if (e.getSource() == exit) {
+            disp.waitAddExit = true;
+            exit.setBackground(Color.red);
         }
     }
 }

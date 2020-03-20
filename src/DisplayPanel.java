@@ -1,12 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 
 public class DisplayPanel extends JPanel {
 
     public Simulation simulation;
-
+    public boolean waitAddObstacle;
+    public boolean waitAddPerson;
+    public boolean waitAddExit;
     public DisplayPanel(Simulation simulation) {
+
         this.simulation=simulation;
+        waitAddExit = false;
+        waitAddObstacle = false;
+        waitAddPerson = false;
     }
 
     public void paint(Graphics g) {
