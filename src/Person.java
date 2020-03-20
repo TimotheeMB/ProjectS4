@@ -1,9 +1,10 @@
-public class Person {
+public class Person extends Entity{
     public Point[] pos;
     public Point target;
-    public boolean[][] map;
+    public int[][] map;
 
-    public Person(boolean[][] map,Point pos, Point target) {
+    public Person(int[][] map,Point pos, Point target,int signature) {
+        super(signature);
         this.map=map;
         this.target = target;
         this.pos = new Point[]{
@@ -65,15 +66,16 @@ public class Person {
                 new Point(nextPos.x+2, nextPos.y+2)
         };
         for (Point point:pos) {
-            map[point.x][point.y]=false;
+            map[point.x][point.y]=signature;
         }
+        System.out.println("Brian is at: "+pos[0]);
     }
 
     public Point nextPos(){
         Point nextPos=pos[0];
         double minDistance=pos[0].distance(target);
         for (int i = 1; i < 24 ; i++) {
-            if(map[pos[i].x][pos[i].y]==true){
+            if(map[pos[i].x][pos[i].y]!=signature){
                 double distance = pos[i].distance(target);
                 if (distance < minDistance) {
                     minDistance = distance;

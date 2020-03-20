@@ -1,11 +1,12 @@
-public class Obstacle {
+public class Obstacle extends Entity {
 
     // attributes
     public Point pointA  ;
     public Point pointB ;
 
     //constructor
-    public Obstacle (Point A, Point B) {
+    public Obstacle (Point A, Point B,int signature) {
+        super(signature);
         this.pointA = A ;
         this.pointB = B ;
     }
