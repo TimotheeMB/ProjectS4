@@ -1,14 +1,19 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Room {
     final int SIZE;
     public int [][] map;
-    LinkedList<Entity> entities;
-    int signature;
+    ArrayList<Person> persons;
+    ArrayList<Obstacle> obstacles;
+    int signaturePerson;
+    int signatureObstacle;
 
     public Room(int size) {
-        signature=1;
-        entities=new LinkedList<Entity>();
+        signaturePerson=1;
+        signatureObstacle=2;
+        persons=new ArrayList<Person>();
+        obstacles=new ArrayList<Obstacle>();
         SIZE = size;
         map = new int[SIZE][SIZE];
         for (int i = 0; i <SIZE; i++) {
@@ -19,22 +24,18 @@ public class Room {
     }
 
     public void addPerson(Point pos){
-        entities.add(new Person(map,pos,new Point(600,111),signature));
-        signature++;
+        persons.add(new Person(map,pos,new Point(600,111),signaturePerson));
+        signaturePerson+=2;
     }
 
     public void addObstacle(Point a, Point b){
-        entities.add(new Obstacle(map,a,b,signature));
-        signature++;
-        //map...=true;
+        obstacles.add(new Obstacle(map,a,b,signatureObstacle));
+        signatureObstacle+=2;
     }
 
     public void nextStep(){
-        for (Entity e : entities) {
-            if(e instanceof Person){
-                Person p=(Person)e;
-                p.move();
-            }
+        for (Person p: persons) {
+            p.move();
         }
     }
 
