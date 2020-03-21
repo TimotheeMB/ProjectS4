@@ -5,10 +5,11 @@ public class Obstacle extends Entity {
     public Point pointB ;
 
     //constructor
-    public Obstacle (Point A, Point B,int signature) {
+    public Obstacle (int[][] map,Point A, Point B,int signature) {
         super(signature);
         this.pointA = A ;
         this.pointB = B ;
+        this.isAvailable(map);
     }
 
     public int length (){
@@ -19,10 +20,10 @@ public class Obstacle extends Entity {
         return (pointB.y-pointA.y) ;
     }
 
-    public void isAvailable (boolean [][] map){
+    public void isAvailable (int [][] map){
         for (int i = this.pointA.x ; i<=this.pointB.x ; i++){
             for (int j = this.pointA.y ; j<=this.pointB.y ; j++){
-                map [i][j] = false ;
+                map [i][j] = signature;
             }
         }
     }

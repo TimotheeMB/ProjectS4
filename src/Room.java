@@ -24,7 +24,7 @@ public class Room {
     }
 
     public void addObstacle(Point a, Point b){
-        entities.add(new Obstacle(a,b,signature));
+        entities.add(new Obstacle(map,a,b,signature));
         signature++;
         //map...=true;
     }
