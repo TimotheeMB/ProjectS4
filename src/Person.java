@@ -3,7 +3,7 @@ public class Person extends Entity{
     public Point target;
     public int[][] map;
 
-    public Person(int[][] map,Point center, Point target,int signature) {
+    public Person(Point center, Point target, int[][] map, int signature) {
         super(signature);
         this.map=map;
         this.target = target;

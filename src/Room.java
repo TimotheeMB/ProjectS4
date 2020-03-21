@@ -23,13 +23,13 @@ public class Room {
         }
     }
 
-    public void addPerson(Point pos){
-        persons.add(new Person(map,pos,new Point(600,111),signaturePerson));
+    public void addPerson(Point center){
+        persons.add(new Person(center,new Point(600,111),map,signaturePerson));
         signaturePerson+=2;
     }
 
     public void addObstacle(Point a, Point b){
-        obstacles.add(new Obstacle(map,a,b,signatureObstacle));
+        obstacles.add(new Obstacle(a,b,map,signatureObstacle));
         signatureObstacle+=2;
     }
 

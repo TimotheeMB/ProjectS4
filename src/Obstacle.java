@@ -5,7 +5,7 @@ public class Obstacle extends Entity {
     public Point pointB ;
 
     //constructor
-    public Obstacle (int[][] map,Point A, Point B,int signature) {
+    public Obstacle (Point A, Point B,int[][] map,int signature) {
         super(signature);
         this.pointA = A ;
         this.pointB = B ;
