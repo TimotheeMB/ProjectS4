@@ -24,7 +24,7 @@ public class Room {
     }
 
     public void addPerson(Point center){
-        persons.add(new Person(center,new Point(600,111),map,signaturePerson));
+        persons.add(new Person(center,new Point(600,111),this,signaturePerson));
         signaturePerson+=2;
     }
 
@@ -41,5 +41,8 @@ public class Room {
 
 
     public void computePathways() {
+        for (Person p: persons) {
+            p.computeMyPathway();
+        }
     }
 }

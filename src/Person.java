@@ -1,29 +1,29 @@
+import java.util.LinkedList;
+
 public class Person extends Entity{
     public Point[] pos;
     public Point target;
-    public int[][] map;
+    public Room room;
 
-    public Person(Point center, Point target, int[][] map, int signature) {
+    public Person(Point center, Point target, Room room, int signature) {
         super(signature);
-        this.map=map;
+        this.room=room;
         this.target = target;
         this.pos = around(center);
-        for (Point point:this.pos) {
-            map[point.x][point.y]=signature;
-        }
+        addPrint();
     }
 
     public void move(){
         removePrint();
-        this.pos = nextPos();
+        this.pos = nextPos(true);
         addPrint();
     }
 
-    public Point[] nextPos(){
+    public Point[] nextPos(boolean lookAround){
         Point nextCenter=pos[0];
         double minDistance=pos[0].distance(target);
         for (int i = 1; i < 20 ; i++) {
-            if(map[pos[i].x][pos[i].y]==0){
+            if(room.map[pos[i].x][pos[i].y]==0){
                 double distance = pos[i].distance(target);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -37,13 +37,13 @@ public class Person extends Entity{
 
     public void addPrint(){
         for (Point point:pos) {
-            map[point.x][point.y]=signature;
+            room.map[point.x][point.y]=signature;
         }
     }
 
     public void removePrint(){
         for (Point point:pos) {
-            map[point.x][point.y]=0;
+            room.map[point.x][point.y]=0;
         }
     }
 
@@ -73,4 +73,14 @@ public class Person extends Entity{
         };
     }
 
+    public void computeMyPathway() {
+        pos=nextPos(false);
+        for (Point p: pos) {
+            int sign=room.map[p.x][p.y];
+            if(sign%2==0) {// if there is an obstacle
+                target=room.obstacles.get(sign/2-1).pointA; /*my target is point A of the obstacle on my way
+                                                             (c'est pas ce qu'on veut mais c'est un début)*/
+            }
+        }
+    }
 }
