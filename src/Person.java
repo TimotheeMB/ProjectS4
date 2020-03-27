@@ -8,6 +8,7 @@ public class Person extends Entity{
     public Person(Point center, Point target, Room room, int signature) {
         super(signature);
         this.room=room;
+        this.target= new LinkedList<Point>();
         this.target.add(target);
         this.pos = around(center);
         addPrint();
@@ -28,7 +29,6 @@ public class Person extends Entity{
                 if (distance < minDistance) {
                     minDistance = distance;
                     nextCenter = pos[i];
-                    System.out.println(i);
                 }
             }
         }
@@ -77,7 +77,7 @@ public class Person extends Entity{
         pos=nextPos(false);
         for (Point p: pos) {
             int sign=room.map[p.x][p.y];
-            if(sign%2==0) {// if there is an obstacle
+            if(sign!=0 && sign%2==0) {// if there is an obstacle
                 target.add(room.obstacles.get(sign/2-1).pointA); /*my target is point A of the obstacle on my way
                                                              (c'est pas ce qu'on veut mais c'est un début)*/
             }
