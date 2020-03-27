@@ -28,9 +28,17 @@ public class Obstacle extends Entity {
         }
     }
 
+    public Point getPointA() {
+        return pointA;
+    }
+
     public Point getPointB (){
         Point pointB = new Point (this.pointC.x, this.pointA.y);
         return pointB;
+    }
+
+    public Point getPointC() {
+        return pointC;
     }
 
     public Point getPointD (){
