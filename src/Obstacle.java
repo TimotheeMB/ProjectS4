@@ -2,30 +2,39 @@ public class Obstacle extends Entity {
 
     // attributes
     public Point pointA  ;
-    public Point pointB ;
+    public Point pointC ;
 
     //constructor
-    public Obstacle (Point A, Point B,int[][] map,int signature) {
+    public Obstacle (Point A, Point C, int[][] map, int signature) {
         super(signature);
         this.pointA = A ;
-        this.pointB = B ;
-        this.isAvailable(map);
+        this.pointC = C ;
+        this.addPrint(map);
     }
 
     public int length (){
-        return (pointB.x-pointA.x) ;
+        return (pointC.x-pointA.x) ;
     }
 
     public int height (){
-        return (pointB.y-pointA.y) ;
+        return (pointC.y-pointA.y) ;
     }
 
-    public void isAvailable (int [][] map){
-        for (int i = this.pointA.x ; i<=this.pointB.x ; i++){
-            for (int j = this.pointA.y ; j<=this.pointB.y ; j++){
+    public void addPrint (int [][] map){
+        for (int i = this.pointA.x ; i<=this.pointC.x ; i++){
+            for (int j = this.pointA.y ; j<=this.pointC.y ; j++){
                 map [i][j] = signature;
             }
         }
     }
 
+    public Point getPointB (){
+        Point pointB = new Point (this.pointC.x, this.pointA.y);
+        return pointB;
+    }
+
+    public Point getPointD (){
+        Point pointD = new Point (this.pointA.x, this.pointC.y);
+        return pointD;
+    }
 }
