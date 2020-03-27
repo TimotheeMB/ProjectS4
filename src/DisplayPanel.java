@@ -8,7 +8,8 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public Simulation simulation;
     static public boolean waitAddPerson;
     static public boolean waitAddExit;
-    static public boolean waitAddObstacle ;
+    static public boolean waitAddObstacle;
+    public Point beginningObstacle;
 
 
     public DisplayPanel(Simulation simulation) {
@@ -35,12 +36,18 @@ public class DisplayPanel extends JPanel implements MouseListener {
     @Override
 
     public void mousePressed(MouseEvent e) {
-            /*System.out.println("vous avez appuyé") ;*/
+        if (waitAddObstacle == true) {
+            System.out.println("vous avez appuyé") ;
+            this.beginningObstacle = new Point(e.getX(),e.getY());
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        /*System.out.println("vous avez relaché") ;*/
+        if (waitAddObstacle == true) {
+            System.out.println("vous avez relaché");
+            simulation.room.addObstacle(this.beginningObstacle, new Point(e.getX(), e.getY()));
+        }
     }
 
     public void mouseExited (MouseEvent e){
@@ -53,7 +60,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
 
     public void mouseClicked (MouseEvent e){
         if (waitAddObstacle == true) {
-            System.out.println("vous avez cliqué") ;
+            System.out.println("vous avez cliqué");
         }
         if(waitAddPerson==true){
             simulation.room.addPerson(new Point(e.getX(),e.getY()));
