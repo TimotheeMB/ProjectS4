@@ -3,18 +3,20 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DisplayPanel extends JPanel {
+public class DisplayPanel extends JPanel implements MouseListener {
 
     public Simulation simulation;
     public boolean waitAddObstacle;
     public boolean waitAddPerson;
     public boolean waitAddExit;
 
+
     public DisplayPanel(Simulation simulation) {
         this.simulation=simulation;
         waitAddExit = false;
         waitAddObstacle = false;
         waitAddPerson = false;
+        addMouseListener(this);
     }
 
     public void paint(Graphics g) {
@@ -30,28 +32,29 @@ public class DisplayPanel extends JPanel {
         }
     }
 
-    /*@Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
     @Override
-    public void mousePressed(MouseEvent e) {
 
+    public void mousePressed(MouseEvent e) {
+            /*System.out.println("vous avez appuyé") ;*/
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        /*System.out.println("vous avez relaché") ;*/
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
+    public void mouseExited (MouseEvent e){
+        /*System.out.println("la souris est sortie") ;*/
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseEntered (MouseEvent e){
+        /*System.out.println("la souris est rentrée") ;*/
+    }
 
-    }*/
+    public void mouseClicked (MouseEvent e){
+        if (waitAddObstacle = true) {
+            System.out.println("vous avez cliqué") ;
+        }
+    }
+
 }
