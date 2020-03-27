@@ -3,15 +3,15 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DisplayPanel extends JPanel {
+public class DisplayPanel extends JPanel implements MouseListener {
 
     public Simulation simulation;
     public boolean waitAddObstacle;
     public boolean waitAddPerson;
     public boolean waitAddExit;
 
-    public DisplayPanel(Simulation simulation) {
-        this.simulation = simulation;
+    public DisplayPanel(Simulation simulation, MouseEvent e) {
+        this.simulation=simulation;
         waitAddExit = false;
         waitAddObstacle = false;
         waitAddPerson = false;
@@ -19,22 +19,21 @@ public class DisplayPanel extends JPanel {
 
     public void paint(Graphics g) {
         g.setColor(Color.white);
-        g.fillRect(0, 0, simulation.room.SIZE, simulation.room.SIZE);
+        g.fillRect(0,0,simulation.room.SIZE,simulation.room.SIZE);
         g.setColor(Color.black);
         for (int x = 0; x < simulation.room.SIZE; x++) {
             for (int y = 0; y < simulation.room.SIZE; y++) {
-                if (simulation.room.map[x][y] != 0) {
-                    g.fillRect(x, y, 1, 1);
+                if(simulation.room.map[x][y]!=0){
+                    g.fillRect(x,y,1,1);
                 }
             }
         }
     }
 
-    /*@Override
+    @Override
     public void mouseClicked(MouseEvent e) {
-        if waitAddObstacle=true {
 
-
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -52,7 +51,7 @@ public class DisplayPanel extends JPanel {
     }
 
     @Override
-    public void mouseExited(MouseEvent e){
+    public void mouseExited(MouseEvent e) {
 
-    }*/
+    }
 }
