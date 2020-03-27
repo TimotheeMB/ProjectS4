@@ -11,8 +11,8 @@ public class Person extends Entity{
         this.room=room;
         this.target= new LinkedList<Point>();
         this.target.add(target);
-        this.initPos = around(center);
         this.pos = around(center);
+        this.initPos = copies(pos);
         addPrint();
     }
 
@@ -76,6 +76,14 @@ public class Person extends Entity{
         };
     }
 
+    public Point[] copies(Point[] x){
+        Point [] r=new Point[x.length];
+        for (int i = 0; i < x.length; i++) {
+            r[i]=x[i];
+        }
+        return r;
+    }
+
     public void computeMyPathway() {
         while (!pos[0].equals(target.getFirst())) {
             System.out.println("je calcule mon traget");
@@ -88,6 +96,6 @@ public class Person extends Entity{
                 }
             }
         }
-        pos=initPos;
+        pos=copies(initPos);
     }
 }
