@@ -14,7 +14,7 @@ public class GUI extends JFrame implements ActionListener {
     JButton obstacle;
     JButton start;
     JButton exit;
-    public boolean waitAddObstacle ;
+
 
     // constructor
     public GUI(Simulation simulation, int DisplayInterval) {
@@ -117,7 +117,7 @@ public class GUI extends JFrame implements ActionListener {
             person.setBackground(Color.red);
         }
         if (e.getSource() == obstacle) {
-            disp.waitAddObstacle1 = true;
+            disp.waitAddObstacle = true;
             obstacle.setBackground(Color.red);
         }
         if (e.getSource() == exit) {

@@ -6,15 +6,15 @@ import java.awt.event.MouseListener;
 public class DisplayPanel extends JPanel implements MouseListener {
 
     public Simulation simulation;
-    public boolean waitAddPerson;
-    public boolean waitAddExit;
-    public boolean waitAddObstacle1 ;
+    static public boolean waitAddPerson;
+    static public boolean waitAddExit;
+    static public boolean waitAddObstacle ;
 
 
     public DisplayPanel(Simulation simulation) {
         this.simulation=simulation;
         waitAddExit = false;
-        waitAddObstacle1 = false;
+        waitAddObstacle = false;
         waitAddPerson = false;
         addMouseListener(this);
     }
@@ -52,7 +52,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
     }
 
     public void mouseClicked (MouseEvent e){
-        if (waitAddObstacle1 == true) {
+        if (waitAddObstacle == true) {
             System.out.println("vous avez cliqué") ;
         }
     }
