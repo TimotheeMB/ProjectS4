@@ -14,8 +14,7 @@ public class GUI extends JFrame implements ActionListener {
     JButton obstacle;
     JButton start;
     JButton exit;
-
-
+    JButton stop;
     // constructor
     public GUI(Simulation simulation, int DisplayInterval) {
 
@@ -78,6 +77,13 @@ public class GUI extends JFrame implements ActionListener {
         start.addActionListener(this);
         choicesPan.add(start);
 
+        stop = new JButton("Stop simulation");
+        stop.setBounds(10, 640, 280, 70);
+        stop.setLayout(null);
+        stop.addActionListener(this);
+        stop.setVisible(false);
+        choicesPan.add(stop);
+
         //Display timer
         Font f = new Font("Calibri", Font.BOLD, 20);
         timing = new JLabel(" ");
@@ -90,23 +96,31 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        int timeInMin = (int) simulation.time / 60000;      //each 10ms we update the time display
+        int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
+
         if (e.getSource() == start) {
             simulation.start();//If we press start, we start the simulation
             person.setVisible(false);
             obstacle.setVisible(false);
             exit.setVisible(false);
+            stop.setVisible(true);
+            start.setVisible(false);
+        }
+        if (e.getSource() == stop) {
+            timer.stop();
+            timing.setText("The simulation lasted "+ timeInMin + " : " + timeInSec);
+            start.setVisible(true);
         }
         if (e.getSource() == timer) {
-            int timeInMin = (int) simulation.time / 60000;      //each 10ms we update the time display
-            int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
             timing.setText("Time = " + timeInMin + " : " + timeInSec);
             repaint();
             if (!disp.waitAddPerson) {
                 person.setBackground(Color.white);
             }
-            /*if (!disp.waitAddObstacle1) {
+            if (!disp.waitAddObstacle) {
                 obstacle.setBackground(Color.white);
-            }*/
+            }
             if (!disp.waitAddExit) {
                 exit.setBackground(Color.white);
             }
