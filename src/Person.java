@@ -88,12 +88,18 @@ public class Person extends Entity{
         while (!pos[0].equals(target.getFirst())) {
             System.out.println("je calcule mon traget");
             pos = nextPos(false);
-            for (Point p : pos) {
-                int sign = room.map[p.x][p.y];
-                if (sign != 0 && sign % 2 == 0) {// if there is an obstacle
-                    target.add(room.obstacles.get(sign / 2 - 1).pointA); //my target is point A of the obstacle on my way
-                                                                // (c'est pas ce qu'on veut mais c'est un début)
+            int sign = room.map[pos[0].x][pos[0].y];
+            if (sign != 0 && sign % 2 == 0) {// if there is an obstacle
+                Obstacle obs=room.obstacles.get(sign / 2 - 1);
+                double minDist = pos[0].distance(obs.allPoints()[0]);
+                int pointToReach=0;
+                for (int i = 1; i < 4 ; i++) {
+                    if(pos[0].distance(obs.allPoints()[i])<minDist){
+                        minDist=pos[0].distance(obs.allPoints()[i]);
+                        pointToReach=i;
+                    }
                 }
+                target.add(obs.allPoints()[pointToReach]); //my target is point A of the obstacle on my way (c'est pas ce qu'on veut mais c'est un début)
             }
         }
         pos=copies(initPos);

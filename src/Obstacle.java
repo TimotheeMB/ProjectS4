@@ -45,4 +45,9 @@ public class Obstacle extends Entity {
         Point pointD = new Point (this.pointA.x, this.pointC.y);
         return pointD;
     }
+
+    public Point[] allPoints(){
+        Point[] allPoints={getPointA(),getPointB(),getPointC(),getPointD()};
+        return allPoints;
+    }
 }
