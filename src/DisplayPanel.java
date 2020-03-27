@@ -10,7 +10,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public boolean waitAddPerson;
     public boolean waitAddExit;
 
-    public DisplayPanel(Simulation simulation, MouseEvent e) {
+    public DisplayPanel(Simulation simulation) {
         this.simulation=simulation;
         waitAddExit = false;
         waitAddObstacle = false;
