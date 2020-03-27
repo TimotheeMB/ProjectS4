@@ -113,7 +113,6 @@ public class GUI extends JFrame implements ActionListener {
         }
         if (e.getSource() == person) {
             disp.waitAddPerson = true;
-            simulation.room.addPerson(new Point(100,100));
             person.setBackground(Color.red);
         }
         if (e.getSource() == obstacle) {

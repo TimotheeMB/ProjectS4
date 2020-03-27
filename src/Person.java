@@ -19,7 +19,6 @@ public class Person extends Entity{
     public void move(){
         removePrint();
         this.pos = nextPos(true);
-        System.out.println("target:"+ this.target.getLast()+"\npos:"+pos[0]);
         addPrint();
     }
 
@@ -27,12 +26,15 @@ public class Person extends Entity{
         Point nextCenter=pos[0];
         double minDistance=pos[0].distance(target.getLast());
         for (int i = 1; i < 20 ; i++) {
-            if(room.map[pos[i].x][pos[i].y]==0||lookAround==false){
+            System.out.println(room.map[pos[i].x][pos[i].y]);
+            if(room.map[pos[i].x][pos[i].y]==0||!lookAround){
                 double distance = pos[i].distance(target.getLast());
                 if (distance < minDistance) {
                     minDistance = distance;
                     nextCenter = pos[i];
                 }
+            }else{
+                System.out.println("J'ai vu quelqu'un");
             }
         }
         return around(nextCenter);
@@ -85,6 +87,7 @@ public class Person extends Entity{
     }
 
     public void computeMyPathway() {
+        removePrint();
         while (!pos[0].equals(target.getFirst())) {
             System.out.println("je calcule mon traget");
             pos = nextPos(false);

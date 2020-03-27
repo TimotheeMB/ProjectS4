@@ -55,6 +55,9 @@ public class DisplayPanel extends JPanel implements MouseListener {
         if (waitAddObstacle == true) {
             System.out.println("vous avez cliqué") ;
         }
+        if(waitAddPerson==true){
+            simulation.room.addPerson(new Point(e.getX(),e.getY()));
+        }
     }
 
 }
