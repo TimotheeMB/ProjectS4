@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 
 public class Person extends Entity{
+    public Point[] initPos;
     public Point[] pos;
     public LinkedList<Point> target;
     public Room room;
@@ -10,6 +11,7 @@ public class Person extends Entity{
         this.room=room;
         this.target= new LinkedList<Point>();
         this.target.add(target);
+        this.initPos = around(center);
         this.pos = around(center);
         addPrint();
     }
@@ -17,6 +19,7 @@ public class Person extends Entity{
     public void move(){
         removePrint();
         this.pos = nextPos(true);
+        System.out.println("target:"+ this.target.getLast()+"\npos:"+pos[0]);
         addPrint();
     }
 
@@ -74,13 +77,17 @@ public class Person extends Entity{
     }
 
     public void computeMyPathway() {
-        pos=nextPos(false);
-        for (Point p: pos) {
-            int sign=room.map[p.x][p.y];
-            if(sign!=0 && sign%2==0) {// if there is an obstacle
-                target.add(room.obstacles.get(sign/2-1).pointA); /*my target is point A of the obstacle on my way
-                                                             (c'est pas ce qu'on veut mais c'est un début)*/
+        while (!pos[0].equals(target.getFirst())) {
+            System.out.println("je calcule mon traget");
+            pos = nextPos(false);
+            for (Point p : pos) {
+                int sign = room.map[p.x][p.y];
+                if (sign != 0 && sign % 2 == 0) {// if there is an obstacle
+                    target.add(room.obstacles.get(sign / 2 - 1).pointA); //my target is point A of the obstacle on my way
+                                                                // (c'est pas ce qu'on veut mais c'est un début)
+                }
             }
         }
+        pos=initPos;
     }
 }

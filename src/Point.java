@@ -18,4 +18,8 @@ public class Point {
                 ", y=" + y +
                 '}';
     }
+
+    public boolean equals(Point a) {
+        return (this.x==a.x && this.y==a.y);
+    }
 }
