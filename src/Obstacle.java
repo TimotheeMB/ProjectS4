@@ -9,7 +9,7 @@ public class Obstacle extends Entity {
         super(signature);
         this.pointA = A ;
         this.pointB = B ;
-        this.isAvailable(map);
+        this.addPrint(map);
     }
 
     public int length (){
@@ -20,7 +20,7 @@ public class Obstacle extends Entity {
         return (pointB.y-pointA.y) ;
     }
 
-    public void isAvailable (int [][] map){
+    public void addPrint (int [][] map){
         for (int i = this.pointA.x ; i<=this.pointB.x ; i++){
             for (int j = this.pointA.y ; j<=this.pointB.y ; j++){
                 map [i][j] = signature;
