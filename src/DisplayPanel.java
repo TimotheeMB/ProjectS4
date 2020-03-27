@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DisplayPanel extends JPanel implements MouseListener {
+public class DisplayPanel extends JPanel {
 
     public Simulation simulation;
     public boolean waitAddObstacle;
     public boolean waitAddPerson;
     public boolean waitAddExit;
 
-    public DisplayPanel(Simulation simulation, MouseEvent e) {
+    public DisplayPanel(Simulation simulation) {
         this.simulation=simulation;
         waitAddExit = false;
         waitAddObstacle = false;
@@ -30,7 +30,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
         }
     }
 
-    @Override
+    /*@Override
     public void mouseClicked(MouseEvent e) {
 
     }
@@ -53,5 +53,5 @@ public class DisplayPanel extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
+    }*/
 }
