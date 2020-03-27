@@ -21,9 +21,9 @@ public class Person extends Entity{
 
     public Point[] nextPos(boolean lookAround){
         Point nextCenter=pos[0];
-        double minDistance=pos[0].distance(target);
+        double minDistance=pos[0].distance(target.getLast());
         for (int i = 1; i < 20 ; i++) {
-            if(room.map[pos[i].x][pos[i].y]==0){
+            if(room.map[pos[i].x][pos[i].y]==0||lookAround==false){
                 double distance = pos[i].distance(target.getLast());
                 if (distance < minDistance) {
                     minDistance = distance;
