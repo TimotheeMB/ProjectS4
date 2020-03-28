@@ -5,11 +5,11 @@ public class Obstacle extends Entity {
     public Point pointC ;
 
     //constructor
-    public Obstacle (Point A, Point C, int[][] map, int signature) {
-        super(signature);
+    public Obstacle (Point A, Point C, Room room, int signature) {
+        super(room,signature);
         this.pointA = A ;
         this.pointC = C ;
-        this.addPrint(map);
+        this.addPrint();
     }
 
     public int length (){
@@ -20,10 +20,10 @@ public class Obstacle extends Entity {
         return (pointC.y-pointA.y) ;
     }
 
-    public void addPrint (int [][] map){
+    public void addPrint (){
         for (int i = this.pointA.x ; i<=this.pointC.x ; i++){
             for (int j = this.pointA.y ; j<=this.pointC.y ; j++){
-                map [i][j] = signature;
+                room.map[i][j] = signature;
             }
         }
     }
@@ -33,8 +33,7 @@ public class Obstacle extends Entity {
     }
 
     public Point getPointB (){
-        Point pointB = new Point (this.pointC.x, this.pointA.y);
-        return pointB;
+        return new Point (this.pointC.x, this.pointA.y);
     }
 
     public Point getPointC() {
@@ -42,12 +41,10 @@ public class Obstacle extends Entity {
     }
 
     public Point getPointD (){
-        Point pointD = new Point (this.pointA.x, this.pointC.y);
-        return pointD;
+        return new Point (this.pointA.x, this.pointC.y);
     }
 
     public Point[] allPoints(){
-        Point[] allPoints={getPointA(),getPointB(),getPointC(),getPointD()};
-        return allPoints;
+        return new Point[]{getPointA(),getPointB(),getPointC(),getPointD()};
     }
 }

@@ -29,7 +29,7 @@ public class Room {
     }
 
     public void addObstacle(Point a, Point b){
-        obstacles.add(new Obstacle(a,b,map,signatureObstacle));
+        obstacles.add(new Obstacle(a,b,this,signatureObstacle));
         signatureObstacle+=2;
     }
 

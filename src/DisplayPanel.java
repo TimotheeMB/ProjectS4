@@ -33,38 +33,24 @@ public class DisplayPanel extends JPanel implements MouseListener {
         }
     }
 
-    @Override
-
     public void mousePressed(MouseEvent e) {
         if (waitAddObstacle == true) {
-            System.out.println("vous avez appuyé") ;
             this.beginningObstacle = new Point(e.getX(),e.getY());
         }
     }
 
-    @Override
     public void mouseReleased(MouseEvent e) {
-        if (waitAddObstacle == true) {
-            System.out.println("vous avez relaché");
+        if(waitAddPerson==true){
+            simulation.room.addPerson(new Point(e.getX(),e.getY()));
+        }else if (waitAddObstacle == true) {
             simulation.room.addObstacle(this.beginningObstacle, new Point(e.getX(), e.getY()));
         }
     }
 
-    public void mouseExited (MouseEvent e){
-        /*System.out.println("la souris est sortie") ;*/
-    }
+    public void mouseExited (MouseEvent e){}
 
-    public void mouseEntered (MouseEvent e){
-        /*System.out.println("la souris est rentrée") ;*/
-    }
+    public void mouseEntered (MouseEvent e){}
 
-    public void mouseClicked (MouseEvent e){
-        if (waitAddObstacle == true) {
-            System.out.println("vous avez cliqué");
-        }
-        if(waitAddPerson==true){
-            simulation.room.addPerson(new Point(e.getX(),e.getY()));
-        }
-    }
+    public void mouseClicked (MouseEvent e){}
 
 }

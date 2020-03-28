@@ -115,27 +115,36 @@ public class GUI extends JFrame implements ActionListener {
         if (e.getSource() == timer) {
             timing.setText("Time = " + timeInMin + " : " + timeInSec);
             repaint();
-            if (!disp.waitAddPerson) {
+            if (DisplayPanel.waitAddPerson) {
+                person.setBackground(Color.red);
+            }else {
                 person.setBackground(Color.white);
             }
-            if (!disp.waitAddObstacle) {
+            if (DisplayPanel.waitAddObstacle) {
+                obstacle.setBackground(Color.red);
+            }else {
                 obstacle.setBackground(Color.white);
             }
-            if (!disp.waitAddExit) {
+            if (DisplayPanel.waitAddExit) {
+                exit.setBackground(Color.red);
+            }else {
                 exit.setBackground(Color.white);
             }
         }
         if (e.getSource() == person) {
-            disp.waitAddPerson = true;
-            person.setBackground(Color.red);
+            DisplayPanel.waitAddPerson = !DisplayPanel.waitAddPerson;
+            DisplayPanel.waitAddObstacle=false;
+            DisplayPanel.waitAddExit=false;
         }
         if (e.getSource() == obstacle) {
-            disp.waitAddObstacle = true;
-            obstacle.setBackground(Color.red);
+            DisplayPanel.waitAddObstacle = !DisplayPanel.waitAddObstacle;
+            DisplayPanel.waitAddPerson=false;
+            DisplayPanel.waitAddExit=false;
         }
         if (e.getSource() == exit) {
-            disp.waitAddExit = true;
-            exit.setBackground(Color.red);
+            DisplayPanel.waitAddExit = !DisplayPanel.waitAddExit;
+            DisplayPanel.waitAddObstacle=false;
+            DisplayPanel.waitAddPerson=false;
         }
     }
 }

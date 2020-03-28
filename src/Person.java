@@ -4,11 +4,9 @@ public class Person extends Entity{
     public Point[] initPos;
     public Point[] pos;
     public LinkedList<Point> target;
-    public Room room;
 
     public Person(Point center, Point target, Room room, int signature) {
-        super(signature);
-        this.room=room;
+        super(room,signature);
         this.target= new LinkedList<Point>();
         this.target.add(target);
         this.pos = around(center);
