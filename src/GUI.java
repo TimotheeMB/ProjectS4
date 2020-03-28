@@ -15,6 +15,7 @@ public class GUI extends JFrame implements ActionListener {
     JButton start;
     JButton exit;
     JButton stop;
+
     // constructor
     public GUI(Simulation simulation, int DisplayInterval) {
 
@@ -107,30 +108,36 @@ public class GUI extends JFrame implements ActionListener {
             stop.setVisible(true);
             start.setVisible(false);
         }
+
         if (e.getSource() == stop) {
             timer.stop();
             timing.setText("The simulation lasted "+ timeInMin + " : " + timeInSec);
             start.setVisible(true);
         }
+
         if (e.getSource() == timer) {
             timing.setText("Time = " + timeInMin + " : " + timeInSec);
             repaint();
+
             if (DisplayPanel.waitAddPerson) {
                 person.setBackground(Color.red);
             }else {
                 person.setBackground(Color.white);
             }
+
             if (DisplayPanel.waitAddObstacle) {
                 obstacle.setBackground(Color.red);
             }else {
                 obstacle.setBackground(Color.white);
             }
+
             if (DisplayPanel.waitAddExit) {
                 exit.setBackground(Color.red);
             }else {
                 exit.setBackground(Color.white);
             }
         }
+
         if (e.getSource() == person) {
             DisplayPanel.waitAddPerson = !DisplayPanel.waitAddPerson;
             DisplayPanel.waitAddObstacle=false;
