@@ -116,12 +116,13 @@ public class Person extends Entity{
     }
 
     public void computeMyPathway() {
+
         Point [] possibleTargets=new Point[4];
-        int nbtargets=0;
         int sign;
         int lastSign=0;
 
         removePrint();
+
         while (!pos[0].equals(target.get(0))) {
             try {
                 Thread.sleep(0);
@@ -136,11 +137,12 @@ public class Person extends Entity{
                 if(sign!=lastSign) {
                     System.out.println("il y a un obstacle");
                     currentObs = room.obstacles.get(sign / 2 - 1);
-                    currentObs.removePrint();
+
                     first=true;
                     System.out.println("il est #" + (sign / 2 - 1) + " dans la liste");
                     possibleTargets=copies(currentObs.allPoints());
                 }
+                currentObs.removePrint();
                 double minDist = pos[0].distance(possibleTargets[0]);
                 System.out.println("minDist: "+minDist);
                 int pointToReach=0;
@@ -156,17 +158,15 @@ public class Person extends Entity{
                 }
                 target.add(new Point(possibleTargets[pointToReach].x,possibleTargets[pointToReach].y)); //my target is point A of the obstacle on my way (c'est pas ce qu'on veut mais c'est un début)
                 possibleTargets[pointToReach]=new Point(10000,10000);
-                //currentTarget++;
-                nbtargets++;
-                currentTarget=nbtargets;
+                currentTarget=target.size()-1;
                 System.out.println("j'ai ajouter un nouvelle cible à ma liste'");
                 System.out.println("My new target: "+target.get(currentTarget));
 
                 lastSign=sign;
             }
         }
+
         pos=copies(initPos);
         addPrint();
-        currentTarget=nbtargets;
     }
 }
