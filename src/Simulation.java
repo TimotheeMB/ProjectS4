@@ -19,6 +19,14 @@ public class Simulation implements ActionListener {
         System.out.println("======== ComputePathway ========");
         room.computePathways();
         System.out.println("======== Move ========");
+        for (Point t:room.persons.get(0).targets) {
+            System.out.println("target: "+t);
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         timer.start();
     }
 

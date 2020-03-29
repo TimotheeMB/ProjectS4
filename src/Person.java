@@ -1,33 +1,51 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Person extends Entity{
     public Point[] initPos;
     public Point[] pos;
-    public ArrayList<Point> target;
-    int currentTarget;
+    public Point finalTarget;
+    public ArrayList<Point> targets;
+    int targetIndex;
     Obstacle currentObs=null;
     boolean first=false;
 
 
     public Person(Point center, Point target, Room room, int signature) {
         super(room,signature);
-        this.target= new ArrayList<Point>();
-        currentTarget=0;
-        this.target.add(target);
+        this.finalTarget=target;
+        this.targets= new ArrayList<Point>();
+        targetIndex=0;
         this.pos = around(center);
         this.initPos = copies(pos);
-        addPrint();
+
+        addPrint();//so that we can see the person we created
     }
 
     public void move(){
 
-        System.out.println("This is my target: "+target.get(currentTarget));
+        System.out.println("This is my targetIndex : "+targetIndex);
         System.out.println("This is my pos: "+pos[0]);
 
         removePrint();
 
-        this.pos = nextPos(true);
+        if(pos[0].equals(currentTarget())){
+            targetIndex++;
+            System.out.println("je passe à la cible suivante");
+        }
+
+        Point nextCenter=pos[0];
+        double minDistance=pos[0].distance(currentTarget());
+        for (int i = 1; i < 20 ; i++) {
+            if(room.map[pos[i].x][pos[i].y]==0) {
+                double distance = pos[i].distance(currentTarget());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nextCenter = pos[i];
+                }
+            }
+        }
+
+        pos=around(nextCenter);
 
         addPrint();
 
@@ -35,29 +53,25 @@ public class Person extends Entity{
 
     public Point[] nextPos(boolean lookAround){
 
-        if(pos[0].equals(target.get(currentTarget))){
-            if(currentTarget==0){
-                System.out.println("=====>  JE SUIS ARRIVE  <=======");
-            }else {
-                if(lookAround) {
-                    currentTarget--;
-                }else{
-                    currentTarget=0;
-                }
-                System.out.println("je passe à la cible suivante");
-                if(first) {
+        if(pos[0].equals(targets.get(targetIndex))) {
+            if (lookAround) {
+                targetIndex++;
+            } else {
+                targetIndex = 0;
+                if (first) {
                     currentObs.addPrint();
-                    first=false;
+                    first = false;
                 }
             }
-        };
+            System.out.println("je passe à la cible suivante");
+        }
 
         Point nextCenter=pos[0];
-        double minDistance=pos[0].distance(target.get(currentTarget));
+        double minDistance=pos[0].distance(targets.get(targetIndex));
         for (int i = 1; i < 20 ; i++) {
             //System.out.println(room.map[pos[i].x][pos[i].y]);
             if(room.map[pos[i].x][pos[i].y]==0||!lookAround){
-                double distance = pos[i].distance(target.get(currentTarget));
+                double distance = pos[i].distance(targets.get(targetIndex));
                 if (distance < minDistance) {
                     minDistance = distance;
                     nextCenter = pos[i];
@@ -123,26 +137,53 @@ public class Person extends Entity{
 
         removePrint();
 
-        while (!pos[0].equals(target.get(0))) {
-            try {
-                Thread.sleep(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while (!pos[0].equals(finalTarget)) {
+
+            if(pos[0].equals(currentTarget())){
+                targetIndex++;
+                if (first) {
+                    currentObs.addPrint();
+                    first = false;
+                }
             }
-            pos = nextPos(false);
+
+            Point nextCenter=pos[0];
+            double minDistance=pos[0].distance(currentTarget());
+            for (int i = 1; i < 20 ; i++) {
+                double distance = pos[i].distance(currentTarget());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nextCenter = pos[i];
+                }
+            }
+
+            pos = around(nextCenter);
+
+
+
+
+
             System.out.println("My imaginary position: "+pos[0]);
             sign = room.map[pos[0].x][pos[0].y];
             System.out.println("J'imagine que je suis sur une case: "+sign);
-            if (sign != 0 && sign % 2 == 0) {// if there is an obstacle
-                if(sign!=lastSign) {
-                    System.out.println("il y a un obstacle");
-                    currentObs = room.obstacles.get(sign / 2 - 1);
 
+            // if there is an obstacle
+            if (sign != 0 && sign % 2 == 0) {
+
+                //if it a different obstacle
+                if(sign!=lastSign) {
+                    if(currentObs!=null) {
+                        currentObs.addPrint();
+                    }
+                    currentObs = room.obstacles.get(sign / 2 - 1);
                     first=true;
                     System.out.println("il est #" + (sign / 2 - 1) + " dans la liste");
                     possibleTargets=copies(currentObs.allPoints());
                 }
+
+
                 currentObs.removePrint();
+
                 double minDist = pos[0].distance(possibleTargets[0]);
                 System.out.println("minDist: "+minDist);
                 int pointToReach=0;
@@ -156,17 +197,30 @@ public class Person extends Entity{
                         System.out.println("PTR: "+pointToReach);
                     }
                 }
-                target.add(new Point(possibleTargets[pointToReach].x,possibleTargets[pointToReach].y)); //my target is point A of the obstacle on my way (c'est pas ce qu'on veut mais c'est un début)
-                possibleTargets[pointToReach]=new Point(10000,10000);
-                currentTarget=target.size()-1;
+
+                targets.add(new Point(possibleTargets[pointToReach].x,possibleTargets[pointToReach].y)); //my target is point A of the obstacle on my way (c'est pas ce qu'on veut mais c'est un début)
+                possibleTargets[pointToReach]=new Point(10000,10000); //we "delete" the point from the possible targets
+                //targetIndex=targets.size()-1;
                 System.out.println("j'ai ajouter un nouvelle cible à ma liste'");
-                System.out.println("My new target: "+target.get(currentTarget));
+                System.out.println("My new target: "+targets.get(targetIndex));
 
                 lastSign=sign;
             }
         }
 
+        if(currentObs!=null) {
+            currentObs.addPrint();
+        }
+        targetIndex=0;
         pos=copies(initPos);
         addPrint();
+    }
+
+    public Point currentTarget(){
+        if (targetIndex>=targets.size()){
+            return finalTarget;
+        }else{
+            return targets.get(targetIndex);
+        }
     }
 }

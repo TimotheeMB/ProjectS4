@@ -24,7 +24,10 @@ public class Room {
     }
 
     public void addPerson(Point center){
-        persons.add(new Person(center,new Point(710,710),this,signaturePerson));
+        System.out.println("j'ajoute une personne");
+        persons.add(new Person(center,new Point(360,710),this,signaturePerson));
+        System.out.println("obstacles.size()="+persons.size());
+        System.out.println("signature ="+signaturePerson);
         signaturePerson+=2;
     }
 
@@ -52,8 +55,6 @@ public class Room {
         for (Person p: persons) {
             p.computeMyPathway();
         }
-        for (Obstacle obs:obstacles) {
-            obs.addPrint();
-        }
+
     }
 }
