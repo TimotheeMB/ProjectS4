@@ -24,16 +24,24 @@ public class Room {
     }
 
     public void addPerson(Point center){
-        persons.add(new Person(center,new Point(600,111),this,signaturePerson));
+        persons.add(new Person(center,new Point(710,710),this,signaturePerson));
         signaturePerson+=2;
     }
 
     public void addObstacle(Point a, Point b){
+        System.out.println("j'ajoute un obstacle");
         obstacles.add(new Obstacle(a,b,this,signatureObstacle));
+        System.out.println("obstacles.size()="+obstacles.size());
+        System.out.println("signature ="+signatureObstacle);
         signatureObstacle+=2;
     }
 
     public void nextStep(){
+        try {
+            Thread.sleep(0);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (Person p: persons) {
             p.move();
         }
@@ -43,6 +51,9 @@ public class Room {
     public void computePathways() {
         for (Person p: persons) {
             p.computeMyPathway();
+        }
+        for (Obstacle obs:obstacles) {
+            obs.addPrint();
         }
     }
 }

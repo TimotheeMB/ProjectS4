@@ -34,15 +34,15 @@ public class DisplayPanel extends JPanel implements MouseListener {
     }
 
     public void mousePressed(MouseEvent e) {
-        if (waitAddObstacle == true) {
+        if(waitAddPerson==true) {
+            simulation.room.addPerson(new Point(e.getX(), e.getY()));
+        }else if (waitAddObstacle == true) {
             this.beginningObstacle = new Point(e.getX(),e.getY());
         }
     }
 
     public void mouseReleased(MouseEvent e) {
-        if(waitAddPerson==true){
-            simulation.room.addPerson(new Point(e.getX(),e.getY()));
-        }else if (waitAddObstacle == true) {
+        if (waitAddObstacle == true) {
             simulation.room.addObstacle(this.beginningObstacle, new Point(e.getX(), e.getY()));
         }
     }

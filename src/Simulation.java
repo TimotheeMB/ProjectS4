@@ -16,7 +16,9 @@ public class Simulation implements ActionListener {
     }
 
     public void start(){
+        System.out.println("======== ComputePathway ========");
         room.computePathways();
+        System.out.println("======== Move ========");
         timer.start();
     }
 
