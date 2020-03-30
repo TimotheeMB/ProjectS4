@@ -26,7 +26,7 @@ public class Room {
     public void addPerson(Point center){
         System.out.println("j'ajoute une personne");
         persons.add(new Person(center,new Point(360,710),this,signaturePerson));
-        System.out.println("obstacles.size()="+persons.size());
+        System.out.println("persons.size()="+persons.size());
         System.out.println("signature ="+signaturePerson);
         signaturePerson+=2;
     }
@@ -40,11 +40,6 @@ public class Room {
     }
 
     public void nextStep(){
-        try {
-            Thread.sleep(0);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         for (Person p: persons) {
             p.move();
         }
@@ -55,6 +50,5 @@ public class Room {
         for (Person p: persons) {
             p.computeMyPathway();
         }
-
     }
 }
