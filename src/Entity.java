@@ -7,4 +7,7 @@ public abstract class Entity {
         this.signature = signature;
     }
 
+    public abstract void addPrint();
+
+    public abstract void removePrint();
 }

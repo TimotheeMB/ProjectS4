@@ -4,23 +4,33 @@ import java.awt.event.*;
 
 public class GUI extends JFrame implements ActionListener {
 
-    // attributes
-    public int DisplayInterval;
-    public Timer timer;
-    public JLabel timing;
-    public Simulation simulation;
-    public DisplayPanel disp;
-    JButton person;
-    JButton obstacle;
-    JButton start;
-    JButton exit;
-    JButton stop;
+    /* === ATTRIBUTES === */
 
-    // constructor
+    //The simulation to manage
+    public Simulation simulation;
+
+    //Time management
+    public int DisplayInterval;//The display will refresh every ...ms
+    public Timer timer;//thanks to that timer
+
+    //Display
+    public JLabel timing;// Display of the time of the simulation
+    public DisplayPanel displayPan;//Display of the simulation
+
+    //Buttons
+    public JButton person;
+    public JButton obstacle;
+    public JButton start;
+    public JButton exit;
+    public JButton stop;
+
+    /* === CONSTRUCTOR === */
     public GUI(Simulation simulation, int DisplayInterval) {
 
-        disp = new DisplayPanel(simulation);
+        //The simulation to manage
         this.simulation = simulation;
+
+        //Time management
         this.DisplayInterval = DisplayInterval;
         timer = new Timer(DisplayInterval, this); // Timer creation
         timer.start();
@@ -38,11 +48,13 @@ public class GUI extends JFrame implements ActionListener {
         choicesPan.setBackground(Color.cyan);
 
         //Panel to display simulation
-        DisplayPanel displayPan = new DisplayPanel(simulation);
+        displayPan = new DisplayPanel(simulation);
+        displayPan = new DisplayPanel(simulation);
         displayPan.setBounds(10, 10, 720, 720);
         displayPan.setLayout(null);
         displayPan.setBackground(Color.white);
 
+        //Global panel
         JPanel totalPan = new JPanel();
         totalPan.setBounds(0, 0, 1050, 800);
         totalPan.setLayout(null);
@@ -85,7 +97,7 @@ public class GUI extends JFrame implements ActionListener {
         stop.setVisible(false);
         choicesPan.add(stop);
 
-        //Display timer
+        //Display simulation time
         Font f = new Font("Calibri", Font.BOLD, 20);
         timing = new JLabel(" ");
         timing.setBounds(10, 560, 280, 70);
@@ -93,65 +105,80 @@ public class GUI extends JFrame implements ActionListener {
         timing.setFont(f);
         choicesPan.add(timing);
 
+
         this.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
-        int timeInMin = (int) simulation.time / 60000;      //each 10ms we update the time display
+
+        //Conversion of the time in base 60
+        int timeInMin = (int) simulation.time / 60000;
         int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
 
+        //If we press start...
         if (e.getSource() == start) {
-            simulation.start();//If we press start, we start the simulation
+            simulation.start();//...we start the simulation
             person.setVisible(false);
             obstacle.setVisible(false);
             exit.setVisible(false);
-            stop.setVisible(true);
             start.setVisible(false);
+            stop.setVisible(true);
+
         }
 
+        //If we press stop...
         if (e.getSource() == stop) {
             timer.stop();
             timing.setText("The simulation lasted "+ timeInMin + " : " + timeInSec);
             start.setVisible(true);
         }
 
-        if (e.getSource() == timer) {
-            timing.setText("Time = " + timeInMin + " : " + timeInSec);
-            repaint();
+        //If we press add person...
+        if (e.getSource() == person) {
+            displayPan.waitAddPerson = !displayPan.waitAddPerson;
+            displayPan.waitAddObstacle=false;
+            displayPan.waitAddExit=false;
+        }
 
-            if (DisplayPanel.waitAddPerson) {
+        //If we press add obstacle...
+        if (e.getSource() == obstacle) {
+            displayPan.waitAddObstacle = !displayPan.waitAddObstacle;
+            displayPan.waitAddPerson=false;
+            displayPan.waitAddExit=false;
+        }
+
+        //If we press add exit...
+        if (e.getSource() == exit) {
+            displayPan.waitAddExit = !displayPan.waitAddExit;
+            displayPan.waitAddObstacle=false;
+            displayPan.waitAddPerson=false;
+        }
+
+        //Each "DisplayInterval" ms...
+        if (e.getSource() == timer) {
+
+            //...we display the time
+            timing.setText("Time = " + timeInMin + " : " + timeInSec);
+
+            //...we change the color of buttons if needed
+            if (displayPan.waitAddPerson) {
                 person.setBackground(Color.red);
             }else {
                 person.setBackground(Color.white);
             }
-
-            if (DisplayPanel.waitAddObstacle) {
+            if (displayPan.waitAddObstacle) {
                 obstacle.setBackground(Color.red);
             }else {
                 obstacle.setBackground(Color.white);
             }
-
-            if (DisplayPanel.waitAddExit) {
+            if (displayPan.waitAddExit) {
                 exit.setBackground(Color.red);
             }else {
                 exit.setBackground(Color.white);
             }
-        }
 
-        if (e.getSource() == person) {
-            DisplayPanel.waitAddPerson = !DisplayPanel.waitAddPerson;
-            DisplayPanel.waitAddObstacle=false;
-            DisplayPanel.waitAddExit=false;
-        }
-        if (e.getSource() == obstacle) {
-            DisplayPanel.waitAddObstacle = !DisplayPanel.waitAddObstacle;
-            DisplayPanel.waitAddPerson=false;
-            DisplayPanel.waitAddExit=false;
-        }
-        if (e.getSource() == exit) {
-            DisplayPanel.waitAddExit = !DisplayPanel.waitAddExit;
-            DisplayPanel.waitAddObstacle=false;
-            DisplayPanel.waitAddPerson=false;
+            //...and we refresh the display
+            repaint();
         }
     }
 }

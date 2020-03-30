@@ -24,12 +24,18 @@ public class Room {
     }
 
     public void addPerson(Point center){
-        persons.add(new Person(center,new Point(600,111),this,signaturePerson));
+        System.out.println("j'ajoute une personne");
+        persons.add(new Person(center,new Point(360,710),this,signaturePerson));
+        System.out.println("persons.size()="+persons.size());
+        System.out.println("signature ="+signaturePerson);
         signaturePerson+=2;
     }
 
     public void addObstacle(Point a, Point b){
+        System.out.println("j'ajoute un obstacle");
         obstacles.add(new Obstacle(a,b,this,signatureObstacle));
+        System.out.println("obstacles.size()="+obstacles.size());
+        System.out.println("signature ="+signatureObstacle);
         signatureObstacle+=2;
     }
 

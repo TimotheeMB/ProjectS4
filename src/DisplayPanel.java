@@ -6,9 +6,9 @@ import java.awt.event.MouseListener;
 public class DisplayPanel extends JPanel implements MouseListener {
 
     public Simulation simulation;
-    static public boolean waitAddPerson;
-    static public boolean waitAddExit;
-    static public boolean waitAddObstacle;
+    public boolean waitAddPerson;
+    public boolean waitAddExit;
+    public boolean waitAddObstacle;
     public Point beginningObstacle;
 
 
@@ -20,6 +20,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
         addMouseListener(this);
     }
 
+    //The real display of the simulation
     public void paint(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,simulation.room.SIZE,simulation.room.SIZE);
@@ -34,23 +35,21 @@ public class DisplayPanel extends JPanel implements MouseListener {
     }
 
     public void mousePressed(MouseEvent e) {
-        if (waitAddObstacle == true) {
+        if(waitAddPerson) {
+            simulation.room.addPerson(new Point(e.getX(), e.getY()));
+        }else if (waitAddObstacle) {
             this.beginningObstacle = new Point(e.getX(),e.getY());
         }
     }
 
     public void mouseReleased(MouseEvent e) {
-        if(waitAddPerson==true){
-            simulation.room.addPerson(new Point(e.getX(),e.getY()));
-        }else if (waitAddObstacle == true) {
+        if (waitAddObstacle) {
             simulation.room.addObstacle(this.beginningObstacle, new Point(e.getX(), e.getY()));
         }
     }
 
     public void mouseExited (MouseEvent e){}
-
     public void mouseEntered (MouseEvent e){}
-
     public void mouseClicked (MouseEvent e){}
 
 }

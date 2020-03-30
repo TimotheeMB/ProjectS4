@@ -1,52 +1,127 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Person extends Entity{
+
+    /* === ATTRIBUTES === */
+
+    //Position
     public Point[] initPos;
     public Point[] pos;
-    public LinkedList<Point> target;
 
+    //Targets
+    public Point finalTarget;
+    public ArrayList<Point> targets;
+    int targetIndex;
+
+    /* === CONSTRUCTOR === */
     public Person(Point center, Point target, Room room, int signature) {
+
         super(room,signature);
-        this.target= new LinkedList<Point>();
-        this.target.add(target);
+
+        //Position
         this.pos = around(center);
-        this.initPos = copies(pos);
-        addPrint();
+        this.initPos = pos;
+
+        //Targets
+        this.finalTarget=target;
+        this.targets= new ArrayList<>();
+        targetIndex=0;
+
+
+        addPrint();//so that we can see the person we created
     }
 
     public void move(){
+
         removePrint();
-        this.pos = nextPos(true);
+        if(pos[0].equals(currentTarget())){
+            targetIndex++;
+        }
+        pos=around(findCloserPoint(pos,currentTarget(),true,false));
         addPrint();
     }
 
-    public Point[] nextPos(boolean lookAround){
-        Point nextCenter=pos[0];
-        double minDistance=pos[0].distance(target.getLast());
-        for (int i = 1; i < 20 ; i++) {
-            System.out.println(room.map[pos[i].x][pos[i].y]);
-            if(room.map[pos[i].x][pos[i].y]==0||!lookAround){
-                double distance = pos[i].distance(target.getLast());
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nextCenter = pos[i];
+    public void computeMyPathway() {
+
+        Obstacle currentObs=null;
+        Point [] possibleTargets=new Point[4];
+        int sign;
+        int lastSign=0;
+
+        removePrint();
+
+        while (!pos[0].equals(finalTarget)) {
+
+            if(pos[0].equals(currentTarget())){
+                targetIndex++;
+                currentObs.addPrint();
+            }
+
+            pos=around(findCloserPoint(pos,currentTarget(),false,false));
+
+            sign = room.map[pos[0].x][pos[0].y];
+
+            // if there is an obstacle
+            if (sign != 0 && sign % 2 == 0) {
+
+                //if it a different obstacle
+                if(sign!=lastSign) {
+                    currentObs = room.obstacles.get(sign / 2 - 1);
+                    possibleTargets=currentObs.allPoints();
                 }
-            }else{
-                System.out.println("J'ai vu quelqu'un");
+
+                currentObs.removePrint();
+
+                Point pointToReach=findCloserPoint(possibleTargets,pos[0],false,true);
+
+                targets.add(pointToReach);
+                lastSign=sign;
             }
         }
-        return around(nextCenter);
+
+        targetIndex=0;
+        pos=initPos;
+        addPrint();
+    }
+
+    public Point findCloserPoint(Point[] points, Point target, boolean emptyPoint, boolean suppressThePoint){
+
+        double smallerDistance=points[0].distance(target); //default value, no check of emptiness
+        int index=0;
+
+        for (int i = 1; i < points.length ; i++) {
+            if(!emptyPoint||room.map[points[i].x][points[i].y]==0) {
+                double distance = points[i].distance(target);
+                if (distance < smallerDistance) {
+                    smallerDistance = distance;
+                    index=i;
+                }
+            }
+        }
+        Point r= points[index];
+        if(suppressThePoint) {
+            points[index] = new Point(10000, 10000);
+        }
+        return r;
+    }
+
+    public Point currentTarget(){
+        if (targetIndex>=targets.size()){
+            return finalTarget;
+        }else{
+            return targets.get(targetIndex);
+        }
     }
 
     public void addPrint(){
         for (Point point:pos) {
-            room.map[point.x][point.y]=signature;
+            room.map[point.x][point.y]+=signature;
         }
     }
 
     public void removePrint(){
         for (Point point:pos) {
-            room.map[point.x][point.y]=0;
+            room.map[point.x][point.y]= room.map[point.x][point.y]-signature;
         }
     }
 
@@ -74,35 +149,5 @@ public class Person extends Entity{
                 new Point(p.x, p.y+2),
                 new Point(p.x+1, p.y+2)
         };
-    }
-
-    public Point[] copies(Point[] x){
-        Point [] r=new Point[x.length];
-        for (int i = 0; i < x.length; i++) {
-            r[i]=x[i];
-        }
-        return r;
-    }
-
-    public void computeMyPathway() {
-        removePrint();
-        while (!pos[0].equals(target.getFirst())) {
-            System.out.println("je calcule mon traget");
-            pos = nextPos(false);
-            int sign = room.map[pos[0].x][pos[0].y];
-            if (sign != 0 && sign % 2 == 0) {// if there is an obstacle
-                Obstacle obs=room.obstacles.get(sign / 2 - 1);
-                double minDist = pos[0].distance(obs.allPoints()[0]);
-                int pointToReach=0;
-                for (int i = 1; i < 4 ; i++) {
-                    if(pos[0].distance(obs.allPoints()[i])<minDist){
-                        minDist=pos[0].distance(obs.allPoints()[i]);
-                        pointToReach=i;
-                    }
-                }
-                target.add(obs.allPoints()[pointToReach]); //my target is point A of the obstacle on my way (c'est pas ce qu'on veut mais c'est un début)
-            }
-        }
-        pos=copies(initPos);
     }
 }
