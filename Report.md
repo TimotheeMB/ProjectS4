@@ -1,4 +1,4 @@
-# Crowd-simulator
+# Crowd simulator
 
 ## UML diagram
 
