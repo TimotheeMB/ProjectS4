@@ -38,8 +38,8 @@ public class GUI extends JFrame implements ActionListener {
         //Window initialization
         this.setTitle(" Welcome to our Crowd Simulator");
         this.setSize(1070, 800);
-        this.setLocation(200, 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
         //Panel for choices
         JPanel choicesPan = new JPanel();
@@ -97,6 +97,9 @@ public class GUI extends JFrame implements ActionListener {
         stop.setVisible(false);
         choicesPan.add(stop);
 
+        //How to play
+
+
         //Display simulation time
         Font f = new Font("Calibri", Font.BOLD, 20);
         timing = new JLabel(" ");
@@ -138,6 +141,7 @@ public class GUI extends JFrame implements ActionListener {
             displayPan.waitAddPerson = !displayPan.waitAddPerson;
             displayPan.waitAddObstacle=false;
             displayPan.waitAddExit=false;
+            JOptionPane.showMessageDialog(this,"To add a person, you just have to click somewhere in the room, and a point representing that person will appear.");
         }
 
         //If we press add obstacle...
@@ -145,6 +149,7 @@ public class GUI extends JFrame implements ActionListener {
             displayPan.waitAddObstacle = !displayPan.waitAddObstacle;
             displayPan.waitAddPerson=false;
             displayPan.waitAddExit=false;
+            JOptionPane.showMessageDialog(this,"You can create rectangular shaped obstacles. To do so, you will give 2 vertices, press your mouse, and release it where you want");
         }
 
         //If we press add exit...
@@ -152,6 +157,7 @@ public class GUI extends JFrame implements ActionListener {
             displayPan.waitAddExit = !displayPan.waitAddExit;
             displayPan.waitAddObstacle=false;
             displayPan.waitAddPerson=false;
+            JOptionPane.showMessageDialog(this,"You cannot add an exit for the moment... Our developers do their best ;)");
         }
 
         //Each "DisplayInterval" ms...
@@ -162,17 +168,17 @@ public class GUI extends JFrame implements ActionListener {
 
             //...we change the color of buttons if needed
             if (displayPan.waitAddPerson) {
-                person.setBackground(Color.red);
+                person.setBackground(Color.cyan);
             }else {
                 person.setBackground(Color.white);
             }
             if (displayPan.waitAddObstacle) {
-                obstacle.setBackground(Color.red);
+                obstacle.setBackground(Color.cyan);
             }else {
                 obstacle.setBackground(Color.white);
             }
             if (displayPan.waitAddExit) {
-                exit.setBackground(Color.red);
+                exit.setBackground(Color.cyan);
             }else {
                 exit.setBackground(Color.white);
             }
