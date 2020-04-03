@@ -10,7 +10,6 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public boolean waitAddExit;
     public boolean waitAddObstacle;
     public Point beginningObstacle;
-    public Point myExit ;
 
 
     public DisplayPanel(Simulation simulation) {
@@ -41,7 +40,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
         }else if (waitAddObstacle) {
             this.beginningObstacle = new Point(e.getX(),e.getY());
         }else if (waitAddExit) {
-            this.myExit = new Point (e.getX(), e.getY());
+            simulation.room.addExit(new Point(e.getX(), e.getY()));
         }
     }
 

@@ -8,7 +8,7 @@ public class Room {
     ArrayList<Obstacle> obstacles;
     int signaturePerson;
     int signatureObstacle;
-    public Point exit ;
+    public Exit exit ;
 
 
     public Room(int size) {
@@ -43,6 +43,7 @@ public class Room {
 
     public void addExit(Point e){
         System.out.println("j'ajoute une sortie");
+        this.exit = new Exit (e, this);
     }
 
     public void nextStep(){
