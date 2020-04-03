@@ -45,7 +45,8 @@ public class GUI extends JFrame implements ActionListener {
         JPanel choicesPan = new JPanel();
         choicesPan.setBounds(740, 10, 300, 720);
         choicesPan.setLayout(null);
-        choicesPan.setBackground(Color.cyan);
+        Color beautygreenblue = new Color (120,250,180);
+        choicesPan.setBackground(beautygreenblue);
 
         //Panel to display simulation
         displayPan = new DisplayPanel(simulation);

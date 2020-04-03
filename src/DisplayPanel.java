@@ -32,11 +32,11 @@ public class DisplayPanel extends JPanel implements MouseListener {
                         Color beautygreen = new Color (80,210,120);
                         g.setColor(beautygreen);
                     }else if(signature%2==0){
-                        Color beautyred = new Color (235,20,80);
-                        g.setColor(beautyred);
-                    }else {
                         Color beautyblue = new Color (70,10,150);
                         g.setColor(beautyblue);
+                    }else {
+                        Color beautyred = new Color (235,20,80);
+                        g.setColor(beautyred);
                     }
                     g.fillRect(x,y,1,1);
                 }
