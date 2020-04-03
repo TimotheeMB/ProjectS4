@@ -29,11 +29,14 @@ public class DisplayPanel extends JPanel implements MouseListener {
                 int signature = simulation.room.map[x][y];
                 if(signature!=0){
                     if(signature==-1) {
-                        g.setColor(Color.green);
+                        Color beautygreen = new Color (80,210,120);
+                        g.setColor(beautygreen);
                     }else if(signature%2==0){
-                        g.setColor(Color.blue);
+                        Color beautyred = new Color (235,20,80);
+                        g.setColor(beautyred);
                     }else {
-                        g.setColor(Color.red);
+                        Color beautyblue = new Color (70,10,150);
+                        g.setColor(beautyblue);
                     }
                     g.fillRect(x,y,1,1);
                 }
