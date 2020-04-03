@@ -2,43 +2,54 @@ import java.util.ArrayList;
 
 public class Person extends Entity{
 
-    /* === ATTRIBUTES === */
+    /*** Hello ! My name is Brian and I am an instance of this class.
+     * I will explain you what I do, so that we can get to know each other a bit more ;)
+     */
 
-    //Position
-    public Point[] initPos;
+    /* ================================================ */
+    /* These are my attributes :*/
+
+    //I've got a position in the room
     public Point[] pos;
+    public Point[] initPos;//and I remember where I started from
 
-    //Targets
-    public Point finalTarget;
-    public ArrayList<Point> targets;
-    int targetIndex;
+    //I've got some Targets
+    public Point finalTarget;//My real goal: the exit
+    public ArrayList<Point> targets;//My intermediate targets, to avoid obstacles
+    int targetIndex;// That's what I use to remember my current target
 
-    /* === CONSTRUCTOR === */
+
+    /* ================================================ */
+    /* This is my constructor :*/
     public Person(Point center, Point target, Room room, int signature) {
 
+        /*I initialize my attributes*/
         super(room,signature);
-
         //Position
         this.pos = around(center);
         this.initPos = pos;
-
         //Targets
         this.finalTarget=target;
         this.targets= new ArrayList<>();
         targetIndex=0;
 
-
-        addPrint();//so that we can see the person we created
+        /*I put myself in the room*/
+        addPrint();
     }
 
+
+    /* ================================================ */
+    /* These are my methods :*/
+
+    //I make one step
     public void move(){
 
-        removePrint();
-        if(pos[0].equals(currentTarget())){
-            targetIndex++;
+        removePrint();//I disappear from my last position
+        if(pos[0].distance(currentTarget())<10){//If I reached my target
+            targetIndex++;//I switch to the new one
         }
-        pos=around(findCloserPoint(pos,currentTarget(),true,false));
-        addPrint();
+        pos=around(findCloserPoint(pos,currentTarget(),true,false));//I compute my new position
+        addPrint();//I appear in my new position
     }
 
     public void computeMyPathway() {
@@ -90,7 +101,7 @@ public class Person extends Entity{
         int index=0;
 
         for (int i = 1; i < points.length ; i++) {
-            if(!emptyPoint||room.map[points[i].x][points[i].y]==0) {
+            if(!emptyPoint||emptyAround(points[i])) {
                 double distance = points[i].distance(target);
                 if (distance < smallerDistance) {
                     smallerDistance = distance;
@@ -121,33 +132,50 @@ public class Person extends Entity{
 
     public void removePrint(){
         for (Point point:pos) {
-            room.map[point.x][point.y]= room.map[point.x][point.y]-signature;
+            room.map[point.x][point.y] -= signature;
         }
     }
 
-    public Point[] around(Point p){
+    public boolean emptyAround(Point p) {
+        for (Point d: around(p)) {
+            if(room.map[d.x][d.y]!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Point[] personalSpace() {
         return new Point[]{
-                p,
-                new Point(p.x + 1, p.y),
-                new Point(p.x + 1, p.y - 1),
-                new Point(p.x, p.y - 1),
-                new Point(p.x - 1, p.y - 1),
-                new Point(p.x - 1, p.y),
-                new Point(p.x - 1, p.y + 1),
-                new Point(p.x, p.y + 1),
-                new Point(p.x + 1, p.y + 1),
-                new Point(p.x + 2, p.y + 1),
-                new Point(p.x + 2, p.y),
-                new Point(p.x + 2, p.y-1),
-                new Point(p.x + 1, p.y-2),
-                new Point(p.x, p.y-2),
-                new Point(p.x-1, p.y-2),
-                new Point(p.x-2, p.y-1),
-                new Point(p.x-2, p.y),
-                new Point(p.x-2, p.y+1),
-                new Point(p.x-1, p.y+2),
-                new Point(p.x, p.y+2),
-                new Point(p.x+1, p.y+2)
+                new Point(pos[0].x+5, pos[0].y+0),
+                new Point(pos[0].x+5, pos[0].y-1),
+                new Point(pos[0].x+5, pos[0].y-2),
+                new Point(pos[0].x+4, pos[0].y-3),
+                new Point(pos[0].x+3, pos[0].y-4),
+                new Point(pos[0].x+2, pos[0].y-5),
+                new Point(pos[0].x+1, pos[0].y-5),
+                new Point(pos[0].x+0, pos[0].y-5),
+                new Point(pos[0].x-1, pos[0].y-5),
+                new Point(pos[0].x-2, pos[0].y-5),
+                new Point(pos[0].x-3, pos[0].y-4),
+                new Point(pos[0].x-4, pos[0].y-3),
+                new Point(pos[0].x-5, pos[0].y-2),
+                new Point(pos[0].x-5, pos[0].y-1),
+                new Point(pos[0].x-5, pos[0].y-0),
+                new Point(pos[0].x-5, pos[0].y+1),
+                new Point(pos[0].x-5, pos[0].y+2),
+                new Point(pos[0].x-4, pos[0].y+3),
+                new Point(pos[0].x-3, pos[0].y+4),
+                new Point(pos[0].x-2, pos[0].y+5),
+                new Point(pos[0].x-1, pos[0].y+5),
+                new Point(pos[0].x+0, pos[0].y+5),
+                new Point(pos[0].x+1, pos[0].y+5),
+                new Point(pos[0].x+2, pos[0].y+5),
+                new Point(pos[0].x+3, pos[0].y+4),
+                new Point(pos[0].x+4, pos[0].y+3),
+                new Point(pos[0].x+5, pos[0].y+2),
+                new Point(pos[0].x+5, pos[0].y+1),
+
         };
     }
 }

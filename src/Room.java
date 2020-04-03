@@ -12,6 +12,7 @@ public class Room {
 
 
     public Room(int size) {
+        exit=new Exit();//default exit
         signaturePerson=1;
         signatureObstacle=2;
         persons=new ArrayList<Person>();
@@ -27,7 +28,7 @@ public class Room {
 
     public void addPerson(Point center){
         System.out.println("j'ajoute une personne");
-        persons.add(new Person(center,new Point(360,710),this,signaturePerson));
+        persons.add(new Person(center,exit.exitLocation,this,signaturePerson));
         System.out.println("persons.size()="+persons.size());
         System.out.println("signature ="+signaturePerson);
         signaturePerson+=2;

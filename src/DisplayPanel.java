@@ -24,10 +24,17 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public void paint(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,simulation.room.SIZE,simulation.room.SIZE);
-        g.setColor(Color.black);
         for (int x = 0; x < simulation.room.SIZE; x++) {
             for (int y = 0; y < simulation.room.SIZE; y++) {
-                if(simulation.room.map[x][y]!=0){
+                int signature = simulation.room.map[x][y];
+                if(signature!=0){
+                    if(signature==-1) {
+                        g.setColor(Color.green);
+                    }else if(signature%2==0){
+                        g.setColor(Color.blue);
+                    }else {
+                        g.setColor(Color.red);
+                    }
                     g.fillRect(x,y,1,1);
                 }
             }
