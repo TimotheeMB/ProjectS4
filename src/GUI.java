@@ -49,7 +49,6 @@ public class GUI extends JFrame implements ActionListener {
 
         //Panel to display simulation
         displayPan = new DisplayPanel(simulation);
-        displayPan = new DisplayPanel(simulation);
         displayPan.setBounds(10, 10, 720, 720);
         displayPan.setLayout(null);
         displayPan.setBackground(Color.white);
