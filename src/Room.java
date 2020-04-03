@@ -4,10 +4,12 @@ import java.util.LinkedList;
 public class Room {
     final int SIZE;
     public int [][] map;
-    ArrayList<Person> persons;
+    public ArrayList<Person> persons;
     ArrayList<Obstacle> obstacles;
     int signaturePerson;
     int signatureObstacle;
+    public Point exit ;
+
 
     public Room(int size) {
         signaturePerson=1;
@@ -37,6 +39,10 @@ public class Room {
         System.out.println("obstacles.size()="+obstacles.size());
         System.out.println("signature ="+signatureObstacle);
         signatureObstacle+=2;
+    }
+
+    public void addExit(Point e){
+        System.out.println("j'ajoute une sortie");
     }
 
     public void nextStep(){
