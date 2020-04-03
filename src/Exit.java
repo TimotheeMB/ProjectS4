@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Exit extends Entity {
 
-    public Point exitLocation ;
+    public Point exitLocation;
 
     public Exit (Point e, Room a){
         super(a,-1);
@@ -13,21 +13,19 @@ public class Exit extends Entity {
         addPrint();
     }
 
-    public Exit() {
-        super();
-    } //default constructor
+    public Exit() { super(); } //default constructor
 
     @Override
     public void addPrint() {
         for (Point p: around(exitLocation)) {
-            room.map[p.x][p.y]+=signature;
+            room.map[p.x][p.y] = signature;
         }
     }
 
     @Override
     public void removePrint() {
         for (Point p: around(exitLocation)) {
-            room.map[p.x][p.y]-=signature;
+            room.map[p.x][p.y] = 0;
         }
     }
 }

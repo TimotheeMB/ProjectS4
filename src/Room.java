@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Room {
     final int SIZE;
@@ -43,6 +42,9 @@ public class Room {
     }
 
     public void addExit(Point e){
+        if(exit.exitLocation!=null){
+            exit.removePrint();
+        }
         System.out.println("j'ajoute une sortie");
         this.exit = new Exit (e, this);
     }

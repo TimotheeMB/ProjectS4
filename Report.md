@@ -1,12 +1,13 @@
 # Crowd simulator
 
 ## Specifications
-The main goal of our crowd simulator is to observe the displacements of people in a room in the special case where they all want to reach the exit as soon as possible (for example because of a fire inside a buildling).
+The main goal of our crowd simulator is to observe the displacements of people in a room in the special case where they all want to reach the exit as soon as possible (for example because of a fire inside a building).
 With more details, we also wanted to :
+
 - Choose or create an environment 
 - Choose where to put the obstacles, the exit and the danger
 - Choose the number of people inside, their position
-- Choose different types of behaviours (panic, calm, selfish, aware of their environment)
+- Choose different types of behaviors (panic, calm, selfish, aware of their environment)
 
 ## Description of the problem
 We knew we would have difficulties in making the people go to a special point avoiding being stuck by an obstacle.
@@ -23,13 +24,79 @@ We still have problems with this method since we can't put obstacles on the boun
 
 ```mermaid
 classDiagram
-GUI *-- Simulation
+Simulation --* GUI
+GUI: +Simulation simulation
+GUI: +int DisplayInterval
+GUI: +Timer timer
+GUI: +JLabel timing
+GUI: +DisplayPanel displayPan
+GUI: +JButton person
+GUI: +JButton obstacle
+GUI: +JButton start
+GUI: +JButton exit
+GUI: +JButton stop
+GUI: +void actionPerformed(ActionEvent e)
 GUI *-- DisplayPanel
+DisplayPanel: +Simulation simulation
+DisplayPanel: +boolean waitAddPerson
+DisplayPanel: +boolean waitAddExit
+DisplayPanel: +boolean waitAddObstacle
+DisplayPanel: +Point beginningObstacle
+DisplayPanel: +void paint(Graphics g)
+DisplayPanel: +void mousePressed(MouseEvent e)
+DisplayPanel: +void mouseReleased(MouseEvent e)
 Simulation *-- Room
-Room *-- Entity
+Simulation: +Room room
+Simulation: +Timer timer
+Simulation: +long time
+Simulation: +int StepDuration
+Simulation: +void start()
+Simulation: +void actionPerformed(ActionEvent e)
+Entity -- *Room
+Room: +int SIZE
+Room: +int [][] map
+Room: +ArrayList<Person> persons
+Room: +ArrayList<Obstacle> obstacles
+Room: +int signaturePerson
+Room: +int signatureObstacle
+Room: +Exit exit
+Room: +void addPerson(Point center)
+Room: +void addObstacle(Point a, Point b)
+Room: +void addExit(Point e)
+Room: +void nextStep()
+Room: +void computePathways()
+Entity: +int signature
+Entity: +Room room
+Entity: +void addPrint()
+Entity: +void removePrint()
+Entity: +Point[] around(Point p)
 Entity <|-- Exit
+Exit: +Point exitLocation
 Entity <|-- Person
+Person: +Point[] pos
+Person: +Point[] initPos
+Person: +Point finalTarget
+Person: +ArrayList<Point> targets
+Person: +targetIndex
+Person: +void move()
+Person: +void computeMyPathway()
+Person: +Point findCloserPoint(Point[],Point,boolean,boolean)
+Person: +Point currentTarget()
+Person: +emptyAround(Point p)
 Entity <|-- Obstacle
+Obstacle: +Point pointA
+Obstacle: +Point pointC
+Obstacle: +int length()
+Obstacle: +int height()
+Obstacle: +Point getPointA()
+Obstacle: +Point getPointB()
+Obstacle: +Point getPointC()
+Obstacle: +Point getPointD()
+Obstacle: +Point[] allPoints()
+
+Obstacle *-- Point
+Person *-- Point
+Exit *-- Point
 ```
 
 ## Possible improvements, bugs ...

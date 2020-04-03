@@ -52,6 +52,7 @@ public class Person extends Entity{
         addPrint();//I appear in my new position
     }
 
+    //I think about my pathway
     public void computeMyPathway() {
 
         Obstacle currentObs=null;
@@ -126,13 +127,13 @@ public class Person extends Entity{
 
     public void addPrint(){
         for (Point point:pos) {
-            room.map[point.x][point.y]+=signature;
+            room.map[point.x][point.y] = signature;
         }
     }
 
     public void removePrint(){
         for (Point point:pos) {
-            room.map[point.x][point.y] -= signature;
+            room.map[point.x][point.y] = 0;
         }
     }
 

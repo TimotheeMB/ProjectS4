@@ -28,14 +28,6 @@ public class Obstacle extends Entity {
         }
     }
 
-    public void setPrint (){
-        for (int i = this.pointA.x +5 ; i<=this.pointC.x -5 ; i++){
-            for (int j = this.pointA.y +5; j<=this.pointC.y -5 ; j++){
-                room.map[i][j] = signature;
-            }
-        }
-    }
-
     public void removePrint(){
         for (int i = this.pointA.x +5 ; i<=this.pointC.x -5 ; i++){
             for (int j = this.pointA.y +5; j<=this.pointC.y -5 ; j++){
