@@ -136,32 +136,6 @@ public class Person extends Entity{
         }
     }
 
-    public Point[] around(Point p){
-        return new Point[]{
-                p,
-                new Point(p.x + 1, p.y),
-                new Point(p.x + 1, p.y - 1),
-                new Point(p.x, p.y - 1),
-                new Point(p.x - 1, p.y - 1),
-                new Point(p.x - 1, p.y),
-                new Point(p.x - 1, p.y + 1),
-                new Point(p.x, p.y + 1),
-                new Point(p.x + 1, p.y + 1),
-                new Point(p.x + 2, p.y + 1),
-                new Point(p.x + 2, p.y),
-                new Point(p.x + 2, p.y-1),
-                new Point(p.x + 1, p.y-2),
-                new Point(p.x, p.y-2),
-                new Point(p.x-1, p.y-2),
-                new Point(p.x-2, p.y-1),
-                new Point(p.x-2, p.y),
-                new Point(p.x-2, p.y+1),
-                new Point(p.x-1, p.y+2),
-                new Point(p.x, p.y+2),
-                new Point(p.x+1, p.y+2)
-        };
-    }
-
     public boolean emptyAround(Point p) {
         for (Point d: around(p)) {
             if(room.map[d.x][d.y]!=0){
