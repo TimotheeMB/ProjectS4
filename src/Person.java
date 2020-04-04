@@ -18,6 +18,8 @@ public class Person extends Entity{
     public ArrayList<Point> targets;//My intermediate targets, to avoid obstacles
     int targetIndex;// That's what I use to remember my current target
 
+    boolean panic=true;
+
 
     /* ================================================ */
     /* This is my constructor :*/
@@ -48,52 +50,58 @@ public class Person extends Entity{
         if(position[0].distance(currentTarget())<10){//If I reached my target
             targetIndex++;//I switch to the new one
         }
-        position=around(findCloserPoint(position,currentTarget(),true,false));//I compute my new position
+        if(panic){
+            position = around(position[(int)(Math.random()*20)]);
+        }else {
+            position = around(findCloserPoint(position, currentTarget(), true, false));//I compute my new position
+        }
         addPrint();//I appear in my new position
     }
 
     //I think about my pathway
     public void computeMyPathway() {
 
-        Obstacle currentObs=null;
-        Point [] possibleTargets=new Point[4];
-        int sign;
-        int lastSign=0;
+        if (!panic) {
+            Obstacle currentObs=null;
+            Point [] possibleTargets=new Point[4];
+            int sign;
+            int lastSign=0;
 
-        removePrint();
+            removePrint();
 
-        while (!position[0].equals(finalTarget)) {
+            while (!position[0].equals(finalTarget)) {
 
-            if(position[0].equals(currentTarget())){
-                targetIndex++;
-                currentObs.addPrint();
-            }
-
-            position=around(findCloserPoint(position,currentTarget(),false,false));
-
-            sign = room.map[position[0].x][position[0].y];
-
-            // if there is an obstacle
-            if (sign != 0 && sign % 2 == 0) {
-
-                //if it a different obstacle
-                if(sign!=lastSign) {
-                    currentObs = room.obstacles.get(sign / 2 - 1);
-                    possibleTargets=currentObs.allPoints();
+                if(position[0].equals(currentTarget())){
+                    targetIndex++;
+                    currentObs.addPrint();
                 }
 
-                currentObs.removePrint();
+                position=around(findCloserPoint(position,currentTarget(),false,false));
 
-                Point pointToReach=findCloserPoint(possibleTargets,position[0],false,true);
+                sign = room.map[position[0].x][position[0].y];
 
-                targets.add(pointToReach);
-                lastSign=sign;
+                // if there is an obstacle
+                if (sign != 0 && sign % 2 == 0) {
+
+                    //if it a different obstacle
+                    if(sign!=lastSign) {
+                        currentObs = room.obstacles.get(sign / 2 - 1);
+                        possibleTargets=currentObs.allPoints();
+                    }
+
+                    currentObs.removePrint();
+
+                    Point pointToReach=findCloserPoint(possibleTargets,position[0],false,true);
+
+                    targets.add(pointToReach);
+                    lastSign=sign;
+                }
             }
-        }
 
-        targetIndex=0;
-        position=initPosition;
-        addPrint();
+            targetIndex=0;
+            position=initPosition;
+            addPrint();
+        }
     }
 
     public Point findCloserPoint(Point[] points, Point target, boolean emptyPoint, boolean suppressThePoint){
