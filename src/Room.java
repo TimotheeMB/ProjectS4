@@ -27,7 +27,7 @@ public class Room {
 
     public void addPerson(Point center){
         System.out.println("j'ajoute une personne");
-        persons.add(new Person(center,exit.exitLocation,this,signaturePerson));
+        persons.add(new Person(center,exit.position[0],this,signaturePerson));
         System.out.println("persons.size()="+persons.size());
         System.out.println("signature ="+signaturePerson);
         signaturePerson+=2;
@@ -42,7 +42,7 @@ public class Room {
     }
 
     public void addExit(Point e){
-        if(exit.exitLocation!=null){
+        if(exit.position[0]!=null){
             exit.removePrint();
         }
         System.out.println("j'ajoute une sortie");

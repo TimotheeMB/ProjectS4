@@ -7,9 +7,17 @@ public class Obstacle extends Entity {
     //constructor
     public Obstacle (Point A, Point C, Room room, int signature) {
         super(room,signature);
-        this.pointA = A ;
-        this.pointC = C ;
-        this.addPrint();
+        this.pointA = A;
+        this.pointC = C;
+        this.position = new Point[(length()+1)*(height()+1)];
+        int index=0;
+        for (int i = this.pointA.x; i<=this.pointC.x; i++){
+            for (int j = this.pointA.y; j<=this.pointC.y; j++){
+                position[index]=new Point(i,j);
+                index++;
+            }
+        }
+        addPrint();
     }
 
     public int length (){
@@ -18,22 +26,6 @@ public class Obstacle extends Entity {
 
     public int height (){
         return (pointC.y-pointA.y) ;
-    }
-
-    public void addPrint (){
-        for (int i = this.pointA.x +5 ; i<=this.pointC.x -5 ; i++){
-            for (int j = this.pointA.y +5; j<=this.pointC.y -5 ; j++){
-                room.map[i][j] = signature;
-            }
-        }
-    }
-
-    public void removePrint(){
-        for (int i = this.pointA.x +5 ; i<=this.pointC.x -5 ; i++){
-            for (int j = this.pointA.y +5; j<=this.pointC.y -5 ; j++){
-                room.map[i][j] = 0;
-            }
-        }
     }
 
     public Point getPointA() {

@@ -10,8 +10,8 @@ public class Person extends Entity{
     /* These are my attributes :*/
 
     //I've got a position in the room
-    public Point[] pos;
-    public Point[] initPos;//and I remember where I started from
+
+    public Point[] initPosition;//and I remember where I started from
 
     //I've got some Targets
     public Point finalTarget;//My real goal: the exit
@@ -26,8 +26,8 @@ public class Person extends Entity{
         /*I initialize my attributes*/
         super(room,signature);
         //Position
-        this.pos = around(center);
-        this.initPos = pos;
+        this.position = around(center);
+        this.initPosition = position;
         //Targets
         this.finalTarget=target;
         this.targets= new ArrayList<>();
@@ -45,10 +45,10 @@ public class Person extends Entity{
     public void move(){
 
         removePrint();//I disappear from my last position
-        if(pos[0].distance(currentTarget())<10){//If I reached my target
+        if(position[0].distance(currentTarget())<10){//If I reached my target
             targetIndex++;//I switch to the new one
         }
-        pos=around(findCloserPoint(pos,currentTarget(),true,false));//I compute my new position
+        position=around(findCloserPoint(position,currentTarget(),true,false));//I compute my new position
         addPrint();//I appear in my new position
     }
 
@@ -62,16 +62,16 @@ public class Person extends Entity{
 
         removePrint();
 
-        while (!pos[0].equals(finalTarget)) {
+        while (!position[0].equals(finalTarget)) {
 
-            if(pos[0].equals(currentTarget())){
+            if(position[0].equals(currentTarget())){
                 targetIndex++;
                 currentObs.addPrint();
             }
 
-            pos=around(findCloserPoint(pos,currentTarget(),false,false));
+            position=around(findCloserPoint(position,currentTarget(),false,false));
 
-            sign = room.map[pos[0].x][pos[0].y];
+            sign = room.map[position[0].x][position[0].y];
 
             // if there is an obstacle
             if (sign != 0 && sign % 2 == 0) {
@@ -84,7 +84,7 @@ public class Person extends Entity{
 
                 currentObs.removePrint();
 
-                Point pointToReach=findCloserPoint(possibleTargets,pos[0],false,true);
+                Point pointToReach=findCloserPoint(possibleTargets,position[0],false,true);
 
                 targets.add(pointToReach);
                 lastSign=sign;
@@ -92,7 +92,7 @@ public class Person extends Entity{
         }
 
         targetIndex=0;
-        pos=initPos;
+        position=initPosition;
         addPrint();
     }
 
@@ -125,18 +125,6 @@ public class Person extends Entity{
         }
     }
 
-    public void addPrint(){
-        for (Point point:pos) {
-            room.map[point.x][point.y] = signature;
-        }
-    }
-
-    public void removePrint(){
-        for (Point point:pos) {
-            room.map[point.x][point.y] = 0;
-        }
-    }
-
     public boolean emptyAround(Point p) {
         for (Point d: around(p)) {
             if(room.map[d.x][d.y]!=0){
@@ -148,34 +136,34 @@ public class Person extends Entity{
 
     public Point[] personalSpace() {
         return new Point[]{
-                new Point(pos[0].x+5, pos[0].y+0),
-                new Point(pos[0].x+5, pos[0].y-1),
-                new Point(pos[0].x+5, pos[0].y-2),
-                new Point(pos[0].x+4, pos[0].y-3),
-                new Point(pos[0].x+3, pos[0].y-4),
-                new Point(pos[0].x+2, pos[0].y-5),
-                new Point(pos[0].x+1, pos[0].y-5),
-                new Point(pos[0].x+0, pos[0].y-5),
-                new Point(pos[0].x-1, pos[0].y-5),
-                new Point(pos[0].x-2, pos[0].y-5),
-                new Point(pos[0].x-3, pos[0].y-4),
-                new Point(pos[0].x-4, pos[0].y-3),
-                new Point(pos[0].x-5, pos[0].y-2),
-                new Point(pos[0].x-5, pos[0].y-1),
-                new Point(pos[0].x-5, pos[0].y-0),
-                new Point(pos[0].x-5, pos[0].y+1),
-                new Point(pos[0].x-5, pos[0].y+2),
-                new Point(pos[0].x-4, pos[0].y+3),
-                new Point(pos[0].x-3, pos[0].y+4),
-                new Point(pos[0].x-2, pos[0].y+5),
-                new Point(pos[0].x-1, pos[0].y+5),
-                new Point(pos[0].x+0, pos[0].y+5),
-                new Point(pos[0].x+1, pos[0].y+5),
-                new Point(pos[0].x+2, pos[0].y+5),
-                new Point(pos[0].x+3, pos[0].y+4),
-                new Point(pos[0].x+4, pos[0].y+3),
-                new Point(pos[0].x+5, pos[0].y+2),
-                new Point(pos[0].x+5, pos[0].y+1),
+                new Point(position[0].x+5, position[0].y+0),
+                new Point(position[0].x+5, position[0].y-1),
+                new Point(position[0].x+5, position[0].y-2),
+                new Point(position[0].x+4, position[0].y-3),
+                new Point(position[0].x+3, position[0].y-4),
+                new Point(position[0].x+2, position[0].y-5),
+                new Point(position[0].x+1, position[0].y-5),
+                new Point(position[0].x+0, position[0].y-5),
+                new Point(position[0].x-1, position[0].y-5),
+                new Point(position[0].x-2, position[0].y-5),
+                new Point(position[0].x-3, position[0].y-4),
+                new Point(position[0].x-4, position[0].y-3),
+                new Point(position[0].x-5, position[0].y-2),
+                new Point(position[0].x-5, position[0].y-1),
+                new Point(position[0].x-5, position[0].y-0),
+                new Point(position[0].x-5, position[0].y+1),
+                new Point(position[0].x-5, position[0].y+2),
+                new Point(position[0].x-4, position[0].y+3),
+                new Point(position[0].x-3, position[0].y+4),
+                new Point(position[0].x-2, position[0].y+5),
+                new Point(position[0].x-1, position[0].y+5),
+                new Point(position[0].x+0, position[0].y+5),
+                new Point(position[0].x+1, position[0].y+5),
+                new Point(position[0].x+2, position[0].y+5),
+                new Point(position[0].x+3, position[0].y+4),
+                new Point(position[0].x+4, position[0].y+3),
+                new Point(position[0].x+5, position[0].y+2),
+                new Point(position[0].x+5, position[0].y+1),
 
         };
     }

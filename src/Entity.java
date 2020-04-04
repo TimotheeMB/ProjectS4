@@ -1,6 +1,7 @@
 public abstract class Entity {
     public Room room;
     public int signature;
+    public Point[] position;
 
     public Entity(Room room, int signature) {
         this.room = room;
@@ -9,6 +10,17 @@ public abstract class Entity {
 
     public Entity() {} //default
 
+    public void addPrint(){
+        for (Point point:position) {
+            room.map[point.x][point.y] = signature;
+        }
+    };
+
+    public void removePrint(){
+        for (Point point:position) {
+            room.map[point.x][point.y] = 0;
+        }
+    };
 
     public Point[] around(Point p){
         return new Point[]{
@@ -36,7 +48,4 @@ public abstract class Entity {
         };
     }
 
-    public abstract void addPrint();
-
-    public abstract void removePrint();
 }

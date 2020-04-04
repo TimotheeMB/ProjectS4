@@ -15,7 +15,7 @@ We knew we would have difficulties in making the people go to a special point av
 
 ## Principle of the algorithm
 The principle is the following : for each person created, before they make any move, the algorithm computes the shortest path to the chosen exit.
-Then 2 options follow : if the path is free, the person goes to the exit. If not, we add as an intermediate target the closest vertix of the obstacle. Then, we repeat the same method. When the whole path is computed, the point follows it.
+Then 2 options follow : if the path is free, the person goes to the exit. If not, we add as an intermediate target the closest vertex of the obstacle. Then, we repeat the same method. When the whole path is computed, the point follows it.
 We still have problems with this method since we can't put obstacles on the boundaries of the simulation area.
 
 ## Bibliographaaaïïïïïï
@@ -104,7 +104,7 @@ We were not able to code the different behaviour a set of persons can have. We o
 
 ## Diary
 
-**Before week 0 :** We have got the idea of a crowd simulator by looking at the emergency stairs of the "beurk". We have done some research and chosen to use git with a github repository to work together more easily. We have written a first idea of the wanted specifications (see the "Specifications" section).
+**Before week 0 :** We have got the idea of a crowd simulator by looking at the emergency stairs of the "beurk". We have done some research and chosen to use git with a github repository to work together more easily. We have written a first idea of the wanted [specifications](#Specifications).
 We found that coding a crowd simulator is very interesting. We had the idea while looking at the exit doors in the INSA buildings.
 
 **Week 0 :** We start the work division:
