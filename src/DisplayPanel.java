@@ -24,10 +24,20 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public void paint(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,simulation.room.SIZE,simulation.room.SIZE);
-        g.setColor(Color.black);
         for (int x = 0; x < simulation.room.SIZE; x++) {
             for (int y = 0; y < simulation.room.SIZE; y++) {
-                if(simulation.room.map[x][y]!=0){
+                int signature = simulation.room.map[x][y];
+                if(signature!=0){
+                    if(signature==-1) {
+                        Color beautygreen = new Color (80,210,120);
+                        g.setColor(beautygreen);
+                    }else if(signature%2==0){
+                        Color beautyblue = new Color (70,50,140);
+                        g.setColor(beautyblue);
+                    }else {
+                        Color beautyred = new Color (250,100,70);
+                        g.setColor(beautyred);
+                    }
                     g.fillRect(x,y,1,1);
                 }
             }
@@ -39,6 +49,8 @@ public class DisplayPanel extends JPanel implements MouseListener {
             simulation.room.addPerson(new Point(e.getX(), e.getY()));
         }else if (waitAddObstacle) {
             this.beginningObstacle = new Point(e.getX(),e.getY());
+        }else if (waitAddExit) {
+            simulation.room.addExit(new Point(e.getX(), e.getY()));
         }
     }
 

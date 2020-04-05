@@ -63,13 +63,13 @@ public class GUI extends JFrame implements ActionListener {
         displayPan.setBackground(Color.black);
         total.add(displayPan, gc);
 
-
         //Panel for choices
         gc.gridx = 2;
         gc.gridy = 0;
         gc.weightx = 0.25;
         choicesPan = new JPanel();
-        choicesPan.setBackground(Color.cyan);
+        Color beautygreenblue = new Color (120,250,180);
+        choicesPan.setBackground(beautygreenblue);
         total.add(choicesPan, gc);
         //Create and initiate the layout manager for the Choices Panel
         GridBagLayout choicesLayout = new GridBagLayout();
@@ -116,7 +116,6 @@ public class GUI extends JFrame implements ActionListener {
         gbc.gridy = 3;
         gbc.weighty = 0.5;
         choicesPan.add(instructions, gbc);
-
 
         //Display simulation time
         Font f = new Font("Calibri", Font.BOLD, 20);

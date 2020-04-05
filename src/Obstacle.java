@@ -1,66 +1,40 @@
 public class Obstacle extends Entity {
 
     // attributes
-    public Point pointA  ;
-    public Point pointC ;
+    Point[] vertices;
 
     //constructor
-    public Obstacle (Point A, Point C, Room room, int signature) {
-        super(room,signature);
-        this.pointA = A ;
-        this.pointC = C ;
-        this.addPrint();
-    }
+    public Obstacle(Point one, Point two, Room room, int signature) {
+        super(room, signature);
+        if ((one.x < two.x) && (one.y < two.y)) {
+            vertices = new Point[]{new Point(one.x-5,one.y-5), new Point(two.x+5, one.y-5),new Point(two.x+5,two.y+5), new Point(one.x-5, two.y+5)};
+        } else if ((one.x > two.x) && (one.y > two.y)) {
+            vertices = new Point[]{new Point(two.x-5,two.y-5), new Point(one.x+5, two.y-5),new Point(one.x+5,one.y+5), new Point(two.x-5, one.y+5)};
+        } else if ((one.x < two.x)&& (one.y > two.y)) {
+            vertices = new Point[]{new Point(one.x-5,two.y-5), new Point(two.x+5,two.y-5), new Point(two.x+5, one.y+5), new Point(two.x-5,two.y+5)};
+        }else{
+            vertices = new Point[]{new Point(two.x-5, one.y-5), new Point(one.x+5,one.y-5), new Point(one.x+5, two.y+5), new Point(two.x-5,two.y+5)};
+        }
 
-    public int length (){
-        return (pointC.x-pointA.x) ;
-    }
 
-    public int height (){
-        return (pointC.y-pointA.y) ;
-    }
 
-    public void addPrint (){
-        for (int i = this.pointA.x +5 ; i<=this.pointC.x -5 ; i++){
-            for (int j = this.pointA.y +5; j<=this.pointC.y -5 ; j++){
-                room.map[i][j] = signature;
+        this.position = new Point[(length()-10)*(height()-10)];
+        int index = 0;
+        for (int i = this.vertices[0].x+5; i <= this.vertices[2].x-5; i++) {
+            for (int j = this.vertices[0].y+5; j <= this.vertices[2].y-5; j++) {
+                position[index] = new Point(i, j);
+                index++;
             }
         }
+
+        addPrint();
     }
 
-    public void setPrint (){
-        for (int i = this.pointA.x +5 ; i<=this.pointC.x -5 ; i++){
-            for (int j = this.pointA.y +5; j<=this.pointC.y -5 ; j++){
-                room.map[i][j] = signature;
-            }
-        }
+    public int length() {
+        return (vertices[2].x - vertices[0].x + 1);
     }
 
-    public void removePrint(){
-        for (int i = this.pointA.x +5 ; i<=this.pointC.x -5 ; i++){
-            for (int j = this.pointA.y +5; j<=this.pointC.y -5 ; j++){
-                room.map[i][j] = 0;
-            }
-        }
-    }
-
-    public Point getPointA() {
-        return pointA;
-    }
-
-    public Point getPointB (){
-        return new Point (this.pointC.x, this.pointA.y);
-    }
-
-    public Point getPointC() {
-        return pointC;
-    }
-
-    public Point getPointD (){
-        return new Point (this.pointA.x, this.pointC.y);
-    }
-
-    public Point[] allPoints(){
-        return new Point[]{getPointA(),getPointB(),getPointC(),getPointD()};
+    public int height() {
+        return (vertices[2].y - vertices[0].y + 1);
     }
 }

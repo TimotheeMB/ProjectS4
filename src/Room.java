@@ -1,15 +1,20 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Room {
     final int SIZE;
     public int [][] map;
-    ArrayList<Person> persons;
+    public ArrayList<Person> persons;
     ArrayList<Obstacle> obstacles;
     int signaturePerson;
     int signatureObstacle;
+    public Exit exit ;
+
+
+    boolean panic=false;
+
 
     public Room(int size) {
+        exit=new Exit();//default exit
         signaturePerson=1;
         signatureObstacle=2;
         persons=new ArrayList<Person>();
@@ -24,19 +29,20 @@ public class Room {
     }
 
     public void addPerson(Point center){
-        System.out.println("j'ajoute une personne");
-        persons.add(new Person(center,new Point(360,710),this,signaturePerson));
-        System.out.println("persons.size()="+persons.size());
-        System.out.println("signature ="+signaturePerson);
+        persons.add(new Person(center,exit.position[0],this,signaturePerson));
         signaturePerson+=2;
     }
 
     public void addObstacle(Point a, Point b){
-        System.out.println("j'ajoute un obstacle");
         obstacles.add(new Obstacle(a,b,this,signatureObstacle));
-        System.out.println("obstacles.size()="+obstacles.size());
-        System.out.println("signature ="+signatureObstacle);
         signatureObstacle+=2;
+    }
+
+    public void addExit(Point e){
+        if(exit.position[0]!=null){
+            exit.removePrint();
+        }
+        this.exit = new Exit (e, this);
     }
 
     public void nextStep(){
@@ -45,10 +51,14 @@ public class Room {
         }
     }
 
-
     public void computePathways() {
-        for (Person p: persons) {
-            p.computeMyPathway();
+        if(!panic){
+            for (Person p: persons) {
+                p.computeMyPathway();
+            }
+        }
+        for (Obstacle o:obstacles) {
+            o.addPrint();
         }
     }
 }
