@@ -29,18 +29,12 @@ public class Room {
     }
 
     public void addPerson(Point center){
-        System.out.println("j'ajoute une personne");
         persons.add(new Person(center,exit.position[0],this,signaturePerson));
-        System.out.println("persons.size()="+persons.size());
-        System.out.println("signature ="+signaturePerson);
         signaturePerson+=2;
     }
 
     public void addObstacle(Point a, Point b){
-        System.out.println("j'ajoute un obstacle");
         obstacles.add(new Obstacle(a,b,this,signatureObstacle));
-        System.out.println("obstacles.size()="+obstacles.size());
-        System.out.println("signature ="+signatureObstacle);
         signatureObstacle+=2;
     }
 
@@ -48,7 +42,6 @@ public class Room {
         if(exit.position[0]!=null){
             exit.removePrint();
         }
-        System.out.println("j'ajoute une sortie");
         this.exit = new Exit (e, this);
     }
 
@@ -58,12 +51,14 @@ public class Room {
         }
     }
 
-
     public void computePathways() {
         if(!panic){
             for (Person p: persons) {
                 p.computeMyPathway();
             }
+        }
+        for (Obstacle o:obstacles) {
+            o.addPrint();
         }
     }
 }
