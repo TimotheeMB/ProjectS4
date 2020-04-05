@@ -39,7 +39,7 @@ public class GUI extends JFrame implements ActionListener {
 
         //Window initialization
         this.setTitle(" Welcome to our Crowd Simulator");
-        this.setSize(1070, 800);
+        this.setSize(1070, 740);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
