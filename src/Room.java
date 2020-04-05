@@ -10,6 +10,9 @@ public class Room {
     public Exit exit ;
 
 
+    boolean panic=false;
+
+
     public Room(int size) {
         exit=new Exit();//default exit
         signaturePerson=1;
@@ -57,8 +60,10 @@ public class Room {
 
 
     public void computePathways() {
-        for (Person p: persons) {
-            p.computeMyPathway();
+        if(!panic){
+            for (Person p: persons) {
+                p.computeMyPathway();
+            }
         }
     }
 }

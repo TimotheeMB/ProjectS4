@@ -1,50 +1,40 @@
 public class Obstacle extends Entity {
 
     // attributes
-    public Point pointA  ;
-    public Point pointC ;
+    Point[] vertices;
 
     //constructor
-    public Obstacle (Point A, Point C, Room room, int signature) {
-        super(room,signature);
-        this.pointA = A;
-        this.pointC = C;
-        this.position = new Point[(length()+1)*(height()+1)];
-        int index=0;
-        for (int i = this.pointA.x; i<=this.pointC.x; i++){
-            for (int j = this.pointA.y; j<=this.pointC.y; j++){
-                position[index]=new Point(i,j);
+    public Obstacle(Point one, Point two, Room room, int signature) {
+        super(room, signature);
+        if ((one.x < two.x) && (one.y < two.y)) {
+            vertices = new Point[]{one, new Point(two.x, one.y), two, new Point(one.x, two.y)};
+        } else if ((one.x > two.x) && (one.y > two.y)) {
+            vertices = new Point[]{two, new Point(one.x, two.y), one, new Point(two.x, one.y)};
+        } else if ((one.x < two.x)&& (one.y > two.y)) {
+            vertices = new Point[]{new Point(one.x, two.y), two, new Point(two.x, one.y), one};
+        }else {
+            vertices = new Point[]{new Point(two.x, one.y), one, new Point(one.x, two.y), two};
+        }
+
+
+
+        this.position = new Point[(length() + 1) * (height() + 1)];
+        int index = 0;
+        for (int i = this.vertices[0].x; i <= this.vertices[2].x; i++) {
+            for (int j = this.vertices[0].y; j <= this.vertices[2].y; j++) {
+                position[index] = new Point(i, j);
                 index++;
             }
         }
+
         addPrint();
     }
 
-    public int length (){
-        return (pointC.x-pointA.x) ;
+    public int length() {
+        return (vertices[2].x - vertices[0].x);
     }
 
-    public int height (){
-        return (pointC.y-pointA.y) ;
-    }
-
-    public Point getPointA() {
-        return pointA;
-    }
-
-    public Point getPointB (){
-        return new Point (this.pointC.x, this.pointA.y);
-    }
-
-    public Point getPointC() {
-        return pointC;
-    }
-
-    public Point getPointD (){
-        return new Point (this.pointA.x, this.pointC.y);
-    }
-
-    public Point[] allPoints(){
-        return new Point[]{getPointA(),getPointB(),getPointC(),getPointD()};
+    public int height() {
+        return (vertices[2].y - vertices[0].y);
     }
 }
