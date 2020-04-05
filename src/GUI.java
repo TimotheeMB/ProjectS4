@@ -23,6 +23,8 @@ public class GUI extends JFrame implements ActionListener {
     public JButton start;
     public JButton exit;
     public JButton stop;
+    public JPanel choicesPan;
+    public TextComponent instructions;
 
     /* === CONSTRUCTOR === */
     public GUI(Simulation simulation, int DisplayInterval) {
@@ -41,73 +43,107 @@ public class GUI extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
-        //Panel for choices
-        JPanel choicesPan = new JPanel();
-        choicesPan.setBounds(740, 10, 300, 720);
-        choicesPan.setLayout(null);
-        choicesPan.setBackground(Color.cyan);
+        //The panel that contains everything
+        JPanel total = new JPanel();
+        this.add(total);
+        //Create and initiate the layout manager for the total panel
+        GridBagLayout totalLayout = new GridBagLayout();
+        total.setLayout(totalLayout);
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.fill = GridBagConstraints.BOTH;
+        gc.ipady = gc.anchor = GridBagConstraints.CENTER;
+        gc.insets = new Insets(5, 5, 5, 5);
+        gc.weighty= 1;
 
         //Panel to display simulation
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.weightx = 0.75;
         displayPan = new DisplayPanel(simulation);
-        displayPan = new DisplayPanel(simulation);
-        displayPan.setBounds(10, 10, 720, 720);
-        displayPan.setLayout(null);
-        displayPan.setBackground(Color.white);
+        displayPan.setBackground(Color.black);
+        total.add(displayPan, gc);
 
-        //Global panel
-        JPanel totalPan = new JPanel();
-        totalPan.setBounds(0, 0, 1050, 800);
-        totalPan.setLayout(null);
-        totalPan.add(choicesPan);
-        totalPan.add(displayPan);
-        this.add(totalPan);
 
-        //all the buttons
+        //Panel for choices
+        gc.gridx = 2;
+        gc.gridy = 0;
+        gc.weightx = 0.25;
+        choicesPan = new JPanel();
+        choicesPan.setBackground(Color.cyan);
+        total.add(choicesPan, gc);
+        //Create and initiate the layout manager for the Choices Panel
+        GridBagLayout choicesLayout = new GridBagLayout();
+        choicesPan.setLayout(choicesLayout);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.ipady = gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.weightx = 1;
+        gbc.weighty = 0.1;
+
+        //Buttons to create the condition of the simulation
         person = new JButton("Add a person");
-        person.setBounds(10, 10, 280, 70);
         person.setBackground(Color.white);
         person.setLayout(null);
         person.addActionListener(this);
-        choicesPan.add(person);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        choicesPan.add(person, gbc);
 
         obstacle = new JButton("Add an obstacle");
-        obstacle.setBounds(10, 90, 280, 70);
         obstacle.setBackground(Color.white);
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
-        choicesPan.add(obstacle);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        choicesPan.add(obstacle,gbc);
 
         exit = new JButton("Add exit");
-        exit.setBounds(10, 170, 280, 70);
         exit.setBackground(Color.white);
         exit.setLayout(null);
         exit.addActionListener(this);
-        choicesPan.add(exit);
-
-        start = new JButton("Start simulation!!!");
-        start.setBounds(10, 640, 280, 70);
-        start.setLayout(null);
-        start.addActionListener(this);
-        choicesPan.add(start);
-
-        stop = new JButton("Stop simulation");
-        stop.setBounds(10, 640, 280, 70);
-        stop.setLayout(null);
-        stop.addActionListener(this);
-        stop.setVisible(false);
-        choicesPan.add(stop);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        choicesPan.add(exit,gbc);
 
         //How to play
+        Font e = new Font( "Cambria", Font.PLAIN, 18);
+        instructions = new TextArea (10, 10);
+        instructions.setFont(e);
+        instructions.setEditable(false);
+        instructions.setBackground(Color.cyan);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weighty = 0.5;
+        choicesPan.add(instructions, gbc);
 
 
         //Display simulation time
         Font f = new Font("Calibri", Font.BOLD, 20);
         timing = new JLabel(" ");
-        timing.setBounds(10, 560, 280, 70);
         timing.setLayout(null);
         timing.setFont(f);
-        choicesPan.add(timing);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weighty = 0.1;
+        gbc.fill = GridBagConstraints.BOTH;
+        choicesPan.add(timing, gbc);
 
+        //Start and stop buttons for the simulation
+        start = new JButton("Start simulation!!!");
+        start.setLayout(null);
+        start.addActionListener(this);
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        choicesPan.add(start,gbc);
+
+        stop = new JButton("Stop simulation");
+        stop.setLayout(null);
+        stop.addActionListener(this);
+        stop.setVisible(false);
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        choicesPan.add(stop,gbc);
 
         this.setVisible(true);
     }
@@ -132,32 +168,35 @@ public class GUI extends JFrame implements ActionListener {
         //If we press stop...
         if (e.getSource() == stop) {
             timer.stop();
-            timing.setText("The simulation lasted "+ timeInMin + " : " + timeInSec);
+            timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
             start.setVisible(true);
         }
 
         //If we press add person...
         if (e.getSource() == person) {
             displayPan.waitAddPerson = !displayPan.waitAddPerson;
-            displayPan.waitAddObstacle=false;
-            displayPan.waitAddExit=false;
-            JOptionPane.showMessageDialog(this,"To add a person, you just have to click somewhere in the room, and a point representing that person will appear.");
+            displayPan.waitAddObstacle = false;
+            displayPan.waitAddExit = false;
+            instructions.setText( "To add a person, you just have\nto click somewhere in the room,\na point representing that person\nwill appear.");
+            /*JOptionPane.showMessageDialog(this, "To add a person, you just have to click somewhere in the room, and a point representing that person will appear.");*/
         }
 
         //If we press add obstacle...
         if (e.getSource() == obstacle) {
             displayPan.waitAddObstacle = !displayPan.waitAddObstacle;
-            displayPan.waitAddPerson=false;
-            displayPan.waitAddExit=false;
-            JOptionPane.showMessageDialog(this,"You can create rectangular shaped obstacles. To do so, you will give 2 vertices, press your mouse, and release it where you want");
+            displayPan.waitAddPerson = false;
+            displayPan.waitAddExit = false;
+            instructions.setText("You can create rectangular shaped\nobstacles.To do so, you will give\n2 vertices, press your mouse,\nand release it where you want");
+            //JOptionPane.showMessageDialog(this, "You can create rectangular shaped obstacles. To do so, you will give 2 vertices, press your mouse, and release it where you want");
         }
 
         //If we press add exit...
         if (e.getSource() == exit) {
             displayPan.waitAddExit = !displayPan.waitAddExit;
-            displayPan.waitAddObstacle=false;
-            displayPan.waitAddPerson=false;
-            JOptionPane.showMessageDialog(this,"You cannot add an exit for the moment... Our developers do their best ;)");
+            displayPan.waitAddObstacle = false;
+            displayPan.waitAddPerson = false;
+            instructions.setText("As for adding a person\njust click somewhere on the room\nto add the exit. Careful there is\nonly 1 exit possible!");
+            //JOptionPane.showMessageDialog(this, "You cannot add an exit for the moment... Our develop do their best ;)");
         }
 
         //Each "DisplayInterval" ms...
@@ -169,17 +208,17 @@ public class GUI extends JFrame implements ActionListener {
             //...we change the color of buttons if needed
             if (displayPan.waitAddPerson) {
                 person.setBackground(Color.cyan);
-            }else {
+            } else {
                 person.setBackground(Color.white);
             }
             if (displayPan.waitAddObstacle) {
                 obstacle.setBackground(Color.cyan);
-            }else {
+            } else {
                 obstacle.setBackground(Color.white);
             }
             if (displayPan.waitAddExit) {
                 exit.setBackground(Color.cyan);
-            }else {
+            } else {
                 exit.setBackground(Color.white);
             }
 
