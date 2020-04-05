@@ -51,24 +51,14 @@ public class Room {
         }
     }
 
-    public void computeObstacles(){
-        for (Obstacle o :obstacles) {
-            for (Point v:o.vertices) {
-                if(map[v.x][v.y]!=0){
-                    v=new Point(10000,10000);
-                    System.out.println("1 point disparait");
-                }
-            }
-        }
-
-    }
-
-
     public void computePathways() {
         if(!panic){
             for (Person p: persons) {
                 p.computeMyPathway();
             }
+        }
+        for (Obstacle o:obstacles) {
+            o.addPrint();
         }
     }
 }

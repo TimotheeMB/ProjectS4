@@ -7,13 +7,13 @@ public class Obstacle extends Entity {
     public Obstacle(Point one, Point two, Room room, int signature) {
         super(room, signature);
         if ((one.x < two.x) && (one.y < two.y)) {
-            vertices = new Point[]{new Point(one.x-5,one.y-5), new Point(two.x+5, one.y-5),new Point(two.x+5,two.y+5) , new Point(one.x-5, two.y+5)};
+            vertices = new Point[]{new Point(one.x-5,one.y-5), new Point(two.x+5, one.y-5),new Point(two.x+5,two.y+5), new Point(one.x-5, two.y+5)};
         } else if ((one.x > two.x) && (one.y > two.y)) {
-            vertices = new Point[]{two, new Point(one.x, two.y), one, new Point(two.x, one.y)};
+            vertices = new Point[]{new Point(two.x-5,two.y-5), new Point(one.x+5, two.y-5),new Point(one.x+5,one.y+5), new Point(two.x-5, one.y+5)};
         } else if ((one.x < two.x)&& (one.y > two.y)) {
-            vertices = new Point[]{new Point(one.x, two.y), two, new Point(two.x, one.y), one};
-        }else {
-            vertices = new Point[]{new Point(two.x, one.y), one, new Point(one.x, two.y), two};
+            vertices = new Point[]{new Point(one.x-5,two.y-5), new Point(two.x+5,two.y-5), new Point(two.x+5, one.y+5), new Point(two.x-5,two.y+5)};
+        }else{
+            vertices = new Point[]{new Point(two.x-5, one.y-5), new Point(one.x+5,one.y-5), new Point(one.x+5, two.y+5), new Point(two.x-5,two.y+5)};
         }
 
 

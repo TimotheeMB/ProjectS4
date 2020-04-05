@@ -62,38 +62,42 @@ public class Person extends Entity{
 
     //I think about my pathway
     public void computeMyPathway() {
-
+    System.out.println("=== COMPUTE MY PATHWAY ===");
         Obstacle currentObs=null;
         Point [] possibleTargets=new Point[4];
         int sign;
         int lastSign=0;
-
+        int nbStep=0;
         removePrint();
 
         while (!position[0].equals(finalTarget)) {
-
+            if(nbStep>10000){
+                System.out.println("I give up it's too complicated\nI'm gonna die..... ");
+                break;
+            }
             if(position[0].equals(currentTarget())){
+                System.out.println("next target");
                 targetIndex++;
                 currentObs.addPrint();
             }
 
-            position=around(findCloserPoint(position,currentTarget(),true,false));
+            position=around(findCloserPoint(position,currentTarget(),false,false));
 
             sign = room.map[position[0].x][position[0].y];
 
             // if there is an obstacle
             if (sign != 0 && sign % 2 == 0) {
-
-                //if it a different obstacle
-                if(sign!=lastSign) {
+                System.out.println("I touch obstacle #"+(sign / 2 - 1));
+                if(sign!=lastSign) {//if it a different obstacle
+                    System.out.println("It's a new one");
                     currentObs = room.obstacles.get(sign / 2 - 1);
                     System.arraycopy(currentObs.vertices,0,possibleTargets,0,possibleTargets.length);
                 }
 
                 currentObs.removePrint();
 
-                Point pointToReach=findCloserPoint(possibleTargets,position[0],false,true);
-
+                Point pointToReach=findCloserPoint(possibleTargets,position[0],true,true);
+                System.out.println("J'ajoute une target :"+pointToReach);
                 targets.add(pointToReach);
                 lastSign=sign;
             }
@@ -135,9 +139,12 @@ public class Person extends Entity{
 
     public boolean emptyAround(Point p) {
         for (Point d: around(p)) {
-            if(room.map[d.x][d.y]!=0){
-                return false;
-            }
+            try{
+                if(room.map[d.x][d.y]!=0){
+                    return false;
+                }
+            }catch (Exception e){}
+
         }
         return true;
     }
