@@ -77,7 +77,7 @@ public class Person extends Entity{
                 currentObs.addPrint();
             }
 
-            position=around(findCloserPoint(position,currentTarget(),false,false));
+            position=around(findCloserPoint(position,currentTarget(),true,false));
 
             sign = room.map[position[0].x][position[0].y];
 

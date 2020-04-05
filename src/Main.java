@@ -10,6 +10,5 @@ public class  Main {
 
         //We display and control this simulation thanks to a GUI
         GUI display = new GUI(test,50);
-
     }
 }
