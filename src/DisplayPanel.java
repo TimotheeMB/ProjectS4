@@ -38,30 +38,41 @@ public class DisplayPanel extends JPanel implements MouseListener {
                         Color beautyred = new Color (250,100,70);
                         g.setColor(beautyred);
                     }
-                    g.fillRect((int)(x*(getWidth()/(double)simulation.room.SIZE)),(int)(y*(getHeight()/(double)simulation.room.SIZE)),(getWidth()/simulation.room.SIZE + 1),(getHeight()/simulation.room.SIZE + 1));
+                    g.fillRect((int)(x*scaleX()),(int)(y*scaleY()),(int)scaleX()+1,(int)scaleY()+1);
                 }
             }
         }
     }
 
     public void mousePressed(MouseEvent e) {
+        Point clicked=new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY()));
         if(waitAddPerson) {
-            simulation.room.addPerson(new Point(e.getX(), e.getY()));
+            simulation.room.addPerson(clicked);
         }else if (waitAddObstacle) {
-            this.beginningObstacle = new Point(e.getX(),e.getY());
+            this.beginningObstacle = clicked;
         }else if (waitAddExit) {
-            simulation.room.addExit(new Point(e.getX(), e.getY()));
+            simulation.room.addExit(clicked);
         }
     }
 
     public void mouseReleased(MouseEvent e) {
         if (waitAddObstacle) {
-            simulation.room.addObstacle(this.beginningObstacle, new Point(e.getX(), e.getY()));
+            simulation.room.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY())));
         }
     }
 
     public void mouseExited (MouseEvent e){}
     public void mouseEntered (MouseEvent e){}
     public void mouseClicked (MouseEvent e){}
+
+
+    public double scaleX(){
+        return (getWidth()/(double)simulation.room.SIZE);
+    }
+
+    public double scaleY(){
+        return (getHeight()/(double)simulation.room.SIZE);
+    }
+
 
 }
