@@ -111,7 +111,7 @@ public class GUI extends JFrame implements ActionListener {
         instructions = new TextArea (10, 10);
         instructions.setFont(e);
         instructions.setEditable(false);
-        instructions.setBackground(Color.cyan);
+        instructions.setBackground(beautygreenblue);
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.weighty = 0.5;

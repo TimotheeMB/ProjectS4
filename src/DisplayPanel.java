@@ -22,8 +22,8 @@ public class DisplayPanel extends JPanel implements MouseListener {
 
     //The real display of the simulation
     public void paint(Graphics g) {
-        g.setColor(Color.white);
-        g.fillRect(0,0,getWidth(),getWidth());
+        //g.setColor(Color.white);
+        //g.fillRect(0,0,getWidth(),getWidth());
         for (int x = 0; x < simulation.room.SIZE; x++) {
             for (int y = 0; y < simulation.room.SIZE; y++) {
                 int signature = simulation.room.map[x][y];
@@ -38,7 +38,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
                         Color beautyred = new Color (250,100,70);
                         g.setColor(beautyred);
                     }
-                    g.fillRect(x*(getWidth()/simulation.room.SIZE + 1),y*(getHeight()/simulation.room.SIZE + 1),(getWidth()/simulation.room.SIZE + 1),(getHeight()/simulation.room.SIZE + 1));
+                    g.fillRect((int)(x*(getWidth()/(double)simulation.room.SIZE)),(int)(y*(getHeight()/(double)simulation.room.SIZE)),(getWidth()/simulation.room.SIZE + 1),(getHeight()/simulation.room.SIZE + 1));
                 }
             }
         }
