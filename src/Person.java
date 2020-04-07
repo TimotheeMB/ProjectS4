@@ -85,7 +85,14 @@ public class Person extends Entity{
 
             position = around(findCloserPoint(position, currentTarget(), false, false));
 
-            sign = room.map[position[0].x][position[0].y];
+            sign=0;
+            for (Point p: position) {
+                if (room.mapAt(p)!=0){
+                    sign = room.mapAt(p);
+                }
+            }
+
+
 
             // if there is an obstacle
             if (sign != 0 && sign % 2 == 0) {

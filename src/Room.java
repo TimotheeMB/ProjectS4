@@ -57,8 +57,9 @@ public class Room {
                 p.computeMyPathway();
             }
         }
-        for (Obstacle o:obstacles) {
-            o.addPrint();
-        }
+    }
+
+    public int mapAt(Point p){
+        return map[p.x][p.y];
     }
 }
