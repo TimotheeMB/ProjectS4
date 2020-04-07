@@ -68,41 +68,47 @@ public class Person extends Entity{
         int sign;
         int lastSign=0;
         int nbStep=0;
-        removePrint();
 
+        removePrint();
         while (!position[0].equals(finalTarget)) {
-            if(nbStep>10000){
+
+            nbStep++;
+            if (nbStep > 100000) {
                 System.out.println("I give up it's too complicated\nI'm gonna die..... ");
                 break;
             }
-            if(position[0].equals(currentTarget())){
+
+            if (position[0].equals(currentTarget())) {
                 System.out.println("next target");
                 targetIndex++;
-                currentObs.addPrint();
             }
 
-            position=around(findCloserPoint(position,currentTarget(),false,false));
+            position = around(findCloserPoint(position, currentTarget(), false, false));
 
             sign = room.map[position[0].x][position[0].y];
 
             // if there is an obstacle
             if (sign != 0 && sign % 2 == 0) {
-                System.out.println("I touch obstacle #"+(sign / 2 - 1));
-                if(sign!=lastSign) {//if it a different obstacle
+                System.out.println("I touch obstacle #" + (sign / 2 - 1));
+                if (sign != lastSign) {//if it a different obstacle
+                    if (!currentTarget().equals(finalTarget)) {
+                        targets.remove(targetIndex);
+                    }
                     System.out.println("It's a new one");
                     currentObs = room.obstacles.get(sign / 2 - 1);
-                    System.arraycopy(currentObs.vertices,0,possibleTargets,0,possibleTargets.length);
+                    System.arraycopy(currentObs.vertices, 0, possibleTargets, 0, possibleTargets.length);
+
                 }
 
-                currentObs.removePrint();
 
-                Point pointToReach=findCloserPoint(possibleTargets,position[0],true,true);
-                System.out.println("J'ajoute une target :"+pointToReach);
+                Point pointToReach = findCloserPoint(possibleTargets, position[0], true, true);
+                System.out.println("J'ajoute une target :" + pointToReach);
                 targets.add(pointToReach);
-                lastSign=sign;
+                lastSign = sign;
+                targetIndex = 0;
+                position = initPosition;
             }
         }
-
         targetIndex=0;
         position=initPosition;
         addPrint();
