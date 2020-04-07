@@ -10,7 +10,9 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public boolean waitAddExit;
     public boolean waitAddObstacle;
     public Point beginningObstacle;
-
+    Color beautyred = new Color (250,100,70);
+    Color beautyblue = new Color (70,50,140);
+    Color beautygreen = new Color(80, 210, 120);
 
     public DisplayPanel(Simulation simulation) {
         this.simulation=simulation;
@@ -20,27 +22,44 @@ public class DisplayPanel extends JPanel implements MouseListener {
         addMouseListener(this);
     }
 
-    //The real display of the simulation
+    /*The old display of the simulation
     public void paint(Graphics g) {
-        //g.setColor(Color.white);
-        //g.fillRect(0,0,getWidth(),getWidth());
         for (int x = 0; x < simulation.room.SIZE; x++) {
             for (int y = 0; y < simulation.room.SIZE; y++) {
                 int signature = simulation.room.map[x][y];
                 if(signature!=0){
                     if(signature==-1) {
-                        Color beautygreen = new Color (80,210,120);
                         g.setColor(beautygreen);
                     }else if(signature%2==0){
-                        Color beautyblue = new Color (70,50,140);
                         g.setColor(beautyblue);
                     }else {
-                        Color beautyred = new Color (250,100,70);
                         g.setColor(beautyred);
                     }
                     g.fillRect((int)(x*scaleX()),(int)(y*scaleY()),(int)scaleX()+1,(int)scaleY()+1);
                 }
             }
+        }
+    }
+     */
+
+
+    @Override
+    public void paint(Graphics g) {
+        g.setColor(beautyred);
+        for (Person kevin: simulation.room.persons
+             ) {
+            g.fillOval((int)(kevin.position[0].x*scaleX()),(int)(kevin.position[0].y*scaleY()),(int)(5*scaleX()),(int)(5*scaleY()));
+        }
+        g.setColor(beautyblue);
+        for (Obstacle bob:simulation.room.obstacles
+             ) {
+            g.fillRect((int)((bob.vertices[0].x+5)*scaleX()),(int)((bob.vertices[0].y+5)*scaleY()),(int)((bob.length()-10)*scaleX()),(int)((bob.height()-10)*scaleY()));
+        }
+        g.setColor(beautygreen);
+        try {
+            g.fillOval((int) (simulation.room.exit.position[0].x * scaleX()), (int) (simulation.room.exit.position[0].y * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
+        }catch (Exception e){
+
         }
     }
 

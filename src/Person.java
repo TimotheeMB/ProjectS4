@@ -108,7 +108,7 @@ public class Person extends Entity{
                 }
 
 
-                Point pointToReach = findCloserPoint(possibleTargets, position[0], true, true);
+                Point pointToReach = findCloserPoint(possibleTargets, position[0], false, true);
                 System.out.println("J'ajoute une target :" + pointToReach);
                 targets.add(pointToReach);
                 lastSign = sign;
