@@ -58,9 +58,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
         g.setColor(beautygreen);
         try {
             g.fillOval((int) (simulation.room.exit.position[0].x * scaleX()), (int) (simulation.room.exit.position[0].y * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
-        }catch (Exception e){
-
-        }
+        }catch (Exception e){ }
     }
 
     public void mousePressed(MouseEvent e) {

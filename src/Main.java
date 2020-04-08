@@ -3,7 +3,7 @@ public class  Main {
     public static void main(String[] args) {
 
         //We create a room
-        Room gopher= new Room(720);
+        Room gopher= new Room(100);
 
         //We create a simulation that will make the room live (every 10ms)
         Simulation test = new Simulation(gopher,10);

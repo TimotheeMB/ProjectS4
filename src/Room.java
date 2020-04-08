@@ -116,6 +116,7 @@ public class Room {
                         int alt = distAt(act) + 1;
                         if (alt < distAt(p)) {
                             setDist(p, alt);
+                            System.out.println("setDist("+p+","+alt+")");
                         }
                     }
                 }catch (Exception e){}

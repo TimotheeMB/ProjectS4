@@ -61,18 +61,27 @@ public class Person extends Entity{
     }
 
     public void nextStep(){
+        System.out.println("next step");
         removePrint();//I disappear from my last position
-        if(position[0].distance(currentTarget())<10){//If I reached my target
-            targetIndex++;//I switch to the new one
-        }
+
         if(room.panic){
             Point randomPosition = position[(int)(Math.random()*20)];
             if(emptyAround(randomPosition)){
                 position = around(randomPosition);
             }
         }else {
-            position = around(findCloserPoint(position, currentTarget(), true, false));//I compute my new position
+            int minDist=room.distAt(position[0]);
+            int index=0;
+            for (int i = 0; i <position.length ; i++) {
+                System.out.println(room.distAt(position[i]));
+                if(room.distAt(position[i])<minDist){
+                    minDist=room.distAt(position[i]);
+                    index=i;
+                }
+            }
+            position= around(position[index]);
         }
+        System.out.println("new pos"+position[0]);
         addPrint();//I appear in my new position
     }
 
