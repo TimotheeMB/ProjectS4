@@ -22,4 +22,17 @@ public class Point {
     public boolean equals(Point a) {
         return (this.x==a.x && this.y==a.y);
     }
+
+    public Point[] around(){
+        return new Point[]{
+                new Point(this.x+1,this.y),
+                new Point(this.x+1,this.y-1),
+                new Point(this.x,this.y-1),
+                new Point(this.x-1,this.y-1),
+                new Point(this.x-1,this.y),
+                new Point(this.x-1,this.y+1),
+                new Point(this.x,this.y+1),
+                new Point(this.x+1,this.y+1),
+        };
+    }
 }

@@ -60,6 +60,10 @@ public class Person extends Entity{
         addPrint();//I appear in my new position
     }
 
+    public void nextStep(){
+
+    }
+
     //I think about my pathway
     public void computeMyPathway() {
     System.out.println("=== COMPUTE MY PATHWAY ===");
@@ -73,22 +77,23 @@ public class Person extends Entity{
         while (!position[0].equals(finalTarget)) {
 
             nbStep++;
-            if (nbStep > 100000) {
+            if (nbStep > 1000000) {
                 System.out.println("I give up it's too complicated\nI'm gonna die..... ");
                 break;
             }
 
             if (position[0].equals(currentTarget())) {
-                System.out.println("next target");
+                //System.out.println("next target");
                 targetIndex++;
+                currentObs.addPrint();
             }
 
             position = around(findCloserPoint(position, currentTarget(), false, false));
 
             sign=0;
             for (Point p: position) {
-                if (room.mapAt(p)!=0){
-                    sign = room.mapAt(p);
+                if (room.signAt(p)!=0){
+                    sign = room.signAt(p);
                 }
             }
 
@@ -99,10 +104,12 @@ public class Person extends Entity{
                 System.out.println("I touch obstacle #" + (sign / 2 - 1));
                 if (sign != lastSign) {//if it a different obstacle
                     if (!currentTarget().equals(finalTarget)) {
+                        currentObs.addPrint();
                         targets.remove(targetIndex);
                     }
                     System.out.println("It's a new one");
                     currentObs = room.obstacles.get(sign / 2 - 1);
+                    currentObs.removePrint();
                     System.arraycopy(currentObs.vertices, 0, possibleTargets, 0, possibleTargets.length);
 
                 }
@@ -119,6 +126,7 @@ public class Person extends Entity{
         targetIndex=0;
         position=initPosition;
         addPrint();
+        currentObs.addPrint();
     }
 
     public Point findCloserPoint(Point[] points, Point target, boolean emptyPoint, boolean suppressThePoint){
@@ -153,7 +161,7 @@ public class Person extends Entity{
     public boolean emptyAround(Point p) {
         for (Point d: around(p)) {
             try{
-                if(room.map[d.x][d.y]!=0){
+                if(room.signAt(d)!=0){
                     return false;
                 }
             }catch (Exception e){}
@@ -194,7 +202,7 @@ public class Person extends Entity{
                 new Point(position[0].x+5, position[0].y+1),
         };
         for (Point point:ps) {
-            room.map[point.x][point.y] = signature;
+            room.setSign(point,signature);
         }
     }
 

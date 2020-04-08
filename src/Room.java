@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 
+
 public class Room {
     final int SIZE;
-    public int [][] map;
+    public int [][][] map;
     public ArrayList<Person> persons;
     ArrayList<Obstacle> obstacles;
     int signaturePerson;
     int signatureObstacle;
     public Exit exit ;
-
+    final int INFINITY=1000000;
 
     boolean panic=false;
 
@@ -20,10 +21,12 @@ public class Room {
         persons=new ArrayList<Person>();
         obstacles=new ArrayList<Obstacle>();
         SIZE = size;
-        map = new int[SIZE][SIZE];
+        map = new int[SIZE][SIZE][3];
         for (int i = 0; i <SIZE; i++) {
             for (int j = 0; j <SIZE ; j++) {
-                map[i][j]=0;
+                map[i][j][0]=0;
+                map[i][j][1]=INFINITY;
+                map[i][j][2]=0;
             }
         }
     }
@@ -59,7 +62,59 @@ public class Room {
         }
     }
 
-    public int mapAt(Point p){
-        return map[p.x][p.y];
+    public int signAt(Point p){
+        return map[p.x][p.y][0];
+    }
+    public void setSign(Point p,int sign){
+        map[p.x][p.y][0]=sign;
+    }
+    public int distAt(Point p){
+        return map[p.x][p.y][1];
+    }
+    public void setDist(Point p,int dist){
+        map[p.x][p.y][1]=dist;
+    }
+    public boolean visitedAt(Point p){
+        return (map[p.x][p.y][2]==1);
+    }
+    public void markVisited(Point p){
+        map[p.x][p.y][2]=1;
+    }
+
+    public void dijkstra(){
+        int nbUnvisited=SIZE*SIZE;
+
+        for (Obstacle obstacle: obstacles) {
+            for (Point point:obstacle.position) {
+                markVisited(point);
+                nbUnvisited--;
+            }
+        }
+
+        setDist(exit.position[0],0);
+
+        while (nbUnvisited>0){
+            int minDist=INFINITY;
+            Point act=new Point(0,0);
+            for (int x = 0; x <SIZE ; x++) {
+                for (int y = 0; y <SIZE ; y++) {
+                    Point p = new Point(x,y);
+                    if (distAt(p)<minDist){
+                        act=p;
+                    }
+                }
+            }
+
+            markVisited(act);
+
+            for (Point p:act.around()) {
+                if(!visitedAt(p)){
+                    int alt=distAt(act)+1;
+                    if(alt<distAt(p)){
+                        setDist(p,alt);
+                    }
+                }
+            }
+        }
     }
 }

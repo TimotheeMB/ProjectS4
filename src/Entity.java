@@ -12,13 +12,13 @@ public abstract class Entity {
 
     public void addPrint(){
         for (Point point:position) {
-            room.map[point.x][point.y] = signature;
+            room.setSign(point,signature);
         }
     };
 
     public void removePrint(){
         for (Point point:position) {
-            room.map[point.x][point.y] = 0;
+            room.setSign(point,0);
         }
     };
 
