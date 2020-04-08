@@ -46,11 +46,12 @@ public class Room {
             exit.removePrint();
         }
         this.exit = new Exit (e, this);
+        dijkstra();
     }
 
     public void nextStep(){
         for (Person p: persons) {
-            p.move();
+            p.nextStep();
         }
     }
 
@@ -94,6 +95,7 @@ public class Room {
         setDist(exit.position[0],0);
 
         while (nbUnvisited>0){
+            System.out.println(nbUnvisited);
             int minDist=INFINITY;
             Point act=new Point(0,0);
             for (int x = 0; x <SIZE ; x++) {
@@ -106,14 +108,17 @@ public class Room {
             }
 
             markVisited(act);
+            nbUnvisited--;
 
             for (Point p:act.around()) {
-                if(!visitedAt(p)){
-                    int alt=distAt(act)+1;
-                    if(alt<distAt(p)){
-                        setDist(p,alt);
+                try {
+                    if (!visitedAt(p)) {
+                        int alt = distAt(act) + 1;
+                        if (alt < distAt(p)) {
+                            setDist(p, alt);
+                        }
                     }
-                }
+                }catch (Exception e){}
             }
         }
     }

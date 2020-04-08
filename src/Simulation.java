@@ -16,7 +16,7 @@ public class Simulation implements ActionListener {
     }
 
     public void start(){
-        room.computePathways();
+        //room.computePathways();
         timer.start();
     }
 

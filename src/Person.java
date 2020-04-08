@@ -61,7 +61,19 @@ public class Person extends Entity{
     }
 
     public void nextStep(){
-
+        removePrint();//I disappear from my last position
+        if(position[0].distance(currentTarget())<10){//If I reached my target
+            targetIndex++;//I switch to the new one
+        }
+        if(room.panic){
+            Point randomPosition = position[(int)(Math.random()*20)];
+            if(emptyAround(randomPosition)){
+                position = around(randomPosition);
+            }
+        }else {
+            position = around(findCloserPoint(position, currentTarget(), true, false));//I compute my new position
+        }
+        addPrint();//I appear in my new position
     }
 
     //I think about my pathway
@@ -131,12 +143,12 @@ public class Person extends Entity{
 
     public Point findCloserPoint(Point[] points, Point target, boolean emptyPoint, boolean suppressThePoint){
 
-        double smallerDistance=points[0].distance(target); //default value, no check of emptiness
+        double smallerDistance=room.distAt(points[0]); //default value, no check of emptiness
         int index=0;
 
         for (int i = 1; i < points.length ; i++) {
             if(!emptyPoint||emptyAround(points[i])) {
-                double distance = points[i].distance(target);
+                double distance = room.distAt(points[i]);
                 if (distance < smallerDistance) {
                     smallerDistance = distance;
                     index=i;
