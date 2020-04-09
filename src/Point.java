@@ -23,16 +23,42 @@ public class Point {
         return (this.x==a.x && this.y==a.y);
     }
 
-    public Point[] around(){
-        return new Point[]{
-                new Point(this.x+1,this.y),
-                new Point(this.x+1,this.y-1),
-                new Point(this.x,this.y-1),
-                new Point(this.x-1,this.y-1),
-                new Point(this.x-1,this.y),
-                new Point(this.x-1,this.y+1),
-                new Point(this.x,this.y+1),
-                new Point(this.x+1,this.y+1),
-        };
+    public Point[] around(boolean large){
+        if(large) {
+            return new Point[]{
+                    this,
+                    new Point(this.x + 1, this.y),
+                    new Point(this.x + 1, this.y - 1),
+                    new Point(this.x, this.y - 1),
+                    new Point(this.x - 1, this.y - 1),
+                    new Point(this.x - 1, this.y),
+                    new Point(this.x - 1, this.y + 1),
+                    new Point(this.x, this.y + 1),
+                    new Point(this.x + 1, this.y + 1),
+                    new Point(this.x + 2, this.y + 1),
+                    new Point(this.x + 2, this.y),
+                    new Point(this.x + 2, this.y-1),
+                    new Point(this.x + 1, this.y-2),
+                    new Point(this.x, this.y-2),
+                    new Point(this.x-1, this.y-2),
+                    new Point(this.x-2, this.y-1),
+                    new Point(this.x-2, this.y),
+                    new Point(this.x-2, this.y+1),
+                    new Point(this.x-1, this.y+2),
+                    new Point(this.x, this.y+2),
+                    new Point(this.x+1, this.y+2)
+            };
+        }else{
+            return new Point[]{
+                    new Point(this.x + 1, this.y),
+                    new Point(this.x + 1, this.y - 1),
+                    new Point(this.x, this.y - 1),
+                    new Point(this.x - 1, this.y - 1),
+                    new Point(this.x - 1, this.y),
+                    new Point(this.x - 1, this.y + 1),
+                    new Point(this.x, this.y + 1),
+                    new Point(this.x + 1, this.y + 1),
+            };
+        }
     }
 }

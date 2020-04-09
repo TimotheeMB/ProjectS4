@@ -4,11 +4,11 @@ public class Person extends Entity{
 
     /* ================================================ */
     /* CONSTRUCTOR */
-    public Person(Point center, Room room, int signature) {
+    public Person(Point center, Room room) {
 
         /*I initialize my attributes*/
-        super(room,signature);
-        this.position = around(center);
+        super(room,1);
+        this.position = center.around(true);
         this.initPosition = position;
 
         /*I put myself in the room*/
@@ -26,7 +26,7 @@ public class Person extends Entity{
         if(room.panic){
             Point randomPosition = position[(int)(Math.random()*20)];
             if(emptyAround(randomPosition)){
-                position = around(randomPosition);
+                position = randomPosition.around(true);
             }
         }else {
             int minDist=room.distAt(position[0]);
@@ -40,14 +40,14 @@ public class Person extends Entity{
                     }
                 }
             }
-            position= around(position[index]);
+            position= position[index].around(true);
         }
         System.out.println("new pos"+position[0]);
         addPrint();//I appear in my new position
     }
 
     public boolean emptyAround(Point p) {
-        for (Point d: around(p)) {
+        for (Point d: p.around(true)) {
             try{
                 if(room.signAt(d)!=0){
                     return false;
