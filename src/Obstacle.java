@@ -7,21 +7,21 @@ public class Obstacle extends Entity {
     public Obstacle(Point one, Point two, Room room, int signature) {
         super(room, signature);
         if ((one.x < two.x) && (one.y < two.y)) {
-            vertices = new Point[]{new Point(one.x-5,one.y-5), new Point(two.x+5, one.y-5),new Point(two.x+5,two.y+5), new Point(one.x-5, two.y+5)};
+            vertices = new Point[]{new Point(one.x,one.y), new Point(two.x, one.y),new Point(two.x,two.y), new Point(one.x, two.y)};
         } else if ((one.x > two.x) && (one.y > two.y)) {
-            vertices = new Point[]{new Point(two.x-5,two.y-5), new Point(one.x+5, two.y-5),new Point(one.x+5,one.y+5), new Point(two.x-5, one.y+5)};
+            vertices = new Point[]{new Point(two.x,two.y), new Point(one.x, two.y),new Point(one.x,one.y), new Point(two.x, one.y)};
         } else if ((one.x < two.x)&& (one.y > two.y)) {
-            vertices = new Point[]{new Point(one.x-5,two.y-5), new Point(two.x+5,two.y-5), new Point(two.x+5, one.y+5), new Point(two.x-5,two.y+5)};
+            vertices = new Point[]{new Point(one.x,two.y), new Point(two.x,two.y), new Point(two.x, one.y), new Point(two.x,two.y)};
         }else{
-            vertices = new Point[]{new Point(two.x-5, one.y-5), new Point(one.x+5,one.y-5), new Point(one.x+5, two.y+5), new Point(two.x-5,two.y+5)};
+            vertices = new Point[]{new Point(two.x, one.y), new Point(one.x,one.y), new Point(one.x, two.y), new Point(two.x,two.y)};
         }
 
 
 
-        this.position = new Point[(length()-10)*(height()-10)];
+        this.position = new Point[(length())*(height())];
         int index = 0;
-        for (int i = this.vertices[0].x+5; i <= this.vertices[2].x-5; i++) {
-            for (int j = this.vertices[0].y+5; j <= this.vertices[2].y-5; j++) {
+        for (int i = this.vertices[0].x; i <= this.vertices[2].x; i++) {
+            for (int j = this.vertices[0].y; j <= this.vertices[2].y; j++) {
                 position[index] = new Point(i, j);
                 index++;
             }

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.PriorityQueue;
 
 
@@ -46,9 +45,14 @@ public class Room {
     public void addExit(Point e){
         if(exit.position[0]!=null){
             exit.removePrint();
+            for (int i = 0; i <SIZE; i++) {
+                for (int j = 0; j <SIZE ; j++) {
+                    map[i][j][1]=INFINITY;
+                }
+            }
         }
         this.exit = new Exit (e, this);
-        dijkstra_search();
+        dijkstra();
     }
 
     public void nextStep(){
@@ -57,35 +61,7 @@ public class Room {
         }
     }
 
-    public void computePathways() {
-        if(!panic){
-            for (Person p: persons) {
-                p.computeMyPathway();
-            }
-        }
-    }
-
-    public int signAt(Point p){
-        return map[p.x][p.y][0];
-    }
-    public void setSign(Point p,int sign){
-        map[p.x][p.y][0]=sign;
-    }
-    public int distAt(Point p){
-        return map[p.x][p.y][1];
-    }
-    public void setDist(Point p,int dist){
-        map[p.x][p.y][1]=dist;
-    }
-    public boolean visitedAt(Point p){
-        return (map[p.x][p.y][2]==1);
-    }
-    public void markVisited(Point p){
-        map[p.x][p.y][2]=1;
-    }
-
-
-    public void dijkstra_search(){
+    public void dijkstra(){
         for (Obstacle obstacle: obstacles) {
             for (Point point:obstacle.position) {
                 markVisited(point);
@@ -113,56 +89,23 @@ public class Room {
         }
     }
 
-    public void dijkstra(){
-        int nbUnvisited=10000;
-
-        for (Obstacle obstacle: obstacles) {
-            for (Point point:obstacle.position) {
-                markVisited(point);
-            }
-        }
-
-        setDist(exit.position[0],0);
-
-        while (nbUnvisited>0){
-            //System.out.println(nbUnvisited);
-            int minDist=INFINITY;
-            Point act=new Point(0,0);
-            for (int x = 0; x <SIZE ; x++) {
-                for (int y = 0; y <SIZE ; y++) {
-                    Point p = new Point(x,y);
-                    if (distAt(p)<minDist){
-                        act=p;
-                    }
-                }
-            }
-            System.out.println("act"+act);
-
-            markVisited(act);
-            nbUnvisited--;
-
-            for (Point p:act.around()) {
-                boolean bool=false;
-                try {
-                        bool=!visitedAt(p);
-                }catch (Exception e){
-                }
-                if (bool) {
-                    int alt = distAt(act) + 1;
-                    if (alt < distAt(p)) {
-                        setDist(p, alt);
-                        System.out.println("setDist("+p+","+alt+")");
-                    }
-                }
-            }
-        }
-        for(int i = 0; i<SIZE; i++)
-        {
-            for(int j = 0; j<SIZE; j++)
-            {
-                System.out.print(map[i][j][1]);
-            }
-            System.out.println();
-        }
+    /*Setters and Getters*/
+    public int signAt(Point p){
+        return map[p.x][p.y][0];
+    }
+    public void setSign(Point p,int sign){
+        map[p.x][p.y][0]=sign;
+    }
+    public int distAt(Point p){
+        return map[p.x][p.y][1];
+    }
+    public void setDist(Point p,int dist){
+        map[p.x][p.y][1]=dist;
+    }
+    public boolean visitedAt(Point p){
+        return (map[p.x][p.y][2]==1);
+    }
+    public void markVisited(Point p){
+        map[p.x][p.y][2]=1;
     }
 }

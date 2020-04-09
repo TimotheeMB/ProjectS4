@@ -22,27 +22,6 @@ public class DisplayPanel extends JPanel implements MouseListener {
         addMouseListener(this);
     }
 
-    /*The old display of the simulation
-    public void paint(Graphics g) {
-        for (int x = 0; x < simulation.room.SIZE; x++) {
-            for (int y = 0; y < simulation.room.SIZE; y++) {
-                int signature = simulation.room.map[x][y];
-                if(signature!=0){
-                    if(signature==-1) {
-                        g.setColor(beautygreen);
-                    }else if(signature%2==0){
-                        g.setColor(beautyblue);
-                    }else {
-                        g.setColor(beautyred);
-                    }
-                    g.fillRect((int)(x*scaleX()),(int)(y*scaleY()),(int)scaleX()+1,(int)scaleY()+1);
-                }
-            }
-        }
-    }
-     */
-
-
     @Override
     public void paint(Graphics g) {
 
@@ -54,7 +33,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
         g.setColor(beautyblue);
         for (Obstacle bob:simulation.room.obstacles
              ) {
-            g.fillRect((int)((bob.vertices[0].x+5)*scaleX()),(int)((bob.vertices[0].y+5)*scaleY()),(int)((bob.length()-10)*scaleX()),(int)((bob.height()-10)*scaleY()));
+            g.fillRect((int)((bob.vertices[0].x)*scaleX()),(int)((bob.vertices[0].y)*scaleY()),(int)((bob.length())*scaleX()),(int)((bob.height())*scaleY()));
         }
         g.setColor(beautygreen);
         try {
