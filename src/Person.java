@@ -73,10 +73,12 @@ public class Person extends Entity{
             int minDist=room.distAt(position[0]);
             int index=0;
             for (int i = 0; i <position.length ; i++) {
-                System.out.println(room.distAt(position[i]));
-                if(room.distAt(position[i])<minDist){
-                    minDist=room.distAt(position[i]);
-                    index=i;
+                if (emptyAround(position[i])) {
+                    System.out.println(room.distAt(position[i]));
+                    if (room.distAt(position[i]) < minDist) {
+                        minDist = room.distAt(position[i]);
+                        index = i;
+                    }
                 }
             }
             position= around(position[index]);

@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 
 
 public class Room {
@@ -46,7 +48,7 @@ public class Room {
             exit.removePrint();
         }
         this.exit = new Exit (e, this);
-        dijkstra();
+        dijkstra_search();
     }
 
     public void nextStep(){
@@ -82,20 +84,48 @@ public class Room {
         map[p.x][p.y][2]=1;
     }
 
+
+    public void dijkstra_search(){
+        for (Obstacle obstacle: obstacles) {
+            for (Point point:obstacle.position) {
+                markVisited(point);
+            }
+        }
+        PriorityQueue<WeightedVertex> priority = new PriorityQueue<WeightedVertex>( new WeightedVertexComparator() );
+        priority.add( new WeightedVertex(exit.position[0], 0.0) );
+        setDist(exit.position[0],0);
+        while( !priority.isEmpty() ){
+            Point source = priority.poll().source;
+            for (int i = 0; i <source.around().length ; i++) {
+                int new_cost =distAt(source);
+                if(i%2==0){
+                    new_cost+=10;
+                }else {
+                    new_cost+=14;
+                }
+                try {
+                    if (new_cost < distAt(source.around()[i])&&!visitedAt(source.around()[i])) {
+                        setDist(source.around()[i], new_cost);
+                        priority.offer(new WeightedVertex(source.around()[i], new_cost));
+                    }
+                }catch (Exception e){}
+            }
+        }
+    }
+
     public void dijkstra(){
-        int nbUnvisited=SIZE*SIZE;
+        int nbUnvisited=10000;
 
         for (Obstacle obstacle: obstacles) {
             for (Point point:obstacle.position) {
                 markVisited(point);
-                nbUnvisited--;
             }
         }
 
         setDist(exit.position[0],0);
 
         while (nbUnvisited>0){
-            System.out.println(nbUnvisited);
+            //System.out.println(nbUnvisited);
             int minDist=INFINITY;
             Point act=new Point(0,0);
             for (int x = 0; x <SIZE ; x++) {
@@ -106,21 +136,33 @@ public class Room {
                     }
                 }
             }
+            System.out.println("act"+act);
 
             markVisited(act);
             nbUnvisited--;
 
             for (Point p:act.around()) {
+                boolean bool=false;
                 try {
-                    if (!visitedAt(p)) {
-                        int alt = distAt(act) + 1;
-                        if (alt < distAt(p)) {
-                            setDist(p, alt);
-                            System.out.println("setDist("+p+","+alt+")");
-                        }
+                        bool=!visitedAt(p);
+                }catch (Exception e){
+                }
+                if (bool) {
+                    int alt = distAt(act) + 1;
+                    if (alt < distAt(p)) {
+                        setDist(p, alt);
+                        System.out.println("setDist("+p+","+alt+")");
                     }
-                }catch (Exception e){}
+                }
             }
+        }
+        for(int i = 0; i<SIZE; i++)
+        {
+            for(int j = 0; j<SIZE; j++)
+            {
+                System.out.print(map[i][j][1]);
+            }
+            System.out.println();
         }
     }
 }

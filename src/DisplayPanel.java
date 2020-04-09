@@ -45,6 +45,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
 
     @Override
     public void paint(Graphics g) {
+
         g.setColor(beautyred);
         for (Person kevin: simulation.room.persons
              ) {
@@ -59,6 +60,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
         try {
             g.fillOval((int) (simulation.room.exit.position[0].x * scaleX()), (int) (simulation.room.exit.position[0].y * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
         }catch (Exception e){ }
+
     }
 
     public void mousePressed(MouseEvent e) {
