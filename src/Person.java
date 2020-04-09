@@ -4,7 +4,7 @@ public class Person extends Entity{
 
     /* ================================================ */
     /* CONSTRUCTOR */
-    public Person(Point center, Point target, Room room, int signature) {
+    public Person(Point center, Room room, int signature) {
 
         /*I initialize my attributes*/
         super(room,signature);

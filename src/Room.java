@@ -9,14 +9,16 @@ public class Room {
     ArrayList<Obstacle> obstacles;
     int signaturePerson;
     int signatureObstacle;
-    public Exit exit ;
+    //public Exit exit ;
+    ArrayList<Exit> exits;
     final int INFINITY=1000000;
 
     boolean panic=false;
 
 
     public Room(int size) {
-        exit=new Exit();//default exit
+        exits=new ArrayList<Exit>();
+
         signaturePerson=1;
         signatureObstacle=2;
         persons=new ArrayList<Person>();
@@ -33,7 +35,7 @@ public class Room {
     }
 
     public void addPerson(Point center){
-        persons.add(new Person(center,exit.position[0],this,signaturePerson));
+        persons.add(new Person(center,this,signaturePerson));
         signaturePerson+=2;
     }
 
@@ -43,7 +45,7 @@ public class Room {
     }
 
     public void addExit(Point e){
-        if(exit.position[0]!=null){
+        /*if(exit.position[0]!=null){
             exit.removePrint();
             for (int i = 0; i <SIZE; i++) {
                 for (int j = 0; j <SIZE ; j++) {
@@ -51,8 +53,11 @@ public class Room {
                 }
             }
         }
-        this.exit = new Exit (e, this);
-        dijkstra();
+        */
+
+        Exit ex= new Exit (e, this);
+        this.exits.add(ex);
+        dijkstra(ex);
     }
 
     public void nextStep(){
@@ -61,7 +66,7 @@ public class Room {
         }
     }
 
-    public void dijkstra(){
+    public void dijkstra(Exit exit){
         for (Obstacle obstacle: obstacles) {
             for (Point point:obstacle.position) {
                 markVisited(point);

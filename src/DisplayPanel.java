@@ -28,7 +28,7 @@ public class DisplayPanel extends JPanel implements MouseListener {
         g.setColor(beautyred);
         for (Person kevin: simulation.room.persons
              ) {
-            g.fillOval((int)(kevin.position[0].x*scaleX()),(int)(kevin.position[0].y*scaleY()),(int)(5*scaleX()),(int)(5*scaleY()));
+            g.fillOval((int)(kevin.position[0].x*scaleX()-2.5*scaleX()),(int)(kevin.position[0].y*scaleY()-2.5*scaleY()),(int)(5*scaleX()),(int)(5*scaleY()));
         }
         g.setColor(beautyblue);
         for (Obstacle bob:simulation.room.obstacles
@@ -36,9 +36,12 @@ public class DisplayPanel extends JPanel implements MouseListener {
             g.fillRect((int)((bob.vertices[0].x)*scaleX()),(int)((bob.vertices[0].y)*scaleY()),(int)((bob.length())*scaleX()),(int)((bob.height())*scaleY()));
         }
         g.setColor(beautygreen);
-        try {
-            g.fillOval((int) (simulation.room.exit.position[0].x * scaleX()), (int) (simulation.room.exit.position[0].y * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
-        }catch (Exception e){ }
+        for(Exit exit : simulation.room.exits) {
+            try {
+                g.fillOval((int) (exit.position[0].x * scaleX() - 2.5 * scaleX()), (int) (exit.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
+            } catch (Exception e) {
+            }
+        }
 
     }
 
