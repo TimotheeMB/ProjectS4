@@ -25,7 +25,7 @@ public class Simulation implements ActionListener {
         timer.start();
     }
 
-    public void stop(){
+    public void pause(){
         timer.stop();
     }
 
