@@ -85,4 +85,15 @@ public class Room {
     public void setDist(Point p,int dist){
         map[p.x][p.y][1]=dist;
     }
+    public boolean emptyAround(Point p) {
+        for (Point d: p.around(true)) {
+            try{
+                if(signAt(d)!=0){
+                    return false;
+                }
+            }catch (Exception e){}
+
+        }
+        return true;
+    }
 }

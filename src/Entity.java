@@ -8,8 +8,6 @@ public abstract class Entity {
         this.signature = signature;
     }
 
-    public Entity() {} //default
-
     public void addPrint(){
         for (Point point:position) {
             room.setSign(point,signature);

@@ -24,7 +24,9 @@ We still have problems with this method since we can't put obstacles on the boun
 
 ```mermaid
 classDiagram
-Simulation --* GUI
+
+GUI *-- DisplayPanel
+GUI *-- Simulation
 GUI: +Simulation simulation
 GUI: +int DisplayInterval
 GUI: +Timer timer
@@ -36,7 +38,6 @@ GUI: +JButton start
 GUI: +JButton exit
 GUI: +JButton stop
 GUI: +void actionPerformed(ActionEvent e)
-GUI *-- DisplayPanel
 DisplayPanel: +Simulation simulation
 DisplayPanel: +boolean waitAddPerson
 DisplayPanel: +boolean waitAddExit
@@ -57,47 +58,36 @@ Room: +int SIZE
 Room: +int [][] map
 Room: +ArrayList<Person> persons
 Room: +ArrayList<Obstacle> obstacles
+Room: +ArrayList<Exit> exits
 Room: +int signaturePerson
 Room: +int signatureObstacle
-Room: +Exit exit
 Room: +void addPerson(Point center)
 Room: +void addObstacle(Point a, Point b)
 Room: +void addExit(Point e)
 Room: +void nextStep()
 Room: +void computePathways()
+Entity: +Point[] position
 Entity: +int signature
 Entity: +Room room
 Entity: +void addPrint()
 Entity: +void removePrint()
-Entity: +Point[] around(Point p)
 Entity <|-- Exit
-Exit: +Point exitLocation
 Entity <|-- Person
-Person: +Point[] pos
-Person: +Point[] initPos
-Person: +Point finalTarget
-Person: +ArrayList<Point> targets
-Person: +targetIndex
-Person: +void move()
-Person: +void computeMyPathway()
-Person: +Point findCloserPoint(Point[],Point,boolean,boolean)
-Person: +Point currentTarget()
-Person: +emptyAround(Point p)
+Person: +Point[] initPosition
+Person: +void nextStep()
 Entity <|-- Obstacle
-Obstacle: +Point pointA
-Obstacle: +Point pointC
+Obstacle: +Point[] vertices
 Obstacle: +int length()
 Obstacle: +int height()
-Obstacle: +Point getPointA()
-Obstacle: +Point getPointB()
-Obstacle: +Point getPointC()
-Obstacle: +Point getPointD()
-Obstacle: +Point[] allPoints()
 
-Obstacle *-- Point
-Person *-- Point
-Exit *-- Point
+Point --* Entity
 Point<|--ValuedPoint
+
+Point: +int x
+Point: +int y
+Point: +Point[] around(boolean large)
+
+ValuedPoint: +int value
 ```
 
 ## Possible improvements, bugs ...

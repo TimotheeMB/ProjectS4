@@ -7,22 +7,6 @@ public class Point {
         this.y = y;
     }
 
-    public double distance(Point B){
-        return Math.sqrt((B.x-this.x)*(B.x-this.x)+(B.y-this.y)*(B.y-this.y));
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
-    }
-
-    public boolean equals(Point a) {
-        return (this.x==a.x && this.y==a.y);
-    }
-
     public Point[] around(boolean large){
         if(large) {
             return new Point[]{
@@ -60,5 +44,12 @@ public class Point {
                     new Point(this.x + 1, this.y + 1),
             };
         }
+    }
+
+    public String toString() {
+        return "{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
