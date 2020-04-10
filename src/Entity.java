@@ -1,4 +1,6 @@
-public abstract class Entity {
+import java.io.Serializable;
+
+public abstract class Entity implements Serializable {
     public Room room;
     public int signature;
     public Point[] position;

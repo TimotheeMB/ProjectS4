@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 public class GUI extends JFrame implements ActionListener, ItemListener {
 
@@ -214,7 +216,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         //If we press stop...
-        if (e.getSource() == stop) {
+        else if (e.getSource() == stop) {
             timer.stop();
             timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
             start.setVisible(true);
@@ -226,7 +228,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         //If we press add person...
-        if (e.getSource() == person) {
+        else if (e.getSource() == person) {
             displayPan.waitAddPerson = !displayPan.waitAddPerson;
             displayPan.waitAddObstacle = false;
             displayPan.waitAddExit = false;
@@ -235,7 +237,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         //If we press add obstacle...
-        if (e.getSource() == obstacle) {
+        else if (e.getSource() == obstacle) {
             displayPan.waitAddObstacle = !displayPan.waitAddObstacle;
             displayPan.waitAddPerson = false;
             displayPan.waitAddExit = false;
@@ -244,7 +246,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         //If we press add exit...
-        if (e.getSource() == exit) {
+        else if (e.getSource() == exit) {
             displayPan.waitAddExit = !displayPan.waitAddExit;
             displayPan.waitAddObstacle = false;
             displayPan.waitAddPerson = false;
@@ -252,8 +254,19 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             //JOptionPane.showMessageDialog(this, "You cannot add an exit for the moment... Our develop do their best ;)");
         }
 
+        else if (e.getSource() == save){
+            try {
+                FileOutputStream fs = new FileOutputStream("src/Rooms/UserDefined.ser");
+                ObjectOutputStream os = new ObjectOutputStream(fs);
+                os.writeObject(simulation.room); // 3
+                os.close();
+            } catch (Exception et) {
+                et.printStackTrace();
+            }
+        }
+
         //Each "DisplayInterval" ms...
-        if (e.getSource() == timer) {
+        else if (e.getSource() == timer) {
 
             //...we display the time
             timing.setText("Time = " + timeInMin + " : " + timeInSec);

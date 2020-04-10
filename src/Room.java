@@ -54,21 +54,19 @@ public class Room implements Serializable {
         while( !priority.isEmpty() ){
             Point source = priority.poll();
             for (int i = 0; i <source.around(false).length ; i++) {
-                try {
-                    Point p = source.around(false)[i];
-                    if(signAt(p)!=2) {
-                        int new_cost = distAt(source);
-                        if (i % 2 == 0) {
-                            new_cost += 10;
-                        } else {
-                            new_cost += 15;
-                        }
-                        if (new_cost < distAt(p)) {
-                            setDist(p, new_cost);
-                            priority.offer(new ValuedPoint(p, new_cost));
-                        }
+                Point p = source.around(false)[i];
+                if(inBounds(p)&&signAt(p)!=2) {
+                    int new_cost = distAt(source);
+                    if (i % 2 == 0) {
+                        new_cost += 10;
+                    } else {
+                        new_cost += 15;
                     }
-                } catch (Exception e) {}
+                    if (new_cost < distAt(p)) {
+                        setDist(p, new_cost);
+                        priority.offer(new ValuedPoint(p, new_cost));
+                    }
+                }
             }
         }
     }
@@ -88,13 +86,14 @@ public class Room implements Serializable {
     }
     public boolean emptyAround(Point p) {
         for (Point d: p.around(true)) {
-            try{
-                if(signAt(d)!=0){
-                    return false;
-                }
-            }catch (Exception e){}
-
+            if(!inBounds(d)||signAt(d)!=0) {
+                return false;
+            }
         }
         return true;
+    }
+
+    public boolean inBounds(Point p){
+        return (p.x>=0 && p.x<SIZE && p.y>=0 && p.y<SIZE);
     }
 }
