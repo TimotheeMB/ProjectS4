@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener, ItemListener {
 
     /* === ATTRIBUTES === */
 
@@ -15,7 +15,8 @@ public class GUI extends JFrame implements ActionListener {
 
     //Display
     public JLabel timing;// Display of the time of the simulation
-    public DisplayPanel displayPan;//Display of the simulation
+    public DisplayPanel displayPan;// Display of the simulation
+    public TextComponent instructions;// Display of the explanations
 
     //Buttons
     public JButton person;
@@ -23,8 +24,17 @@ public class GUI extends JFrame implements ActionListener {
     public JButton start;
     public JButton exit;
     public JButton stop;
+    public JButton save;
+
+    public JCheckBox panic;
+    public JCheckBox equi;
+    public JCheckBox color;
+
+    //Panel
     public JPanel choicesPan;
-    public TextComponent instructions;
+    public JPanel total;
+
+
 
     /* === CONSTRUCTOR === */
     public GUI(Simulation simulation, int DisplayInterval) {
@@ -44,7 +54,7 @@ public class GUI extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
 
         //The panel that contains everything
-        JPanel total = new JPanel();
+        total = new JPanel();
         this.add(total);
         //Create and initiate the layout manager for the total panel
         GridBagLayout totalLayout = new GridBagLayout();
@@ -106,15 +116,45 @@ public class GUI extends JFrame implements ActionListener {
         gbc.gridy = 2;
         choicesPan.add(exit,gbc);
 
+        gbc.insets = new Insets(0, 5, 0, 5);
+        panic = new JCheckBox("Panic mode");
+        panic.setSelected(false);
+        panic.setBackground(beautygreenblue);
+        panic.addItemListener(this);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weighty = 0.01;
+        choicesPan.add(panic,gbc);
+
+        equi = new JCheckBox("Display Equipotentials");
+        equi.setSelected(false);
+        equi.setBackground(beautygreenblue);
+        equi.addItemListener(this);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weighty = 0.01;
+        choicesPan.add(equi,gbc);
+
+        color = new JCheckBox("Display distance to the exit");
+        color.setSelected(false);
+        color.setBackground(beautygreenblue);
+        color.addItemListener(this);
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.weighty = 0.01;
+        choicesPan.add(color,gbc);
+
         //How to play
+        gbc.insets = new Insets(5, 5, 5, 5);
         Font e = new Font( "Cambria", Font.PLAIN, 18);
         instructions = new TextArea (10, 10);
         instructions.setFont(e);
         instructions.setEditable(false);
         instructions.setBackground(beautygreenblue);
         gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.weighty = 0.5;
+        gbc.gridy = 6;
+        gbc.weightx = 1;
+        gbc.weighty = 0.25;
         choicesPan.add(instructions, gbc);
 
         //Display simulation time
@@ -123,17 +163,24 @@ public class GUI extends JFrame implements ActionListener {
         timing.setLayout(null);
         timing.setFont(f);
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 7;
         gbc.weighty = 0.1;
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
+
+        save = new JButton("Save the room");
+        save.setLayout(null);
+        save.addActionListener(this);
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        choicesPan.add(save,gbc);
 
         //Start and stop buttons for the simulation
         start = new JButton("Start simulation!!!");
         start.setLayout(null);
         start.addActionListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 9;
         choicesPan.add(start,gbc);
 
         stop = new JButton("Stop simulation");
@@ -156,8 +203,6 @@ public class GUI extends JFrame implements ActionListener {
         //If we press start...
         if (e.getSource() == start) {
             simulation.initialize();
-            displayPan.drawEqui=true;
-            displayPan.drawColor=true;
             simulation.start();//...we start the simulation
             person.setVisible(false);
             obstacle.setVisible(false);
@@ -172,6 +217,11 @@ public class GUI extends JFrame implements ActionListener {
             timer.stop();
             timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
             start.setVisible(true);
+            person.setVisible(true);
+            obstacle.setVisible(true);
+            exit.setVisible(true);
+            stop.setVisible(false);
+
         }
 
         //If we press add person...
@@ -197,7 +247,7 @@ public class GUI extends JFrame implements ActionListener {
             displayPan.waitAddExit = !displayPan.waitAddExit;
             displayPan.waitAddObstacle = false;
             displayPan.waitAddPerson = false;
-            instructions.setText("As for adding a person\njust click somewhere on the room\nto add the exit. Careful there is\nonly 1 exit possible!");
+            instructions.setText("As for adding a person\njust click somewhere on the room\nto add the exit.");
             //JOptionPane.showMessageDialog(this, "You cannot add an exit for the moment... Our develop do their best ;)");
         }
 
@@ -226,6 +276,16 @@ public class GUI extends JFrame implements ActionListener {
 
             //...and we refresh the display
             repaint();
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getSource() == color) {
+            displayPan.drawColor=true;
+        }
+        if (e.getSource() == equi){
+            displayPan.drawEqui=true;
         }
     }
 }
