@@ -282,10 +282,13 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == color) {
-            displayPan.drawColor=true;
+            displayPan.drawColor=!displayPan.drawColor;
         }
         if (e.getSource() == equi){
-            displayPan.drawEqui=true;
+            displayPan.drawEqui=!displayPan.drawEqui;
+        }
+        if (e.getSource() == panic){
+            simulation.room.panic=!simulation.room.panic;
         }
     }
 }

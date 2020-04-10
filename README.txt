@@ -1,12 +1,3 @@
-DisplayPanel
-Entity
-Exit
-GUI
-Main
-Obstacle
-Person
-Point
-Room
-Simulation
-ValuedPoint
-ValuedPointComparator
+1. scr: The source code
+2. Report.md: The report
+3. readme.txt: the current file
