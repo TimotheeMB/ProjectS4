@@ -48,11 +48,11 @@ public class Room {
     }
 
     public void dijkstra(Exit exit){
-        PriorityQueue<WeightedVertex> priority = new PriorityQueue<WeightedVertex>( new WeightedVertexComparator() );
-        priority.add( new WeightedVertex(exit.position[0], 0.0) );
+        PriorityQueue<ValuedPoint> priority = new PriorityQueue<ValuedPoint>( new ValuedPointComparator() );
+        priority.add( new ValuedPoint(exit.position[0], 0) );
         setDist(exit.position[0],0);
         while( !priority.isEmpty() ){
-            Point source = priority.poll().source;
+            Point source = priority.poll();
             for (int i = 0; i <source.around(false).length ; i++) {
                 try {
                     Point p = source.around(false)[i];
@@ -65,7 +65,7 @@ public class Room {
                         }
                         if (new_cost < distAt(p)) {
                             setDist(p, new_cost);
-                            priority.offer(new WeightedVertex(p, new_cost));
+                            priority.offer(new ValuedPoint(p, new_cost));
                         }
                     }
                 } catch (Exception e) {}

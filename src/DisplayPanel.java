@@ -24,7 +24,6 @@ public class DisplayPanel extends JPanel implements MouseListener {
 
     @Override
     public void paint(Graphics g) {
-
         g.setColor(beautyred);
         for (Person kevin: simulation.room.persons
              ) {
