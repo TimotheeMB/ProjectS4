@@ -29,15 +29,15 @@ public class DisplayPanel extends JPanel implements MouseListener {
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
         if(drawColor){
-            for (int x = 0; x <simulation.room.SIZE ; x++) {
-                for (int y = 0; y <simulation.room.SIZE ; y++) {
+            for (int x = 0; x <simulation.room.SIZE ; x+=5) {
+                for (int y = 0; y <simulation.room.SIZE ; y+=5) {
                     int sign =simulation.room.distAt(new Point(x,y));
                     try {
                         g.setColor(new Color((int)(sign*0.02), (int)(255-sign*0.02), 0));
                     }catch (Exception e){
                         g.setColor(new Color(255, 0, 0));
                     }
-                    g.fillRect((int) (x * scaleX()), (int) (y * scaleY()), (int) (scaleX() + 1), (int) (scaleY() + 1));
+                    g.fillRect((int) (x * scaleX()), (int) (y * scaleY()), (int) (scaleX()*5+1), (int) (scaleY()*5+1));
                 }
             }
         }
