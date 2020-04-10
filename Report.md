@@ -18,7 +18,14 @@ The principle is the following : for each person created, before they make any m
 Then 2 options follow : if the path is free, the person goes to the exit. If not, we add as an intermediate target the closest vertex of the obstacle. Then, we repeat the same method. When the whole path is computed, the point follows it.
 We still have problems with this method since we can't put obstacles on the boundaries of the simulation area.
 
+==> Dijkstra
+
 ## Bibliographaaaïïïïïï
+
+Dijkstra:
+
+- idea of *Diana Nurbakova* + [Wikipedia](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
+- Lecture of *Jilles S. Dibangoye* 
 
 ## UML diagram
 
