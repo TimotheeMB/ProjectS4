@@ -155,6 +155,9 @@ public class GUI extends JFrame implements ActionListener {
 
         //If we press start...
         if (e.getSource() == start) {
+            simulation.initialize();
+            displayPan.drawEqui=true;
+            displayPan.drawColor=false;
             simulation.start();//...we start the simulation
             person.setVisible(false);
             obstacle.setVisible(false);

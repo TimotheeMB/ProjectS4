@@ -9,6 +9,8 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public boolean waitAddPerson;
     public boolean waitAddExit;
     public boolean waitAddObstacle;
+    public boolean drawEqui;
+    public boolean drawColor;
     public Point beginningObstacle;
     Color beautyred = new Color (250,100,70);
     Color beautyblue = new Color (70,50,140);
@@ -24,6 +26,34 @@ public class DisplayPanel extends JPanel implements MouseListener {
 
     @Override
     public void paint(Graphics g) {
+        g.setColor(Color.white);
+        g.fillRect(0,0,this.getWidth(),this.getHeight());
+        if(drawColor){
+            for (int x = 0; x <simulation.room.SIZE ; x++) {
+                for (int y = 0; y <simulation.room.SIZE ; y++) {
+                    int sign =simulation.room.distAt(new Point(x,y));
+                    try {
+                        g.setColor(new Color((int)(sign*0.02), (int)(255-sign*0.02), 0));
+                    }catch (Exception e){
+                        g.setColor(new Color(255, 0, 0));
+                    }
+                    g.fillRect((int) (x * scaleX()), (int) (y * scaleY()), (int) (scaleX() + 1), (int) (scaleY() + 1));
+                }
+            }
+        }
+        if(drawEqui){
+            for (int x = 0; x <simulation.room.SIZE ; x++) {
+                for (int y = 0; y <simulation.room.SIZE ; y++) {
+                    int sign =simulation.room.distAt(new Point(x,y));
+                    if(sign%200==0){
+                        try {
+                            g.setColor(Color.black);
+                            g.fillRect((int) (x * scaleX()), (int) (y * scaleY()), (int) (scaleX() + 1), (int) (scaleY() + 1));
+                        }catch (Exception e){}
+                    }
+                }
+            }
+        }
         g.setColor(beautyred);
         for (Person kevin: simulation.room.persons
              ) {

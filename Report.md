@@ -97,6 +97,7 @@ Obstacle: +Point[] allPoints()
 Obstacle *-- Point
 Person *-- Point
 Exit *-- Point
+Point<|--ValuedPoint
 ```
 
 ## Possible improvements, bugs ...

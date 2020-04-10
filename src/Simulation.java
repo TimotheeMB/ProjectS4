@@ -15,8 +15,13 @@ public class Simulation implements ActionListener {
         this.time=0;
     }
 
+    public void initialize(){
+        for (Exit exit:room.exits) {
+            room.dijkstra(exit);
+        }
+    }
+
     public void start(){
-        //room.computePathways();
         timer.start();
     }
 

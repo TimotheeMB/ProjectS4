@@ -20,7 +20,6 @@ public class Person extends Entity{
     /* METHODS */
 
     public void nextStep(){
-        System.out.println("next step");
         removePrint();//I disappear from my last position
 
         if(room.panic){
@@ -33,7 +32,6 @@ public class Person extends Entity{
             int index=0;
             for (int i = 0; i <position.length ; i++) {
                 if (emptyAround(position[i])) {
-                    System.out.println(room.distAt(position[i]));
                     if (room.distAt(position[i]) < minDist) {
                         minDist = room.distAt(position[i]);
                         index = i;
@@ -42,7 +40,6 @@ public class Person extends Entity{
             }
             position= position[index].around(true);
         }
-        System.out.println("new pos"+position[0]);
         addPrint();//I appear in my new position
     }
 

@@ -36,9 +36,8 @@ public class Room {
     }
 
     public void addExit(Point e){
-        Exit ex= new Exit (e, this);
-        this.exits.add(ex);
-        dijkstra(ex);
+        Exit exit = new Exit (e, this);
+        this.exits.add(exit);
     }
 
     public void nextStep(){
@@ -61,7 +60,7 @@ public class Room {
                         if (i % 2 == 0) {
                             new_cost += 10;
                         } else {
-                            new_cost += 14;
+                            new_cost += 15;
                         }
                         if (new_cost < distAt(p)) {
                             setDist(p, new_cost);
