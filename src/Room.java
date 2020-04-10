@@ -1,14 +1,15 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 
-public class Room {
+public class Room implements Serializable {
     final int SIZE;
     public int [][][] map;
     public ArrayList<Person> persons;
     ArrayList<Obstacle> obstacles;
     ArrayList<Exit> exits;
-    final int INFINITY=1000000;
+    final int INFINITY=Integer.MAX_VALUE;
 
     boolean panic=false;
 
