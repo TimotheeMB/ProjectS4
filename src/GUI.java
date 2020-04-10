@@ -202,14 +202,15 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         //If we press start...
         if (e.getSource() == start) {
+            instructions.setText("Initialization");
             simulation.initialize();
+            instructions.setText("The simulation is running");
             simulation.start();//...we start the simulation
             person.setVisible(false);
             obstacle.setVisible(false);
             exit.setVisible(false);
             start.setVisible(false);
             stop.setVisible(true);
-
         }
 
         //If we press stop...
@@ -282,10 +283,18 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == color) {
-            displayPan.drawColor=true;
+            if (e.getStateChange() ==ItemEvent.SELECTED){
+                displayPan.drawColor=true;
+            } else {
+                displayPan.drawColor=false;
+            }
         }
         if (e.getSource() == equi){
-            displayPan.drawEqui=true;
+            if (e.getStateChange()== ItemEvent.SELECTED){
+                displayPan.drawEqui=true;
+            } else {
+                displayPan.drawEqui=false;
+            }
         }
     }
 }
