@@ -16,15 +16,16 @@ We knew we would have difficulties in making the people go to a special point av
 ## Principle of the algorithm
 The principle is the following : for each person created, before they make any move, the algorithm computes the shortest path to the chosen exit.
 Then 2 options follow : if the path is free, the person goes to the exit. If not, we add as an intermediate target the closest vertex of the obstacle. Then, we repeat the same method. When the whole path is computed, the point follows it.
-We still have problems with this method since we can't put obstacles on the boundaries of the simulation area.
+We still have problems with this method since for special configurations, people get stuck behind obstacles. It might happen when a person is at the same distance from several vertices of an obstacle or when the obstacle touches the boundary of the room.
 
-==> Dijkstra
+All the attempts to solve these problems failed and as the code were being more and more complicated we chose to change the method and use the one proposed by our teacher. It is called Dijkstra's algorithm. It allows to compute the shortest path between two points. This is exactly what we need.
+It works as follow : we initialize the exit to be at a nil distance to the exit. Then we take all the points around the exit and give the value 1 to the closest to the person, the other points around the exit have the value infinity. We do the same around this new point of value 1 and give the value 2 to the closest point from the person. We give infinite values to obstacles. At the end, the person follows the path (or recompute it not to meet people).  
+There is no more problems of persons being not being able to reach an exit.
+
 
 ## Bibliographaaaïïïïïï
-
-Dijkstra:
-
-- idea of *Diana Nurbakova* + [Wikipedia](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
+Informations on Dijkstra:
+- idea of *Diana Nurbakova* + [Wikipedia] (https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
 - Lecture of *Jilles S. Dibangoye* 
 
 ## UML diagram
@@ -98,22 +99,42 @@ ValuedPoint: +int value
 ```
 
 ## Possible improvements, bugs ...
-We were not able to code the different behaviour a set of persons can have. We obviously could have make them completely stupid and code random trajectory for each point but this is not very interesting to observe.
+- think about the dimensions of the room and the speed of the people so that they are coherent
+- break button
+- refresh button
+- 
 
 ## Diary
 
-**Before week 0 :** We have got the idea of a crowd simulator by looking at the emergency stairs of the "beurk". We have done some research and chosen to use git with a github repository to work together more easily. We have written a first idea of the wanted [specifications](#Specifications).
-We found that coding a crowd simulator is very interesting. We had the idea while looking at the exit doors in the INSA buildings.
+ We have got the idea of a crowd simulator by looking at the emergency stairs of the canteen. We wanted to code a tool that would compute things that we can. In this case the trajectory of a high number of people and the time
+ We have done some researches and chosen to use git with a github repository to work together more easily. We have written a first idea of the wanted [specifications](#Specifications).
 
-**Week 0 :** We start the work division:
 
+**At the beggining** 
 - Claire is in charge of the GUI.
-- Violaine thinks about solutions for avoiding obstacles.
-- Timothée starts to write the "Person" class.
+- Violaine thinks about the principle to code the motion of people and the special cases to solve
+- Timothée starts to write the "Person" class
 
-**Week 1:** ...
+**Through the weeks** 
+- Claire continued the GUI class
+- Timothée coded the displacement of people and the parameters of the room
+- Violaine was in charge of the obstacle class and wrote the report 
 
-...
+**First steps of the programm**
+1. create several persons which move toward the exit as well as a simple user interface
+2. create obstacles and buttons to choose what to add : a person or an obstacle
+3. test different algorithms to make the people go toward the exit
+4. add a timer
+5. add a button to choose where to put the exit and modify the code to make the persons go toward it as quick as possible
+6. change the complicated algorithm to the Dijkstra one
+
+**More advanced steps**
+1. add a refresh button
+2. add a panic mode that makes the person take random paths
+3. correct the bugs linked to the people that leave the room due to the panic mode
+4. add the equipotential lines and the color to traduce the distance to the exit
+5. compute the speed of the persons so that it is coherent with the size of the room
+6. add a break button
 
 ## Implication of the members
 
