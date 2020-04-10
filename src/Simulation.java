@@ -31,18 +31,23 @@ public class Simulation implements ActionListener {
 
     public void restart(){
         for (Person Brian:room.persons) {
+            Brian.removePrint();
             Brian.position=Brian.initPosition;
         }
     }
 
     public void speedUp(){
+        timer.stop();
         stepDuration= (int) (stepDuration*0.5);
         timer=new Timer(stepDuration,this);
+        timer.start();
     }
 
     public void slowDown(){
+        timer.stop();
         stepDuration= (int) (stepDuration*1.5);
         timer=new Timer(stepDuration,this);
+        timer.start();
     }
 
     @Override

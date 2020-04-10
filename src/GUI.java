@@ -25,21 +25,24 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
     public JButton obstacle;
     public JButton start;
     public JButton exit;
-    public JButton stop;
+    public JButton pause;
     public JButton save;
+    public JButton restart;
+    public JButton speed;
+    public JButton slow;
 
     public JCheckBox panic;
     public JCheckBox equi;
     public JCheckBox color;
 
+    //public JComboBox roomChoice;
+
     //Panel
     public JPanel choicesPan;
     public JPanel total;
 
-
-
     /* === CONSTRUCTOR === */
-    public GUI(Simulation simulation, int DisplayInterval) {
+    public GUI(Simulation simulation, int DisplayInterval){
 
         //The simulation to manage
         this.simulation = simulation;
@@ -92,14 +95,24 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.weightx = 1;
         gbc.weighty = 0.1;
+        gbc.gridwidth = 4;
 
         //Buttons to create the condition of the simulation
+        /*String [] chooseRoom = {"Your room", "A classroom", "The RI"};
+        roomChoice = new JComboBox(chooseRoom);
+        roomChoice.setLayout(null);
+        roomChoice.addActionListener(this);
+        roomChoice.setEditable(false);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        choicesPan.add(roomChoice, gbc);*/
+
         person = new JButton("Add a person");
         person.setBackground(Color.white);
         person.setLayout(null);
         person.addActionListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         choicesPan.add(person, gbc);
 
         obstacle = new JButton("Add an obstacle");
@@ -107,7 +120,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         choicesPan.add(obstacle,gbc);
 
         exit = new JButton("Add exit");
@@ -115,7 +128,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         exit.setLayout(null);
         exit.addActionListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         choicesPan.add(exit,gbc);
 
         gbc.insets = new Insets(0, 5, 0, 5);
@@ -124,7 +137,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         panic.setBackground(beautygreenblue);
         panic.addItemListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.weighty = 0.01;
         choicesPan.add(panic,gbc);
 
@@ -133,8 +146,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         equi.setBackground(beautygreenblue);
         equi.addItemListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.weighty = 0.01;
+        gbc.gridy = 5;
         choicesPan.add(equi,gbc);
 
         color = new JCheckBox("Display distance to the exit");
@@ -142,8 +154,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         color.setBackground(beautygreenblue);
         color.addItemListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.weighty = 0.01;
+        gbc.gridy = 6;
         choicesPan.add(color,gbc);
 
         //How to play
@@ -154,9 +165,9 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         instructions.setEditable(false);
         instructions.setBackground(beautygreenblue);
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.weightx = 1;
-        gbc.weighty = 0.25;
+        gbc.weighty = 0.15;
         choicesPan.add(instructions, gbc);
 
         //Display simulation time
@@ -165,7 +176,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         timing.setLayout(null);
         timing.setFont(f);
         gbc.gridx = 0;
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         gbc.weighty = 0.1;
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
@@ -174,24 +185,48 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         save.setLayout(null);
         save.addActionListener(this);
         gbc.gridx = 0;
-        gbc.gridy = 8;
+        gbc.gridy = 9;
         choicesPan.add(save,gbc);
 
-        //Start and stop buttons for the simulation
-        start = new JButton("Start simulation!!!");
+        //Start, pause, speed up, slow down, restart buttons for the simulation
+
+        restart = new JButton("(<)");
+        restart.setLayout(null);
+        restart.addActionListener(this);
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.2;
+        choicesPan.add(restart,gbc);
+
+        start = new JButton("|>");
         start.setLayout(null);
         start.addActionListener(this);
-        gbc.gridx = 0;
-        gbc.gridy = 9;
+        gbc.gridx = 1;
+        gbc.gridy = 10;
         choicesPan.add(start,gbc);
 
-        stop = new JButton("Stop simulation");
-        stop.setLayout(null);
-        stop.addActionListener(this);
-        stop.setVisible(false);
-        gbc.gridx = 0;
-        gbc.gridy = GridBagConstraints.RELATIVE;
-        choicesPan.add(stop,gbc);
+        slow = new JButton("~~");
+        slow.setLayout(null);
+        slow.addActionListener(this);
+        gbc.gridx = 2;
+        gbc.gridy = 10;
+        choicesPan.add(slow,gbc);
+
+        speed = new JButton(">>");
+        speed.setLayout(null);
+        speed.addActionListener(this);
+        gbc.gridx = 3;
+        gbc.gridy = 10;
+        choicesPan.add(speed,gbc);
+
+        pause = new JButton("||");
+        pause.setLayout(null);
+        pause.addActionListener(this);
+        pause.setVisible(false);
+        gbc.gridx = 1;
+        gbc.gridy = 10;
+        choicesPan.add(pause,gbc);
 
         this.setVisible(true);
     }
@@ -208,23 +243,29 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             simulation.initialize();
             instructions.setText("The simulation is running");
             simulation.start();//...we start the simulation
-            person.setVisible(false);
-            obstacle.setVisible(false);
-            exit.setVisible(false);
             start.setVisible(false);
-            stop.setVisible(true);
+            pause.setVisible(true);
         }
 
-        //If we press stop...
-        else if (e.getSource() == stop) {
-            timer.stop();
+        //If we press pause...
+        else if (e.getSource() == pause) {
+            simulation.pause();
             timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
             start.setVisible(true);
-            person.setVisible(true);
-            obstacle.setVisible(true);
-            exit.setVisible(true);
-            stop.setVisible(false);
+            pause.setVisible(false);
 
+        }
+
+        else if (e.getSource() == slow) {
+            simulation.slowDown();
+        }
+
+        else if (e.getSource() == speed) {
+            simulation.speedUp();
+        }
+
+        else if (e.getSource() == restart) {
+            simulation.restart();
         }
 
         //If we press add person...
