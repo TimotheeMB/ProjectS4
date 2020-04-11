@@ -26,7 +26,6 @@ public class Obstacle extends Entity {
                 index++;
             }
         }
-
         addPrint();
     }
 

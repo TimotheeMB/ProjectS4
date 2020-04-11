@@ -15,9 +15,9 @@ public class Room implements Serializable {
 
 
     public Room(int size) {
-        exits=new ArrayList<Exit>();
-        persons=new ArrayList<Person>();
-        obstacles=new ArrayList<Obstacle>();
+        exits= new ArrayList<>();
+        persons= new ArrayList<>();
+        obstacles= new ArrayList<>();
         SIZE = size;
         map = new int[SIZE][SIZE][2];
         for (int i = 0; i <SIZE; i++) {
@@ -48,7 +48,7 @@ public class Room implements Serializable {
     }
 
     public void dijkstra(Exit exit){
-        PriorityQueue<ValuedPoint> priority = new PriorityQueue<ValuedPoint>( new ValuedPointComparator() );
+        PriorityQueue<ValuedPoint> priority = new PriorityQueue<>(new ValuedPointComparator());
         priority.add( new ValuedPoint(exit.position[0], 0) );
         setDist(exit.position[0],0);
         while( !priority.isEmpty() ){
@@ -76,7 +76,9 @@ public class Room implements Serializable {
         return map[p.x][p.y][0];
     }
     public void setSign(Point p,int sign){
-        map[p.x][p.y][0]=sign;
+        if(inBounds(p)) {
+            map[p.x][p.y][0] = sign;
+        }
     }
     public int distAt(Point p){
         return map[p.x][p.y][1];
