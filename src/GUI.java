@@ -181,7 +181,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
 
-        save = new JButton("Save the room");
+        save = new JButton(new ImageIcon("src/Icons/save.png"));
         save.setLayout(null);
         save.addActionListener(this);
         gbc.gridx = 0;
@@ -190,7 +190,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         //Start, pause, speed up, slow down, restart buttons for the simulation
 
-        restart = new JButton("(<)");
+        restart = new JButton(new ImageIcon("src/Icons/refresh.png"));
         restart.setLayout(null);
         restart.addActionListener(this);
         gbc.gridx = 0;
@@ -199,28 +199,28 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.weightx = 0.2;
         choicesPan.add(restart,gbc);
 
-        start = new JButton("|>");
+        start = new JButton(new ImageIcon("src/Icons/play.png"));
         start.setLayout(null);
         start.addActionListener(this);
         gbc.gridx = 1;
         gbc.gridy = 10;
         choicesPan.add(start,gbc);
 
-        slow = new JButton("~~");
+        slow = new JButton(new ImageIcon("src/Icons/next.png"));
         slow.setLayout(null);
         slow.addActionListener(this);
         gbc.gridx = 2;
         gbc.gridy = 10;
         choicesPan.add(slow,gbc);
 
-        speed = new JButton(">>");
+        speed = new JButton(new ImageIcon("src/Icons/forward.png"));
         speed.setLayout(null);
         speed.addActionListener(this);
         gbc.gridx = 3;
         gbc.gridy = 10;
         choicesPan.add(speed,gbc);
 
-        pause = new JButton("||");
+        pause = new JButton(new ImageIcon("src/Icons/pause.png"));
         pause.setLayout(null);
         pause.addActionListener(this);
         pause.setVisible(false);

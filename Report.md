@@ -28,6 +28,9 @@ Informations on Dijkstra:
 - idea of *Diana Nurbakova* + [Wikipedia] (https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
 - Lecture of *Jilles S. Dibangoye* 
 
+Icons:
+- Icons made by <a href="https://www.flaticon.com/authors/xnimrodx" title="xnimrodx">xnimrodx</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com </a>
+
 ## UML diagram
 
 ```mermaid
