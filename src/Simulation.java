@@ -12,7 +12,7 @@ public class Simulation implements ActionListener {
     final int NORMAL_STEP_DURATION=72;//Corresponds to a speed of 10km/h
 
     public Simulation() {
-        this.room = new Room(500,250);
+        this.room = new Room(500,500);
         this.stepDuration = NORMAL_STEP_DURATION;
         this.timer = new Timer(stepDuration,this);
         this.time=0;
