@@ -4,7 +4,8 @@ import java.util.PriorityQueue;
 
 
 public class Room implements Serializable {
-    final int SIZE;
+    final int WIDTH;
+    final int HEIGHT;
     public int [][][] map;
     public ArrayList<Person> persons;
     ArrayList<Obstacle> obstacles;
@@ -14,14 +15,15 @@ public class Room implements Serializable {
     boolean panic=false;
 
 
-    public Room(int size) {
+    public Room(int width, int height) {
         exits= new ArrayList<>();
         persons= new ArrayList<>();
         obstacles= new ArrayList<>();
-        SIZE = size;
-        map = new int[SIZE][SIZE][2];
-        for (int i = 0; i <SIZE; i++) {
-            for (int j = 0; j <SIZE ; j++) {
+        WIDTH = width;
+        HEIGHT = height;
+        map = new int[WIDTH][HEIGHT][2];
+        for (int i = 0; i <WIDTH; i++) {
+            for (int j = 0; j <HEIGHT ; j++) {
                 map[i][j][0]=0;
                 map[i][j][1]=INFINITY;
             }
@@ -96,6 +98,6 @@ public class Room implements Serializable {
     }
 
     public boolean inBounds(Point p){
-        return (p.x>=0 && p.x<SIZE && p.y>=0 && p.y<SIZE);
+        return (p.x>=0 && p.x<WIDTH && p.y>=0 && p.y<HEIGHT);
     }
 }

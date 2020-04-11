@@ -29,8 +29,8 @@ public class DisplayPanel extends JPanel implements MouseListener {
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
         if(drawColor){
-            for (int x = 0; x <simulation.room.SIZE ; x+=5) {
-                for (int y = 0; y <simulation.room.SIZE ; y+=5) {
+            for (int x = 0; x <simulation.room.WIDTH ; x+=5) {
+                for (int y = 0; y <simulation.room.HEIGHT ; y+=5) {
                     int sign =simulation.room.distAt(new Point(x,y));
                     try {
                         g.setColor(new Color((int)(sign*0.02), (int)(255-sign*0.02), 255));
@@ -42,8 +42,8 @@ public class DisplayPanel extends JPanel implements MouseListener {
             }
         }
         if(drawEqui){
-            for (int x = 0; x <simulation.room.SIZE ; x++) {
-                for (int y = 0; y <simulation.room.SIZE ; y++) {
+            for (int x = 0; x <simulation.room.WIDTH ; x++) {
+                for (int y = 0; y <simulation.room.HEIGHT ; y++) {
                     int sign =simulation.room.distAt(new Point(x,y));
                     if(sign%200==0){
                         try {
@@ -97,11 +97,11 @@ public class DisplayPanel extends JPanel implements MouseListener {
 
 
     public double scaleX(){
-        return (getWidth()/(double)simulation.room.SIZE);
+        return (getWidth()/(double)simulation.room.WIDTH);
     }
 
     public double scaleY(){
-        return (getHeight()/(double)simulation.room.SIZE);
+        return (getHeight()/(double)simulation.room.HEIGHT);
     }
 
 
