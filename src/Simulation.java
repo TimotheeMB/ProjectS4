@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class Simulation implements ActionListener {
     Room room;
@@ -59,5 +61,19 @@ public class Simulation implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         time += NORMAL_STEP_DURATION; // On incrémente le temps
         room.nextStep();
+    }
+
+    public void setRoom(String fileName){
+        try {
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            room = (Room) ois.readObject(); // 4
+            ois.close();
+        } catch (Exception eu) {
+            eu.printStackTrace();
+        }
+    }
+    public void setRoom(Room room){
+        this.room=room;
     }
 }

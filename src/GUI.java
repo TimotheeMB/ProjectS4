@@ -125,7 +125,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 3;
         choicesPan.add(exit,gbc);
 
-        roomChoice = new JComboBox<>(new String[]{"+ New room", "Your saved room", "The beurk", "A classroom"});
+        roomChoice = new JComboBox<>(new String[]{"+ New room", "Your room", "The beurk", "A classroom"});
         roomChoice.setSelectedIndex(0);
         roomChoice.addItemListener(this);
         roomChoice.addActionListener(this);
@@ -184,7 +184,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
 
-        save = new JButton("Save your room",new ImageIcon("Icons/save24.png"));
+        save = new JButton("Save the current room as \"Your room\"",new ImageIcon("Icons/save24.png"));
         save.setLayout(null);
         save.addActionListener(this);
         gbc.gridx = 0;
@@ -274,24 +274,14 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         else if (e.getSource() == roomChoice){
-            if (roomChoice.getSelectedItem() == "Your saved room"){
-                try {
-                    FileInputStream fis = new FileInputStream("Rooms/UserDefined.ser");
-                    ObjectInputStream ois = new ObjectInputStream(fis);
-                    simulation.room= (Room) ois.readObject(); // 4
-                    ois.close();
-                } catch (Exception eu) {
-                    eu.printStackTrace();
-                }
+            if (roomChoice.getSelectedItem() == "Your room"){
+               simulation.setRoom("Rooms/UserDefined.ser");
             }else if(roomChoice.getSelectedItem() == "A classroom") {
-                try {
-                    FileInputStream fis = new FileInputStream("Rooms/Classroom.ser");
-                    ObjectInputStream ois = new ObjectInputStream(fis);
-                    simulation.room = (Room) ois.readObject(); // 4
-                    ois.close();
-                } catch (Exception eu) {
-                    eu.printStackTrace();
-                }
+                simulation.setRoom("Rooms/Classroom.ser");
+            }else if(roomChoice.getSelectedItem() == "+ New room"){
+                simulation.setRoom(new Room(500,500));
+            }else if(roomChoice.getSelectedItem() == "The beurk"){
+                simulation.setRoom("Rooms/Beurk.ser");
             }
         }
 
