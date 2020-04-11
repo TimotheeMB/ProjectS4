@@ -127,7 +127,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 3;
         choicesPan.add(exit,gbc);
 
-        roomChoice = new JComboBox<>(new String[]{"Your room", "The beurk", "A classeroom"});
+        roomChoice = new JComboBox<>(new String[]{"+ New room", "Your saved room", "The beurk", "A classeroom"});
         roomChoice.setSelectedIndex(0);
         roomChoice.addItemListener(this);
         roomChoice.addActionListener(this);
@@ -276,7 +276,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         else if (e.getSource() == roomChoice){
-            if (roomChoice.getSelectedItem() == "The beurk"){
+            if (roomChoice.getSelectedItem() == "Your saved room"){
                 try {
                     FileInputStream fis = new FileInputStream("Rooms/UserDefined.ser");
                     ObjectInputStream ois = new ObjectInputStream(fis);
