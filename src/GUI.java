@@ -125,7 +125,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 3;
         choicesPan.add(exit,gbc);
 
-        roomChoice = new JComboBox<>(new String[]{"Your room", "The beurk", "A classeroom"});
+        roomChoice = new JComboBox<>(new String[]{"+ New room", "Your saved room", "The beurk", "A classeroom"});
         roomChoice.setSelectedIndex(0);
         roomChoice.addItemListener(this);
         roomChoice.addActionListener(this);
@@ -184,7 +184,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
 
-        save = new JButton(new ImageIcon("Icons/save24.png"));
+        save = new JButton("Save your room",new ImageIcon("Icons/save24.png"));
         save.setLayout(null);
         save.addActionListener(this);
         gbc.gridx = 0;
@@ -254,7 +254,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         //If we press pause...
         else if (e.getSource() == pause) {
             simulation.pause();
-            timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
             start.setVisible(true);
             pause.setVisible(false);
 
@@ -275,7 +274,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         else if (e.getSource() == roomChoice){
-            if (roomChoice.getSelectedItem() == "The beurk"){
+            if (roomChoice.getSelectedItem() == "Your saved room"){
                 try {
                     FileInputStream fis = new FileInputStream("Rooms/UserDefined.ser");
                     ObjectInputStream ois = new ObjectInputStream(fis);
@@ -324,6 +323,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             } catch (Exception et) {
                 et.printStackTrace();
             }
+            instructions.setText("Room saved ;)");
         }
 
         //Each "DisplayInterval" ms...
