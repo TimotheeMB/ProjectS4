@@ -279,7 +279,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         else if (e.getSource() == roomChoice){
             if (roomChoice.getSelectedItem() == "The beurk"){
                 try {
-                    FileInputStream fis = new FileInputStream("src/Rooms/UserDefined.ser");
+                    FileInputStream fis = new FileInputStream("Rooms/UserDefined.ser");
                     ObjectInputStream ois = new ObjectInputStream(fis);
                     simulation.room= (Room) ois.readObject(); // 4
                     ois.close();
