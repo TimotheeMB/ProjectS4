@@ -101,7 +101,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridwidth = 4;
 
         //Buttons to create the condition of the simulation
-        person = new JButton("Add a person",new ImageIcon("src/Icons/user.png"));
+        person = new JButton("Add a person",new ImageIcon("Icons/user.png"));
         person.setBackground(Color.white);
         person.setLayout(null);
         person.addActionListener(this);
@@ -109,7 +109,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 1;
         choicesPan.add(person, gbc);
 
-        obstacle = new JButton("Add an obstacle",new ImageIcon("src/Icons/smart-grid.png"));
+        obstacle = new JButton("Add an obstacle",new ImageIcon("Icons/smart-grid.png"));
         obstacle.setBackground(Color.white);
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
@@ -117,7 +117,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 2;
         choicesPan.add(obstacle,gbc);
 
-        exit = new JButton("Add exit",new ImageIcon("src/Icons/door.png"));
+        exit = new JButton("Add exit",new ImageIcon("Icons/door.png"));
         exit.setBackground(Color.white);
         exit.setLayout(null);
         exit.addActionListener(this);
@@ -184,7 +184,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
 
-        save = new JButton(new ImageIcon("src/Icons/save24.png"));
+        save = new JButton(new ImageIcon("Icons/save24.png"));
         save.setLayout(null);
         save.addActionListener(this);
         gbc.gridx = 0;
@@ -193,7 +193,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         //Start, pause, speed up, slow down, restart buttons for the simulation
 
-        restart = new JButton(new ImageIcon("src/Icons/refresh.png"));
+        restart = new JButton(new ImageIcon("Icons/refresh.png"));
         restart.setLayout(null);
         restart.addActionListener(this);
         gbc.gridx = 0;
@@ -202,28 +202,28 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.weightx = 0.2;
         choicesPan.add(restart,gbc);
 
-        start = new JButton(new ImageIcon("src/Icons/play.png"));
+        start = new JButton(new ImageIcon("Icons/play.png"));
         start.setLayout(null);
         start.addActionListener(this);
         gbc.gridx = 1;
         gbc.gridy = 10;
         choicesPan.add(start,gbc);
 
-        slow = new JButton(new ImageIcon("src/Icons/next.png"));
+        slow = new JButton(new ImageIcon("Icons/next.png"));
         slow.setLayout(null);
         slow.addActionListener(this);
         gbc.gridx = 2;
         gbc.gridy = 10;
         choicesPan.add(slow,gbc);
 
-        speed = new JButton(new ImageIcon("src/Icons/forward.png"));
+        speed = new JButton(new ImageIcon("Icons/forward.png"));
         speed.setLayout(null);
         speed.addActionListener(this);
         gbc.gridx = 3;
         gbc.gridy = 10;
         choicesPan.add(speed,gbc);
 
-        pause = new JButton(new ImageIcon("src/Icons/pause.png"));
+        pause = new JButton(new ImageIcon("Icons/pause.png"));
         pause.setLayout(null);
         pause.addActionListener(this);
         pause.setVisible(false);
@@ -304,7 +304,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         else if (e.getSource() == save){
             try {
-                FileOutputStream fs = new FileOutputStream("src/Rooms/UserDefined.ser");
+                FileOutputStream fs = new FileOutputStream("Rooms/UserDefined.ser");
                 ObjectOutputStream os = new ObjectOutputStream(fs);
                 os.writeObject(simulation.room); // 3
                 os.close();
