@@ -7,6 +7,7 @@ public class Simulation implements ActionListener {
     Timer timer;
     long time;
     int stepDuration;
+    boolean isRunning;
 
     public Simulation(Room room, int stepDuration) {
         this.room = room;
@@ -34,20 +35,22 @@ public class Simulation implements ActionListener {
             Brian.removePrint();
             Brian.position=Brian.initPosition;
         }
+        time=0;
     }
 
-    public void speedUp(){
-        timer.stop();
-        stepDuration= (int) (stepDuration*0.5);
+    public void speedTimes(double factor){
+        boolean isRunning;
+        if(timer.isRunning()){
+            timer.stop();
+            isRunning=true;
+        }else{
+            isRunning=false;
+        }
+        stepDuration= (int) (stepDuration*(1/factor));
         timer=new Timer(stepDuration,this);
-        timer.start();
-    }
-
-    public void slowDown(){
-        timer.stop();
-        stepDuration= (int) (stepDuration*1.5);
-        timer=new Timer(stepDuration,this);
-        timer.start();
+        if (isRunning) {
+            timer.start();
+        }
     }
 
     @Override

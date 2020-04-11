@@ -257,11 +257,11 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         else if (e.getSource() == slow) {
-            simulation.slowDown();
+            simulation.speedTimes(0.5);
         }
 
         else if (e.getSource() == speed) {
-            simulation.speedUp();
+            simulation.speedTimes(1.5);
         }
 
         else if (e.getSource() == restart) {
