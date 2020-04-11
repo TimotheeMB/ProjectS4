@@ -241,7 +241,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         //Conversion of the time in base 60
         int timeInMin = (int) simulation.time / 60000;
         int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
-        double vx = (double)simulation.NORMAL_STEP_DURATION/simulation.stepDuration;
+        double vx= (double) simulation.NORMAL_STEP_DURATION/simulation.stepDuration;
 
         //If we press start...
         if (e.getSource() == start) {
@@ -256,7 +256,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         //If we press pause...
         else if (e.getSource() == pause) {
             simulation.pause();
-            instructions.setText("The simulation is on pause");
+            timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
             start.setVisible(true);
             pause.setVisible(false);
 
