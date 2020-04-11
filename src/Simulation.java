@@ -9,9 +9,11 @@ public class Simulation implements ActionListener {
     int stepDuration;
     boolean isRunning;
 
-    public Simulation(Room room, int stepDuration) {
-        this.room = room;
-        this.stepDuration = stepDuration;
+    final int NORMAL_STEP_DURATION=72;//Corresponds to a speed of 10km/h
+
+    public Simulation() {
+        this.room = new Room(500);
+        this.stepDuration = NORMAL_STEP_DURATION;
         this.timer = new Timer(stepDuration,this);
         this.time=0;
     }
@@ -55,7 +57,7 @@ public class Simulation implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        time += stepDuration; // On incrémente le temps
+        time += NORMAL_STEP_DURATION; // On incrémente le temps
         room.nextStep();
     }
 }
