@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
@@ -35,7 +38,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
     public JCheckBox equi;
     public JCheckBox color;
 
-    //public JComboBox roomChoice;
+    public JComboBox<String> roomChoice;
 
     //Panel
     public JPanel choicesPan;
@@ -98,15 +101,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridwidth = 4;
 
         //Buttons to create the condition of the simulation
-        /*String [] chooseRoom = {"Your room", "A classroom", "The RI"};
-        roomChoice = new JComboBox(chooseRoom);
-        roomChoice.setLayout(null);
-        roomChoice.addActionListener(this);
-        roomChoice.setEditable(false);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        choicesPan.add(roomChoice, gbc);*/
-
         person = new JButton("Add a person");
         person.setBackground(Color.white);
         person.setLayout(null);
@@ -130,6 +124,15 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridx = 0;
         gbc.gridy = 3;
         choicesPan.add(exit,gbc);
+
+        roomChoice = new JComboBox<>(new String[]{"Your room", "the beurk", "A classeroom"});
+        roomChoice.setSelectedIndex(0);
+        roomChoice.addItemListener(this);
+        roomChoice.addActionListener(this);
+        roomChoice.setEditable(false);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        choicesPan.add(roomChoice, gbc);
 
         gbc.insets = new Insets(0, 5, 0, 5);
         panic = new JCheckBox("Panic mode");
@@ -268,6 +271,10 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             simulation.restart();
         }
 
+        else if (e.getSource() == roomChoice){
+
+        }
+
         //If we press add person...
         else if (e.getSource() == person) {
             displayPan.waitAddPerson = !displayPan.waitAddPerson;
@@ -310,7 +317,9 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         else if (e.getSource() == timer) {
 
             //...we display the time
-            timing.setText("Time = " + timeInMin + " : " + timeInSec);
+            if(timing!=null) {
+                timing.setText("Time = " + timeInMin + " : " + timeInSec);
+            }
 
             //...we change the color of buttons if needed
             if (displayPan.waitAddPerson) {
@@ -339,11 +348,14 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         if (e.getSource() == color) {
             displayPan.drawColor = (e.getStateChange() == ItemEvent.SELECTED);
         }
-        if (e.getSource() == equi) {
+        else if (e.getSource() == equi) {
             displayPan.drawEqui = (e.getStateChange() == ItemEvent.SELECTED);
         }
-        if (e.getSource() == panic){
+        else if (e.getSource() == panic){
             simulation.room.panic = (e.getStateChange() == ItemEvent.SELECTED);
+        }
+        else if (e.getSource() == roomChoice){
+            System.out.println(e.getItem()+"selected");
         }
     }
 }
