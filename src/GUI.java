@@ -101,7 +101,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridwidth = 4;
 
         //Buttons to create the condition of the simulation
-        person = new JButton("Add a person");
+        person = new JButton("Add a person",new ImageIcon("src/Icons/user.png"));
         person.setBackground(Color.white);
         person.setLayout(null);
         person.addActionListener(this);
@@ -109,7 +109,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 1;
         choicesPan.add(person, gbc);
 
-        obstacle = new JButton("Add an obstacle");
+        obstacle = new JButton("Add an obstacle",new ImageIcon("src/Icons/smart-grid.png"));
         obstacle.setBackground(Color.white);
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
@@ -117,7 +117,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 2;
         choicesPan.add(obstacle,gbc);
 
-        exit = new JButton("Add exit");
+        exit = new JButton("Add exit",new ImageIcon("src/Icons/door.png"));
         exit.setBackground(Color.white);
         exit.setLayout(null);
         exit.addActionListener(this);
@@ -184,7 +184,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
 
-        save = new JButton(new ImageIcon("src/Icons/save.png"));
+        save = new JButton(new ImageIcon("src/Icons/save24.png"));
         save.setLayout(null);
         save.addActionListener(this);
         gbc.gridx = 0;
