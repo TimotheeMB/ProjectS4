@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class GUI extends JFrame implements ActionListener, ItemListener {
@@ -125,7 +127,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 3;
         choicesPan.add(exit,gbc);
 
-        roomChoice = new JComboBox<>(new String[]{"Your room", "the beurk", "A classeroom"});
+        roomChoice = new JComboBox<>(new String[]{"Your room", "The beurk", "A classeroom"});
         roomChoice.setSelectedIndex(0);
         roomChoice.addItemListener(this);
         roomChoice.addActionListener(this);
@@ -239,6 +241,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         //Conversion of the time in base 60
         int timeInMin = (int) simulation.time / 60000;
         int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
+        double vx = (double)simulation.NORMAL_STEP_DURATION/simulation.stepDuration;
 
         //If we press start...
         if (e.getSource() == start) {
@@ -253,7 +256,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         //If we press pause...
         else if (e.getSource() == pause) {
             simulation.pause();
-            timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
+            instructions.setText("The simulation is on pause");
             start.setVisible(true);
             pause.setVisible(false);
 
@@ -261,10 +264,12 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         else if (e.getSource() == slow) {
             simulation.speedTimes(0.5);
+            instructions.setText("The simulation is running at a speed : Vx"+vx);
         }
 
         else if (e.getSource() == speed) {
             simulation.speedTimes(1.5);
+            instructions.setText("The simulation is running at a speed : Vx"+vx);
         }
 
         else if (e.getSource() == restart) {
@@ -272,6 +277,16 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         }
 
         else if (e.getSource() == roomChoice){
+            if (roomChoice.getSelectedItem() == "The beurk"){
+                try {
+                    FileInputStream fis = new FileInputStream("src/Rooms/UserDefined.ser");
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    simulation.room= (Room) ois.readObject(); // 4
+                    ois.close();
+                } catch (Exception eu) {
+                    eu.printStackTrace();
+                }
+            }
 
         }
 
