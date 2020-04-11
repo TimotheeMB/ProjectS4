@@ -186,7 +186,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.fill = GridBagConstraints.BOTH;
         choicesPan.add(timing, gbc);
 
-        save = new JButton(new ImageIcon("Icons/save24.png"));
+        save = new JButton("Save your room",new ImageIcon("Icons/save24.png"));
         save.setLayout(null);
         save.addActionListener(this);
         gbc.gridx = 0;
@@ -256,7 +256,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         //If we press pause...
         else if (e.getSource() == pause) {
             simulation.pause();
-            timing.setText("The simulation lasted " + timeInMin + " : " + timeInSec);
             start.setVisible(true);
             pause.setVisible(false);
 
@@ -326,6 +325,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             } catch (Exception et) {
                 et.printStackTrace();
             }
+            instructions.setText("Room saved ;)");
         }
 
         //Each "DisplayInterval" ms...
