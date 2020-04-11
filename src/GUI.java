@@ -46,6 +46,8 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
     public JPanel choicesPan;
     public JPanel total;
 
+    Color beautyGreenBlue = new Color (120,250,180);
+
     /* === CONSTRUCTOR === */
     public GUI(Simulation simulation, int DisplayInterval){
 
@@ -88,8 +90,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gc.gridy = 0;
         gc.weightx = 0.25;
         choicesPan = new JPanel();
-        Color beautygreenblue = new Color (120,250,180);
-        choicesPan.setBackground(beautygreenblue);
+        choicesPan.setBackground(beautyGreenBlue);
         total.add(choicesPan, gc);
         //Create and initiate the layout manager for the Choices Panel
         GridBagLayout choicesLayout = new GridBagLayout();
@@ -104,7 +105,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         //Buttons to create the condition of the simulation
         person = new JButton("Add a person",new ImageIcon("Icons/user.png"));
-        person.setBackground(Color.white);
         person.setLayout(null);
         person.addActionListener(this);
         gbc.gridx = 0;
@@ -112,7 +112,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         choicesPan.add(person, gbc);
 
         obstacle = new JButton("Add an obstacle",new ImageIcon("Icons/smart-grid.png"));
-        obstacle.setBackground(Color.white);
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
         gbc.gridx = 0;
@@ -120,7 +119,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         choicesPan.add(obstacle,gbc);
 
         exit = new JButton("Add exit",new ImageIcon("Icons/door.png"));
-        exit.setBackground(Color.white);
         exit.setLayout(null);
         exit.addActionListener(this);
         gbc.gridx = 0;
@@ -139,7 +137,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.insets = new Insets(0, 5, 0, 5);
         panic = new JCheckBox("Panic mode");
         panic.setSelected(false);
-        panic.setBackground(beautygreenblue);
+        panic.setBackground(beautyGreenBlue);
         panic.addItemListener(this);
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -148,7 +146,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         equi = new JCheckBox("Display Equipotentials");
         equi.setSelected(false);
-        equi.setBackground(beautygreenblue);
+        equi.setBackground(beautyGreenBlue);
         equi.addItemListener(this);
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -156,7 +154,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
         color = new JCheckBox("Display distance to the exit");
         color.setSelected(false);
-        color.setBackground(beautygreenblue);
+        color.setBackground(beautyGreenBlue);
         color.addItemListener(this);
         gbc.gridx = 0;
         gbc.gridy = 6;
@@ -168,7 +166,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         instructions = new TextArea (10, 10);
         instructions.setFont(e);
         instructions.setEditable(false);
-        instructions.setBackground(beautygreenblue);
+        instructions.setBackground(beautyGreenBlue);
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.weightx = 1;
@@ -346,19 +344,19 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
             //...we change the color of buttons if needed
             if (displayPan.waitAddPerson) {
-                person.setBackground(Color.cyan);
+                person.setBackground(beautyGreenBlue);
             } else {
-                person.setBackground(Color.white);
+                person.setBackground(new JButton().getBackground());
             }
             if (displayPan.waitAddObstacle) {
-                obstacle.setBackground(Color.cyan);
+                obstacle.setBackground(beautyGreenBlue);
             } else {
-                obstacle.setBackground(Color.white);
+                obstacle.setBackground(new JButton().getBackground());
             }
             if (displayPan.waitAddExit) {
-                exit.setBackground(Color.cyan);
+                exit.setBackground(beautyGreenBlue);
             } else {
-                exit.setBackground(Color.white);
+                exit.setBackground(new JButton().getBackground());
             }
 
             //...and we refresh the display

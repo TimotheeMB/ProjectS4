@@ -12,9 +12,9 @@ public class DisplayPanel extends JPanel implements MouseListener {
     public boolean drawEqui;
     public boolean drawColor;
     public Point beginningObstacle;
-    Color beautyred = new Color (250,100,70);
-    Color beautyblue = new Color (70,50,140);
-    Color beautygreen = new Color(80, 210, 120);
+    Color beautyRed = new Color (250,100,70);
+    Color beautyBlue = new Color (70,50,140);
+    Color beautyGreen = new Color(80, 210, 120);
 
     public DisplayPanel(Simulation simulation) {
         this.simulation=simulation;
@@ -54,17 +54,17 @@ public class DisplayPanel extends JPanel implements MouseListener {
                 }
             }
         }
-        g.setColor(beautyred);
+        g.setColor(beautyRed);
         for (Person kevin: simulation.room.persons
              ) {
             g.fillOval((int)(kevin.position[0].x*scaleX()-2.5*scaleX()),(int)(kevin.position[0].y*scaleY()-2.5*scaleY()),(int)(5*scaleX()),(int)(5*scaleY()));
         }
-        g.setColor(beautyblue);
+        g.setColor(beautyBlue);
         for (Obstacle bob:simulation.room.obstacles
              ) {
             g.fillRect((int)((bob.vertices[0].x)*scaleX()),(int)((bob.vertices[0].y)*scaleY()),(int)((bob.length())*scaleX()),(int)((bob.height())*scaleY()));
         }
-        g.setColor(beautygreen);
+        g.setColor(beautyGreen);
         for(Exit exit : simulation.room.exits) {
             try {
                 g.fillOval((int) (exit.position[0].x * scaleX() - 2.5 * scaleX()), (int) (exit.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
