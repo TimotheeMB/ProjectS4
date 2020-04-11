@@ -111,14 +111,14 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 1;
         choicesPan.add(person, gbc);
 
-        obstacle = new JButton("Add an obstacle",new ImageIcon("Icons/smart-grid.png"));
+        obstacle = new JButton("Add an obstacle",new ImageIcon("Icons/wall.png"));
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
         gbc.gridx = 0;
         gbc.gridy = 2;
         choicesPan.add(obstacle,gbc);
 
-        exit = new JButton("Add exit",new ImageIcon("Icons/door.png"));
+        exit = new JButton("Add exit",new ImageIcon("Icons/exit.png"));
         exit.setLayout(null);
         exit.addActionListener(this);
         gbc.gridx = 0;
