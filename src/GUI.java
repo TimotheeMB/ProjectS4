@@ -363,7 +363,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             displayPan.drawEqui = (e.getStateChange() == ItemEvent.SELECTED);
         }
         else if (e.getSource() == panic){
-            simulation.room.panic = (e.getStateChange() == ItemEvent.SELECTED);
+            simulation.room.setPanic(e.getStateChange() == ItemEvent.SELECTED);
         }
         else if (e.getSource() == roomChoice){
             System.out.println(e.getItem()+"selected");

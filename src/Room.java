@@ -12,7 +12,6 @@ public class Room implements Serializable {
     ArrayList<Exit> exits;
     final int INFINITY=Integer.MAX_VALUE;
 
-    boolean panic=false;
 
 
     public Room(int width, int height) {
@@ -46,6 +45,12 @@ public class Room implements Serializable {
     public void nextStep(){
         for (Person p: persons) {
             p.nextStep();
+        }
+    }
+
+    public void setPanic(boolean panic){
+        for (Person p:persons) {
+            p.panic=panic;
         }
     }
 
