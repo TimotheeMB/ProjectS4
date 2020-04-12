@@ -104,21 +104,21 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         gbc.gridwidth = 4;
 
         //Buttons to create the condition of the simulation
-        person = new JButton("Add a person",new ImageIcon("Icons/user.png"));
+        person = new JButton("    Add persons   ",new ImageIcon("Icons/user.png"));
         person.setLayout(null);
         person.addActionListener(this);
         gbc.gridx = 0;
         gbc.gridy = 1;
         choicesPan.add(person, gbc);
 
-        obstacle = new JButton("Add an obstacle",new ImageIcon("Icons/wall.png"));
+        obstacle = new JButton("   Add obstacles",new ImageIcon("Icons/wall.png"));
         obstacle.setLayout(null);
         obstacle.addActionListener(this);
         gbc.gridx = 0;
         gbc.gridy = 2;
         choicesPan.add(obstacle,gbc);
 
-        exit = new JButton("Add exit",new ImageIcon("Icons/exit.png"));
+        exit = new JButton("       Add exits     ",new ImageIcon("Icons/exit.png"));
         exit.setLayout(null);
         exit.addActionListener(this);
         gbc.gridx = 0;
