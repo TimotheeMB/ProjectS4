@@ -3,25 +3,18 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DisplayPanel extends JPanel implements MouseListener {
+public class DisplayPanel extends JPanel{
 
     public Simulation simulation;
-    public boolean waitAddPerson;
-    public boolean waitAddExit;
-    public boolean waitAddObstacle;
     public boolean drawEqui;
     public boolean drawColor;
-    public Point beginningObstacle;
     Color beautyRed = new Color (250,100,70);
     Color beautyBlue = new Color (70,50,140);
     Color beautyGreen = new Color(80, 210, 120);
 
     public DisplayPanel(Simulation simulation) {
         this.simulation=simulation;
-        waitAddExit = false;
-        waitAddObstacle = false;
-        waitAddPerson = false;
-        addMouseListener(this);
+        setBackground(Color.black);
     }
 
     @Override
@@ -73,27 +66,6 @@ public class DisplayPanel extends JPanel implements MouseListener {
         }
 
     }
-
-    public void mousePressed(MouseEvent e) {
-        Point clicked=new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY()));
-        if(waitAddPerson) {
-            simulation.room.addPerson(clicked);
-        }else if (waitAddObstacle) {
-            this.beginningObstacle = clicked;
-        }else if (waitAddExit) {
-            simulation.room.addExit(clicked);
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        if (waitAddObstacle) {
-            simulation.room.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY())));
-        }
-    }
-
-    public void mouseExited (MouseEvent e){}
-    public void mouseEntered (MouseEvent e){}
-    public void mouseClicked (MouseEvent e){}
 
 
     public double scaleX(){
