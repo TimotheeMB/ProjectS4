@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class GUI extends JFrame{
+public class Window extends JFrame{
 
     /* === ATTRIBUTES === */
 
@@ -27,7 +27,7 @@ public class GUI extends JFrame{
 
 
     /* === CONSTRUCTOR === */
-    public GUI(Simulation simulation, int displayInterval){
+    public Window(Simulation simulation, int displayInterval){
 
         //The simulation to manage
         this.simulation = simulation;

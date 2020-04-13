@@ -113,6 +113,7 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
             waitAddPerson = !waitAddPerson;
             waitAddObstacle = false;
             waitAddExit = false;
+            choices.person.setBackground(choices.beautyGreenBlue);
             choices.instructions.setText( "To add a person, you just have\nto click somewhere in the room,\na point representing that person\nwill appear.");
             /*JOptionPane.showMessageDialog(this, "To add a person, you just have to click somewhere in the room, and a point representing that person will appear.");*/
         }

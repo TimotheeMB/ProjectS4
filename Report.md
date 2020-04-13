@@ -36,19 +36,19 @@ Icons:
 ```mermaid
 classDiagram
 
-GUI *-- DisplayPanel
-GUI *-- Simulation
-GUI: +Simulation simulation
-GUI: +int DisplayInterval
-GUI: +Timer timer
-GUI: +JLabel timing
-GUI: +DisplayPanel displayPan
-GUI: +JButton person
-GUI: +JButton obstacle
-GUI: +JButton start
-GUI: +JButton exit
-GUI: +JButton stop
-GUI: +void actionPerformed(ActionEvent e)
+Window *-- DisplayPanel
+Window *-- Simulation
+Window: +Simulation simulation
+Window: +int DisplayInterval
+Window: +Timer timer
+Window: +JLabel timing
+Window: +DisplayPanel displayPan
+Window: +JButton person
+Window: +JButton obstacle
+Window: +JButton start
+Window: +JButton exit
+Window: +JButton stop
+Window: +void actionPerformed(ActionEvent e)
 DisplayPanel: +Simulation simulation
 DisplayPanel: +boolean waitAddPerson
 DisplayPanel: +boolean waitAddExit
@@ -114,12 +114,12 @@ ValuedPoint: +int value
 
 
 **At the beggining** 
-- Claire is in charge of the GUI.
+- Claire is in charge of the Window.
 - Violaine thinks about the principle to code the motion of people and the special cases to solve
 - Timothée starts to write the "Person" class
 
 **Through the weeks** 
-- Claire continued the GUI class
+- Claire continued the Window class
 - Timothée coded the displacement of people and the parameters of the room
 - Violaine was in charge of the obstacle class and wrote the report 
 
