@@ -143,25 +143,4 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
         }
     }
 
-    public void mousePressed(MouseEvent e) {
-        Point clicked=new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY()));
-        if(wait.get(choices.person)) {
-            window.simulation.addPerson(clicked);
-        }else if (wait.get(choices.obstacle)) {
-            this.beginningObstacle = clicked;
-        }else if (wait.get(choices.exit)) {
-            window.simulation.addExit(clicked);
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        if (wait.get(choices.obstacle)) {
-            window.simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY())));
-        }
-    }
-
-    public void mouseExited (MouseEvent e){}
-    public void mouseEntered (MouseEvent e){}
-    public void mouseClicked (MouseEvent e){}
-
 }
