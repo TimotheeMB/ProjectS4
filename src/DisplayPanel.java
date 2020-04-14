@@ -11,6 +11,8 @@ public class DisplayPanel extends JPanel implements MouseListener{
     Color beautyBlue = new Color (70,50,140);
     Color beautyGreen = new Color(80, 210, 120);
 
+    Point beginningObstacle;
+
     public DisplayPanel(Window window) {
         this.window=window;
         setBackground(Color.black);
@@ -68,7 +70,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
 
 
     public void mousePressed(MouseEvent e) {
-        Point clicked=new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY()));
+        Point clicked=new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY()));
         if(window.wait.get(window.choicesPan.person)) {
             window.simulation.addPerson(clicked);
         }else if (window.wait.get(window.choicesPan.obstacle)) {

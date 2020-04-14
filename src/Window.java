@@ -69,6 +69,11 @@ public class Window extends JFrame{
         choicesPan = new ChoicesPanel();
         total.add(choicesPan, gc);
 
+        wait=new HashMap<>();
+        wait.put(this.choicesPan.person,false);
+        wait.put(this.choicesPan.obstacle,false);
+        wait.put(this.choicesPan.exit,false);
+
         listener = new Listener(displayInterval,displayPan,choicesPan,this);
         choicesPan.addListener(listener);
         displayPan.addMouseListener(listener);
