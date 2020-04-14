@@ -1,8 +1,8 @@
 public class Exit extends Entity {
 
-    public Exit (Point e, Room a){
-        super(a,-1);
-        position = e.around(true);
+    public Exit (Point centre, Simulation simulation){
+        super(simulation,-1);
+        position = centre.around(true);
         addPrint();
     }
 

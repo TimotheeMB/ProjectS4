@@ -22,9 +22,9 @@ public class DisplayPanel extends JPanel{
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
         if(drawColor){
-            for (int x = 0; x <simulation.room.WIDTH ; x+=5) {
-                for (int y = 0; y <simulation.room.HEIGHT ; y+=5) {
-                    int sign =simulation.room.distAt(new Point(x,y));
+            for (int x = 0; x <simulation.WIDTH ; x+=5) {
+                for (int y = 0; y <simulation.HEIGHT ; y+=5) {
+                    int sign =simulation.distAt(new Point(x,y));
                     try {
                         g.setColor(new Color((int)(sign*0.02), (int)(255-sign*0.02), 255));
                     }catch (Exception e){
@@ -35,9 +35,9 @@ public class DisplayPanel extends JPanel{
             }
         }
         if(drawEqui){
-            for (int x = 0; x <simulation.room.WIDTH ; x++) {
-                for (int y = 0; y <simulation.room.HEIGHT ; y++) {
-                    int sign =simulation.room.distAt(new Point(x,y));
+            for (int x = 0; x <simulation.WIDTH ; x++) {
+                for (int y = 0; y <simulation.HEIGHT ; y++) {
+                    int sign =simulation.distAt(new Point(x,y));
                     if(sign%200==0){
                         try {
                             g.setColor(Color.black);
@@ -48,17 +48,17 @@ public class DisplayPanel extends JPanel{
             }
         }
         g.setColor(beautyRed);
-        for (Person kevin: simulation.room.persons
+        for (Person kevin: simulation.persons
              ) {
             g.fillOval((int)(kevin.position[0].x*scaleX()-2.5*scaleX()),(int)(kevin.position[0].y*scaleY()-2.5*scaleY()),(int)(5*scaleX()),(int)(5*scaleY()));
         }
         g.setColor(beautyBlue);
-        for (Obstacle bob:simulation.room.obstacles
+        for (Obstacle bob:simulation.obstacles
              ) {
             g.fillRect((int)((bob.vertices[0].x)*scaleX()),(int)((bob.vertices[0].y)*scaleY()),(int)((bob.length())*scaleX()),(int)((bob.height())*scaleY()));
         }
         g.setColor(beautyGreen);
-        for(Exit exit : simulation.room.exits) {
+        for(Exit exit : simulation.exits) {
             try {
                 g.fillOval((int) (exit.position[0].x * scaleX() - 2.5 * scaleX()), (int) (exit.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
             } catch (Exception e) {
@@ -69,11 +69,11 @@ public class DisplayPanel extends JPanel{
 
 
     public double scaleX(){
-        return (getWidth()/(double)simulation.room.WIDTH);
+        return (getWidth()/(double)simulation.WIDTH);
     }
 
     public double scaleY(){
-        return (getHeight()/(double)simulation.room.HEIGHT);
+        return (getHeight()/(double)simulation.HEIGHT);
     }
 
 

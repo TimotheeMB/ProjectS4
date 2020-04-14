@@ -4,8 +4,8 @@ public class Obstacle extends Entity {
     Point[] vertices;
 
     //constructor
-    public Obstacle(Point one, Point two, Room room) {
-        super(room, 2);
+    public Obstacle(Point one, Point two, Simulation simulation) {
+        super(simulation, 2);
         if ((one.x < two.x) && (one.y < two.y)) {
             vertices = new Point[]{new Point(one.x,one.y), new Point(two.x, one.y),new Point(two.x,two.y), new Point(one.x, two.y)};
         } else if ((one.x > two.x) && (one.y > two.y)) {

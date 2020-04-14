@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 public class Listener implements ActionListener, ItemListener, MouseListener {
 
@@ -13,9 +16,8 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
     public ChoicesPanel choices;
     public Simulation simulation;
 
-    public boolean waitAddPerson;
-    public boolean waitAddExit;
-    public boolean waitAddObstacle;
+    HashMap<JButton, Boolean> wait;
+    HashMap<JButton, String> text;
 
     public Point beginningObstacle;
 
@@ -24,6 +26,17 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
         this.display = display;
         this.choices = choices;
         this.simulation = simulation;
+
+        wait=new HashMap<>();
+        wait.put(this.choices.person,false);
+        wait.put(this.choices.obstacle,false);
+        wait.put(this.choices.exit,false);
+
+        text=new HashMap<>();
+        text.put(this.choices.person,"To add a person, you just have\nto click somewhere in the simulation,\na point representing that person\nwill appear.");
+        text.put(this.choices.obstacle,"You can create rectangular shaped\nobstacles.To do so, you will give\n2 vertices, press your mouse,\nand release it where you want");
+        text.put(this.choices.exit,"As for adding a person\njust click somewhere on the simulation\nto add the exit.");
+
         timer = new Timer(DisplayInterval, this); // Timer creation
         timer.start();
     }
@@ -40,34 +53,15 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
         if (e.getSource() == timer) {
 
             //...we display the time
-            if(choices.timing!=null) {
-                choices.timing.setText("Time = " + timeInMin + " : " + timeInSec);
-            }
-
-            //...we change the color of buttons if needed
-            /*if (display.waitAddPerson) {
-                person.setBackground(beautyGreenBlue);
-            } else {
-                person.setBackground(new JButton().getBackground());
-            }
-            if (display.waitAddObstacle) {
-                obstacle.setBackground(beautyGreenBlue);
-            } else {
-                obstacle.setBackground(new JButton().getBackground());
-            }
-            if (display.waitAddExit) {
-                exit.setBackground(beautyGreenBlue);
-            } else {
-                exit.setBackground(new JButton().getBackground());
-            }*/
+            choices.timing.setText("Time = " + timeInMin + " : " + timeInSec);
 
             //...and we refresh the display
             display.repaint();
         }
         //If we press start...
         else if (e.getSource() == choices.start) {
-            choices.instructions.setText("Initialization");
-            simulation.initialize();
+            choices.instructions.setText("Computing paths...");
+            simulation.dijkstra();
             choices.instructions.setText("The simulation is running");
             simulation.start();//...we start the simulation
             choices.start.setVisible(false);
@@ -97,55 +91,39 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
         }
 
         else if (e.getSource() == choices.roomChoice){
-            if (choices.roomChoice.getSelectedItem() == "Your room"){
-                simulation.setRoom("Rooms/UserDefined.ser");
+            if (choices.roomChoice.getSelectedItem() == "Your simulation"){
+                setSimulation("Rooms/UserDefined.ser");
             }else if(choices.roomChoice.getSelectedItem() == "A classroom") {
-                simulation.setRoom("Rooms/Classroom.ser");
-            }else if(choices.roomChoice.getSelectedItem() == "+ New room"){
-                simulation.setRoom(new Room(500,500));
+                setSimulation("Rooms/Classroom.ser");
+            }else if(choices.roomChoice.getSelectedItem() == "+ New simulation"){
+                setSimulation(new Simulation(500,500));
             }else if(choices.roomChoice.getSelectedItem() == "The beurk"){
-                simulation.setRoom("Rooms/Beurk.ser");
+                setSimulation("Rooms/Beurk.ser");
             }
-        }
-
-        //If we press add person...
-        else if (e.getSource() == choices.person) {
-            waitAddPerson = !waitAddPerson;
-            waitAddObstacle = false;
-            waitAddExit = false;
-            choices.person.setBackground(choices.beautyGreenBlue);
-            choices.instructions.setText( "To add a person, you just have\nto click somewhere in the room,\na point representing that person\nwill appear.");
-            /*JOptionPane.showMessageDialog(this, "To add a person, you just have to click somewhere in the room, and a point representing that person will appear.");*/
-        }
-
-        //If we press add obstacle...
-        else if (e.getSource() == choices.obstacle) {
-            waitAddObstacle = !waitAddObstacle;
-            waitAddPerson = false;
-            waitAddExit = false;
-            choices.instructions.setText("You can create rectangular shaped\nobstacles.To do so, you will give\n2 vertices, press your mouse,\nand release it where you want");
-            //JOptionPane.showMessageDialog(this, "You can create rectangular shaped obstacles. To do so, you will give 2 vertices, press your mouse, and release it where you want");
-        }
-
-        //If we press add exit...
-        else if (e.getSource() == choices.exit) {
-            waitAddExit = !waitAddExit;
-            waitAddObstacle = false;
-            waitAddPerson = false;
-            choices.instructions.setText("As for adding a person\njust click somewhere on the room\nto add the exit.");
-            //JOptionPane.showMessageDialog(this, "You cannot add an exit for the moment... Our develop do their best ;)");
         }
 
         else if (e.getSource() == choices.save){
             try {
                 FileOutputStream fs = new FileOutputStream("Rooms/UserDefined.ser");
                 ObjectOutputStream os = new ObjectOutputStream(fs);
-                os.writeObject(simulation.room); // 3
+                os.writeObject(simulation); // 3
                 os.close();
             } catch (Exception et) {
                 et.printStackTrace();
             }
-            choices.instructions.setText("Room saved ;)");
+            choices.instructions.setText("Simulation saved ;)");
+        }
+        else{
+            wait.forEach((button,bool)->{
+                if(button==e.getSource()){
+                    button.setBackground(choices.beautyGreenBlue);
+                    wait.put(button,true);
+                    choices.instructions.setText(text.get(button));
+                }else {
+                    button.setBackground(new JButton().getBackground());
+                    wait.put(button,false);
+                }
+            });
         }
 
     }
@@ -160,7 +138,7 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
             display.drawEqui = (e.getStateChange() == ItemEvent.SELECTED);
         }
         else if (e.getSource() == choices.panic){
-            simulation.room.setPanic(e.getStateChange() == ItemEvent.SELECTED);
+            simulation.setPanic(e.getStateChange() == ItemEvent.SELECTED);
         }
         else if (e.getSource() == choices.roomChoice){
             System.out.println(e.getItem()+"selected");
@@ -169,23 +147,37 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
 
     public void mousePressed(MouseEvent e) {
         Point clicked=new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY()));
-        if(waitAddPerson) {
-            simulation.room.addPerson(clicked);
-        }else if (waitAddObstacle) {
+        if(wait.get(choices.person)) {
+            simulation.addPerson(clicked);
+        }else if (wait.get(choices.obstacle)) {
             this.beginningObstacle = clicked;
-        }else if (waitAddExit) {
-            simulation.room.addExit(clicked);
+        }else if (wait.get(choices.exit)) {
+            simulation.addExit(clicked);
         }
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (waitAddObstacle) {
-            simulation.room.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY())));
+        if (wait.get(choices.obstacle)) {
+            simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY())));
         }
     }
 
     public void mouseExited (MouseEvent e){}
     public void mouseEntered (MouseEvent e){}
     public void mouseClicked (MouseEvent e){}
+
+    public void setSimulation(String fileName){
+        try {
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            simulation = (Simulation) ois.readObject(); // 4
+            ois.close();
+        } catch (Exception eu) {
+            eu.printStackTrace();
+        }
+    }
+    public void setSimulation(Simulation simulation){
+        this.simulation=simulation;
+    }
 
 }

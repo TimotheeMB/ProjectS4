@@ -1,24 +1,24 @@
 import java.io.Serializable;
 
 public abstract class Entity implements Serializable {
-    public Room room;
+    public Simulation simulation;
     public int signature;
     public Point[] position;
 
-    public Entity(Room room, int signature) {
-        this.room = room;
+    public Entity(Simulation simulation, int signature) {
+        this.simulation = simulation;
         this.signature = signature;
     }
 
     public void addPrint(){
         for (Point point:position) {
-            room.setSign(point,signature);
+            simulation.setSign(point,signature);
         }
     };
 
     public void removePrint(){
         for (Point point:position) {
-            room.setSign(point,0);
+            simulation.setSign(point,0);
         }
     };
 

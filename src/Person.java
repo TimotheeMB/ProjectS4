@@ -6,14 +6,14 @@ public class Person extends Entity{
 
     /* ================================================ */
     /* CONSTRUCTOR */
-    public Person(Point center, Room room) {
+    public Person(Point center, Simulation simulation) {
 
-        /*I initialize my attributes*/
-        super(room,1);
+        /*I computePaths my attributes*/
+        super(simulation,1);
         this.position = center.around(true);
         this.initPosition = position;
 
-        /*I put myself in the room*/
+        /*I put myself in the simulation*/
         addPrint();
     }
 
@@ -26,22 +26,22 @@ public class Person extends Entity{
 
         if(panic){
             Point randomPosition = position[(int)(Math.random()*20)];
-            if(room.emptyAround(randomPosition)){
+            if(simulation.emptyAround(randomPosition)){
                 position = randomPosition.around(true);
             }
         }else {
-            int minDist=room.distAt(position[0]);
+            int minDist= simulation.distAt(position[0]);
             int index=0;
             for (int i = 0; i <position.length ; i++) {
-                if (room.emptyAround(position[i])) {
-                    if (room.distAt(position[i]) < minDist) {
-                        minDist = room.distAt(position[i]);
+                if (simulation.emptyAround(position[i])) {
+                    if (simulation.distAt(position[i]) < minDist) {
+                        minDist = simulation.distAt(position[i]);
                         index = i;
                     }
                 }
             }
             position= position[index].around(true);
-            if(room.distAt(position[0])==Integer.MAX_VALUE){
+            if(simulation.distAt(position[0])==Integer.MAX_VALUE){
                 panic = true;
             }
         }

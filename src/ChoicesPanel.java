@@ -60,7 +60,7 @@ public class ChoicesPanel extends JPanel {
         gbc.gridy = 3;
         add(exit,gbc);
 
-        roomChoice = new JComboBox<>(new String[]{"+ New room", "Your room", "The beurk", "A classroom"});
+        roomChoice = new JComboBox<>(new String[]{"+ New simulation", "Your simulation", "The beurk", "A classroom"});
         roomChoice.setSelectedIndex(0);
         roomChoice.setEditable(false);
         gbc.gridx = 0;
@@ -114,7 +114,7 @@ public class ChoicesPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         add(timing, gbc);
 
-        save = new JButton("Save the current room as \"Your room\"",new ImageIcon("Icons/save24.png"));
+        save = new JButton("Save the current simulation as \"Your simulation\"",new ImageIcon("Icons/save24.png"));
         save.setLayout(null);
         gbc.gridx = 0;
         gbc.gridy = 9;
@@ -163,9 +163,9 @@ public class ChoicesPanel extends JPanel {
         exit.addActionListener(l);
         roomChoice.addItemListener(l);
         roomChoice.addActionListener(l);
-        panic.addActionListener(l);
-        equi.addActionListener(l);
-        color.addActionListener(l);
+        panic.addItemListener(l);
+        equi.addItemListener(l);
+        color.addItemListener(l);
         save.addActionListener(l);
         restart.addActionListener(l);
         start.addActionListener(l);
