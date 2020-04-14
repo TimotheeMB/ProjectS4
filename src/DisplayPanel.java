@@ -3,11 +3,10 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DisplayPanel extends JPanel{
+public class DisplayPanel extends JPanel implements MouseListener{
 
     public Window window;
-    public boolean drawEqui;
-    public boolean drawColor;
+
     Color beautyRed = new Color (250,100,70);
     Color beautyBlue = new Color (70,50,140);
     Color beautyGreen = new Color(80, 210, 120);
@@ -21,7 +20,7 @@ public class DisplayPanel extends JPanel{
     public void paint(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
-        if(drawColor){
+        if(window.drawColor){
             for (int x = 0; x <window.simulation.WIDTH ; x+=5) {
                 for (int y = 0; y <window.simulation.HEIGHT ; y+=5) {
                     int sign =window.simulation.distAt(new Point(x,y));
@@ -34,7 +33,7 @@ public class DisplayPanel extends JPanel{
                 }
             }
         }
-        if(drawEqui){
+        if(window.drawEqui){
             for (int x = 0; x <window.simulation.WIDTH ; x++) {
                 for (int y = 0; y <window.simulation.HEIGHT ; y++) {
                     int sign =window.simulation.distAt(new Point(x,y));
@@ -70,18 +69,18 @@ public class DisplayPanel extends JPanel{
 
     public void mousePressed(MouseEvent e) {
         Point clicked=new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY()));
-        if(wait.get(choices.person)) {
+        if(window.wait.get(window.choicesPan.person)) {
             window.simulation.addPerson(clicked);
-        }else if (wait.get(choices.obstacle)) {
+        }else if (window.wait.get(window.choicesPan.obstacle)) {
             this.beginningObstacle = clicked;
-        }else if (wait.get(choices.exit)) {
+        }else if (window.wait.get(window.choicesPan.exit)) {
             window.simulation.addExit(clicked);
         }
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (wait.get(choices.obstacle)) {
-            window.simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY())));
+        if (window.wait.get(window.choicesPan.obstacle)) {
+            window.simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY())));
         }
     }
 

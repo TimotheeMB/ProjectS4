@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 public class Window extends JFrame{
 
@@ -24,6 +25,10 @@ public class Window extends JFrame{
     public ChoicesPanel choicesPan;
     public JPanel total;
 
+    //booleans used across the window
+    public boolean drawEqui;
+    public boolean drawColor;
+    HashMap<JButton, Boolean> wait;
 
 
     /* === CONSTRUCTOR === */

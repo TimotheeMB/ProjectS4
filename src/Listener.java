@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class Listener implements ActionListener, ItemListener, MouseListener {
+public class Listener implements ActionListener, ItemListener {
 
     //Time management
     public int DisplayInterval;//The display will refresh every ...ms
