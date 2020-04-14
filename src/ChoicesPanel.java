@@ -1,9 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
-public class ChoicesPanel extends JPanel {
+public class ChoicesPanel extends JPanel implements ActionListener, ItemListener {
 
     Color beautyGreenBlue = new Color (120,250,180);
+    HashMap<JButton, String> text;
+
+    public Window window;
 
     //Buttons
     public JButton person;
@@ -25,10 +35,12 @@ public class ChoicesPanel extends JPanel {
     public TextComponent instructions;// Display of the explanations
     public JLabel timing;// Display of the time of the simulation
 
-    public Listener listener;
+    public double vx;
 
     public ChoicesPanel() {
         setBackground(beautyGreenBlue);
+
+        vx = 1;
 
         //Create and initiate the layout manager for the Choices Panel
         GridBagLayout choicesLayout = new GridBagLayout();
@@ -155,22 +167,95 @@ public class ChoicesPanel extends JPanel {
         gbc.gridy = 10;
         add(pause,gbc);
 
+        text=new HashMap<>();
+        text.put(this.person,"To add a person, you just have\nto click somewhere in the simulation,\na point representing that person\nwill appear.");
+        text.put(this.obstacle,"You can create rectangular shaped\nobstacles.To do so, you will give\n2 vertices, press your mouse,\nand release it where you want");
+        text.put(this.exit,"As for adding a person\njust click somewhere on the simulation\nto add the exit.");
+
     }
 
-    public void addListener(Listener l){
-        person.addActionListener(l);
-        obstacle.addActionListener(l);
-        exit.addActionListener(l);
-        roomChoice.addItemListener(l);
-        roomChoice.addActionListener(l);
-        panic.addItemListener(l);
-        equi.addItemListener(l);
-        color.addItemListener(l);
-        save.addActionListener(l);
-        restart.addActionListener(l);
-        start.addActionListener(l);
-        slow.addActionListener(l);
-        speed.addActionListener(l);
-        pause.addActionListener(l);
+    public void actionPerformed(ActionEvent e) {
+        //If we press start...
+        if (e.getSource() == start) {
+            instructions.setText("Computing paths...");
+            window.simulation.dijkstra();
+            instructions.setText("The simulation is running");
+            window.simulation.start();//...we start the simulation
+            start.setVisible(false);
+            pause.setVisible(true);
+        }
+
+        //If we press pause...
+        else if (e.getSource() == pause) {
+            window.simulation.pause();
+            start.setVisible(true);
+            pause.setVisible(false);
+
+        }
+
+        else if (e.getSource() == slow) {
+            window.simulation.speedTimes(0.5);
+            vx *= 0.5;
+            instructions.setText("The simulation is running at a speed : Vx"+vx);
+        }
+
+        else if (e.getSource() == speed) {
+            window.simulation.speedTimes(1.5);
+            vx *= 1.5;
+            instructions.setText("The simulation is running at a speed : Vx"+vx);
+        }
+
+        else if (e.getSource() == restart) {
+            window.simulation.restart();
+        }
+
+        else if (e.getSource() == roomChoice){
+            if (roomChoice.getSelectedItem() == "Your simulation"){
+                window.setSimulation("Rooms/UserDefined.ser");
+            }else if(roomChoice.getSelectedItem() == "A classroom") {
+                window.setSimulation("Rooms/Classroom.ser");
+            }else if(roomChoice.getSelectedItem() == "+ New simulation"){
+                System.out.println("new");
+                window.setSimulation(new Simulation(500,500));
+            }else if(roomChoice.getSelectedItem() == "The beurk"){
+                window.setSimulation("Rooms/Beurk.ser");
+            }
+        }
+
+        else if (e.getSource() == save){
+            try {
+                FileOutputStream fs = new FileOutputStream("Rooms/UserDefined.ser");
+                ObjectOutputStream os = new ObjectOutputStream(fs);
+                os.writeObject(window.simulation); // 3
+                os.close();
+            } catch (Exception et) {
+                et.printStackTrace();
+            }
+            instructions.setText("Simulation saved ;)");
+        }
+        else{
+            window.wait.forEach((button,bool)->{
+                if(button==e.getSource()){
+                    button.setBackground(beautyGreenBlue);
+                    window.wait.put(button,true);
+                    instructions.setText(text.get(button));
+                }else {
+                    button.setBackground(new JButton().getBackground());
+                    window.wait.put(button,false);
+                }
+            });
+        }
+    }
+
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getSource() == color) {
+            window.drawColor = (e.getStateChange() == ItemEvent.SELECTED);
+        }
+        else if (e.getSource() == equi) {
+            window.drawEqui = (e.getStateChange() == ItemEvent.SELECTED);
+        }
+        else if (e.getSource() == panic){
+            window.simulation.setPanic(e.getStateChange() == ItemEvent.SELECTED);
+        }
     }
 }

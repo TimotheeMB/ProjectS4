@@ -10,15 +10,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class Window extends JFrame{
+public class Window extends JFrame implements ActionListener{
 
     /* === ATTRIBUTES === */
 
     //The simulation to manage
     public Simulation simulation;
 
-    //Listener
-    public Listener listener;
+    //Time management
+    public int DisplayInterval;//The display will refresh every ...ms
+    public Timer timer;//thanks to that timer
 
     //Panel
     public DisplayPanel displayPan;// Display of the simulation
@@ -74,9 +75,9 @@ public class Window extends JFrame{
         wait.put(this.choicesPan.obstacle,false);
         wait.put(this.choicesPan.exit,false);
 
-        listener = new Listener(displayInterval,displayPan,choicesPan,this);
-        choicesPan.addListener(listener);
-        displayPan.addMouseListener(listener);
+        //Timer
+        timer = new Timer(DisplayInterval, this); // Timer creation
+        timer.start();
 
         this.setVisible(true);
 
@@ -96,4 +97,21 @@ public class Window extends JFrame{
         this.simulation=simulation;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //Conversion of the time in base 60
+        int timeInMin = (int) simulation.time / 60000;
+        int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
+
+
+        //Each "DisplayInterval" ms...
+        if (e.getSource() == timer) {
+
+            //...we display the time
+            choicesPan.timing.setText("Time = " + timeInMin + " : " + timeInSec);
+
+            //...and we refresh the display
+            displayPan.repaint();
+        }
+    }
 }
