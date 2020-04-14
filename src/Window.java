@@ -54,7 +54,7 @@ public class Window extends JFrame{
         gc.gridx = 0;
         gc.gridy = 0;
         gc.weightx = 0.75;
-        displayPan = new DisplayPanel(simulation);
+        displayPan = new DisplayPanel(this);
         total.add(displayPan, gc);
 
         //Panel for choices
@@ -64,10 +64,26 @@ public class Window extends JFrame{
         choicesPan = new ChoicesPanel();
         total.add(choicesPan, gc);
 
-        listener = new Listener(displayInterval,displayPan,choicesPan,simulation);
+        listener = new Listener(displayInterval,displayPan,choicesPan,this);
         choicesPan.addListener(listener);
         displayPan.addMouseListener(listener);
 
         this.setVisible(true);
+
     }
+
+    public void setSimulation(String fileName){
+        try {
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            simulation = (Simulation) ois.readObject(); // 4
+            ois.close();
+        } catch (Exception eu) {
+            eu.printStackTrace();
+        }
+    }
+    public void setSimulation(Simulation simulation){
+        this.simulation=simulation;
+    }
+
 }

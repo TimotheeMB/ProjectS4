@@ -14,18 +14,18 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
 
     public DisplayPanel display;
     public ChoicesPanel choices;
-    public Simulation simulation;
+    public Window window;
 
     HashMap<JButton, Boolean> wait;
     HashMap<JButton, String> text;
 
     public Point beginningObstacle;
 
-    public Listener(int displayInterval, DisplayPanel display, ChoicesPanel choices, Simulation simulation) {
+    public Listener(int displayInterval, DisplayPanel display, ChoicesPanel choices, Window window) {
         DisplayInterval = displayInterval;
         this.display = display;
         this.choices = choices;
-        this.simulation = simulation;
+        this.window = window;
 
         wait=new HashMap<>();
         wait.put(this.choices.person,false);
@@ -45,9 +45,9 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
 
         //Conversion of the time in base 60
-        int timeInMin = (int) simulation.time / 60000;
-        int timeInSec = (int) simulation.time / 1000 - timeInMin * 60;
-        double vx= (double) simulation.NORMAL_STEP_DURATION/simulation.stepDuration;
+        int timeInMin = (int) window.simulation.time / 60000;
+        int timeInSec = (int) window.simulation.time / 1000 - timeInMin * 60;
+        double vx= (double) window.simulation.NORMAL_STEP_DURATION/window.simulation.stepDuration;
 
         //Each "DisplayInterval" ms...
         if (e.getSource() == timer) {
@@ -61,44 +61,45 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
         //If we press start...
         else if (e.getSource() == choices.start) {
             choices.instructions.setText("Computing paths...");
-            simulation.dijkstra();
+            window.simulation.dijkstra();
             choices.instructions.setText("The simulation is running");
-            simulation.start();//...we start the simulation
+            window.simulation.start();//...we start the simulation
             choices.start.setVisible(false);
             choices.pause.setVisible(true);
         }
 
         //If we press pause...
         else if (e.getSource() == choices.pause) {
-            simulation.pause();
+            window.simulation.pause();
             choices.start.setVisible(true);
             choices.pause.setVisible(false);
 
         }
 
         else if (e.getSource() == choices.slow) {
-            simulation.speedTimes(0.5);
+            window.simulation.speedTimes(0.5);
             choices.instructions.setText("The simulation is running at a speed : Vx"+vx);
         }
 
         else if (e.getSource() == choices.speed) {
-            simulation.speedTimes(1.5);
+            window.simulation.speedTimes(1.5);
             choices.instructions.setText("The simulation is running at a speed : Vx"+vx);
         }
 
         else if (e.getSource() == choices.restart) {
-            simulation.restart();
+            window.simulation.restart();
         }
 
         else if (e.getSource() == choices.roomChoice){
             if (choices.roomChoice.getSelectedItem() == "Your simulation"){
-                setSimulation("Rooms/UserDefined.ser");
+                window.setSimulation("Rooms/UserDefined.ser");
             }else if(choices.roomChoice.getSelectedItem() == "A classroom") {
-                setSimulation("Rooms/Classroom.ser");
+                window.setSimulation("Rooms/Classroom.ser");
             }else if(choices.roomChoice.getSelectedItem() == "+ New simulation"){
-                setSimulation(new Simulation(500,500));
+                System.out.println("new");
+                window.setSimulation(new Simulation(500,500));
             }else if(choices.roomChoice.getSelectedItem() == "The beurk"){
-                setSimulation("Rooms/Beurk.ser");
+                window.setSimulation("Rooms/Beurk.ser");
             }
         }
 
@@ -106,7 +107,7 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
             try {
                 FileOutputStream fs = new FileOutputStream("Rooms/UserDefined.ser");
                 ObjectOutputStream os = new ObjectOutputStream(fs);
-                os.writeObject(simulation); // 3
+                os.writeObject(window.simulation); // 3
                 os.close();
             } catch (Exception et) {
                 et.printStackTrace();
@@ -138,46 +139,29 @@ public class Listener implements ActionListener, ItemListener, MouseListener {
             display.drawEqui = (e.getStateChange() == ItemEvent.SELECTED);
         }
         else if (e.getSource() == choices.panic){
-            simulation.setPanic(e.getStateChange() == ItemEvent.SELECTED);
-        }
-        else if (e.getSource() == choices.roomChoice){
-            System.out.println(e.getItem()+"selected");
+            window.simulation.setPanic(e.getStateChange() == ItemEvent.SELECTED);
         }
     }
 
     public void mousePressed(MouseEvent e) {
         Point clicked=new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY()));
         if(wait.get(choices.person)) {
-            simulation.addPerson(clicked);
+            window.simulation.addPerson(clicked);
         }else if (wait.get(choices.obstacle)) {
             this.beginningObstacle = clicked;
         }else if (wait.get(choices.exit)) {
-            simulation.addExit(clicked);
+            window.simulation.addExit(clicked);
         }
     }
 
     public void mouseReleased(MouseEvent e) {
         if (wait.get(choices.obstacle)) {
-            simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY())));
+            window.simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/display.scaleX()), (int)(e.getY()/display.scaleY())));
         }
     }
 
     public void mouseExited (MouseEvent e){}
     public void mouseEntered (MouseEvent e){}
     public void mouseClicked (MouseEvent e){}
-
-    public void setSimulation(String fileName){
-        try {
-            FileInputStream fis = new FileInputStream(fileName);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            simulation = (Simulation) ois.readObject(); // 4
-            ois.close();
-        } catch (Exception eu) {
-            eu.printStackTrace();
-        }
-    }
-    public void setSimulation(Simulation simulation){
-        this.simulation=simulation;
-    }
 
 }
