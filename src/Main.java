@@ -6,6 +6,6 @@ public class  Main {
         Simulation simulation = new Simulation(500,500);
 
         //We display and control this simulation thanks to a GUI
-        Window display = new Window(simulation,50);
+        Window display = new Window(simulation);
     }
 }

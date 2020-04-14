@@ -37,10 +37,10 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
 
     public double vx;
 
-    public ChoicesPanel() {
+    public ChoicesPanel(Window window) {
         setBackground(beautyGreenBlue);
-
         vx = 1;
+        this.window = window;
 
         //Create and initiate the layout manager for the Choices Panel
         GridBagLayout choicesLayout = new GridBagLayout();
@@ -172,8 +172,26 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         text.put(this.obstacle,"You can create rectangular shaped\nobstacles.To do so, you will give\n2 vertices, press your mouse,\nand release it where you want");
         text.put(this.exit,"As for adding a person\njust click somewhere on the simulation\nto add the exit.");
 
+        addListener();
     }
 
+    public void addListener() {
+        person.addActionListener(this);
+        obstacle.addActionListener(this);
+        exit.addActionListener(this);
+        roomChoice.addItemListener(this);
+        roomChoice.addActionListener(this);
+        panic.addItemListener(this);
+        equi.addItemListener(this);
+        color.addItemListener(this);
+        save.addActionListener(this);
+        restart.addActionListener(this);
+        start.addActionListener(this);
+        slow.addActionListener(this);
+        speed.addActionListener(this);
+        pause.addActionListener(this);
+    }
+    
     public void actionPerformed(ActionEvent e) {
         //If we press start...
         if (e.getSource() == start) {
@@ -194,13 +212,13 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         }
 
         else if (e.getSource() == slow) {
-            window.simulation.speedTimes(0.5);
+            window.simulation.speedPlus(0.5);
             vx *= 0.5;
             instructions.setText("The simulation is running at a speed : Vx"+vx);
         }
 
         else if (e.getSource() == speed) {
-            window.simulation.speedTimes(1.5);
+            window.simulation.speedPlus(1.5);
             vx *= 1.5;
             instructions.setText("The simulation is running at a speed : Vx"+vx);
         }
@@ -236,6 +254,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         else{
             window.wait.forEach((button,bool)->{
                 if(button==e.getSource()){
+                    System.out.println("You pressed the button : "+e.getSource());
                     button.setBackground(beautyGreenBlue);
                     window.wait.put(button,true);
                     instructions.setText(text.get(button));

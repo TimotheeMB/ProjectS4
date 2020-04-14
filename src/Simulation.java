@@ -143,7 +143,7 @@ public class Simulation implements Serializable, ActionListener {
         time=0;
     }
 
-    public void speedTimes(double factor){
+    public void speedPlus(double step){
         boolean isRunning;
         if(timer.isRunning()){
             timer.stop();
@@ -151,7 +151,7 @@ public class Simulation implements Serializable, ActionListener {
         }else{
             isRunning=false;
         }
-        stepDuration= (int) (stepDuration*(1/factor));
+        stepDuration= (int) (stepDuration*(1/step));
         timer=new Timer(stepDuration,this);
         if (isRunning) {
             timer.start();

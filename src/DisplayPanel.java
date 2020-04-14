@@ -16,6 +16,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
     public DisplayPanel(Window window) {
         this.window=window;
         setBackground(Color.black);
+        addMouseListener(this);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class Window extends JFrame implements ActionListener{
     public Simulation simulation;
 
     //Time management
-    public int DisplayInterval;//The display will refresh every ...ms
+    public int displayInterval;//The display will refresh every ...ms
     public Timer timer;//thanks to that timer
 
     //Panel
@@ -33,7 +33,7 @@ public class Window extends JFrame implements ActionListener{
 
 
     /* === CONSTRUCTOR === */
-    public Window(Simulation simulation, int displayInterval){
+    public Window(Simulation simulation){
 
         //The simulation to manage
         this.simulation = simulation;
@@ -67,7 +67,7 @@ public class Window extends JFrame implements ActionListener{
         gc.gridx = 2;
         gc.gridy = 0;
         gc.weightx = 0.25;
-        choicesPan = new ChoicesPanel();
+        choicesPan = new ChoicesPanel(this);
         total.add(choicesPan, gc);
 
         wait=new HashMap<>();
@@ -76,7 +76,8 @@ public class Window extends JFrame implements ActionListener{
         wait.put(this.choicesPan.exit,false);
 
         //Timer
-        timer = new Timer(DisplayInterval, this); // Timer creation
+        displayInterval = 50;
+        timer = new Timer(displayInterval, this); // Timer creation
         timer.start();
 
         this.setVisible(true);
