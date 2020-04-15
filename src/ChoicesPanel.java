@@ -201,6 +201,9 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             window.simulation.start();//...we start the simulation
             start.setVisible(false);
             pause.setVisible(true);
+            person.setEnabled(false);
+            obstacle.setEnabled(false);
+            exit.setEnabled(false);
         }
 
         //If we press pause...
@@ -208,7 +211,9 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             window.simulation.pause();
             start.setVisible(true);
             pause.setVisible(false);
-
+            person.setEnabled(true);
+            obstacle.setEnabled(true);
+            exit.setEnabled(true);
         }
 
         else if (e.getSource() == slow) {
@@ -233,6 +238,8 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             }else if(roomChoice.getSelectedItem() == "A classroom") {
                 window.setSimulation("Rooms/Classroom.ser");
             }else if(roomChoice.getSelectedItem() == "+ New simulation"){
+                String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
+                System.out.println("Size = "+size);
                 System.out.println("new");
                 window.setSimulation(new Simulation(500,500));
             }else if(roomChoice.getSelectedItem() == "The beurk"){
@@ -241,15 +248,19 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         }
 
         else if (e.getSource() == save){
-            try {
-                FileOutputStream fs = new FileOutputStream("Rooms/UserDefined.ser");
-                ObjectOutputStream os = new ObjectOutputStream(fs);
-                os.writeObject(window.simulation); // 3
-                os.close();
-            } catch (Exception et) {
-                et.printStackTrace();
+            String nameRoom =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
+            if (nameRoom != null){
+                JOptionPane.showMessageDialog(null, "You choose to name your room: " + nameRoom, "Name your room", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    FileOutputStream fs = new FileOutputStream("Rooms/UserDefined.ser");
+                    ObjectOutputStream os = new ObjectOutputStream(fs);
+                    os.writeObject(window.simulation); // 3
+                    os.close();
+                } catch (Exception et) {
+                    et.printStackTrace();
+                }
+                instructions.setText("Simulation saved ;)");
             }
-            instructions.setText("Simulation saved ;)");
         }
         else{
             window.wait.forEach((button,bool)->{

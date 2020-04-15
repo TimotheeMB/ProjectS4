@@ -2,12 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 public class Window extends JFrame implements ActionListener{
@@ -40,7 +36,7 @@ public class Window extends JFrame implements ActionListener{
 
         //Window initialization
         this.setTitle(" Welcome to our Crowd Simulator");
-        this.setSize(1070, 740);
+        this.setSize(1400, 770);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -59,14 +55,14 @@ public class Window extends JFrame implements ActionListener{
         //Panel to display simulation
         gc.gridx = 0;
         gc.gridy = 0;
-        gc.weightx = 0.75;
+        gc.weightx = 0.85;
         displayPan = new DisplayPanel(this);
         total.add(displayPan, gc);
 
         //Panel for choices
         gc.gridx = 2;
         gc.gridy = 0;
-        gc.weightx = 0.25;
+        gc.weightx = 0.15;
         choicesPan = new ChoicesPanel(this);
         total.add(choicesPan, gc);
 
@@ -82,6 +78,8 @@ public class Window extends JFrame implements ActionListener{
 
         this.setVisible(true);
 
+        String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
+        System.out.println("Size = "+size);
     }
 
     public void setSimulation(String fileName){
