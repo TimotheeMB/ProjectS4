@@ -29,10 +29,10 @@ public class Window extends JFrame implements ActionListener{
 
 
     /* === CONSTRUCTOR === */
-    public Window(Simulation simulation){
+    public Window(){
 
-        //The simulation to manage
-        this.simulation = simulation;
+        //Default simulation
+        setSimulation(new Simulation(500,500));
 
         //Window initialization
         this.setTitle(" Welcome to our Crowd Simulator");
@@ -66,6 +66,7 @@ public class Window extends JFrame implements ActionListener{
         choicesPan = new ChoicesPanel(this);
         total.add(choicesPan, gc);
 
+        //booleans for selected button
         wait=new HashMap<>();
         wait.put(this.choicesPan.person,false);
         wait.put(this.choicesPan.obstacle,false);
@@ -96,7 +97,6 @@ public class Window extends JFrame implements ActionListener{
         this.simulation=simulation;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         //Conversion of the time in base 60
         int timeInMin = (int) simulation.time / 60000;
@@ -112,5 +112,9 @@ public class Window extends JFrame implements ActionListener{
             //...and we refresh the display
             displayPan.repaint();
         }
+    }
+
+    public static void main(String[] args) {
+        new Window();
     }
 }

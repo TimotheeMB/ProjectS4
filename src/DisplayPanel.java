@@ -19,7 +19,6 @@ public class DisplayPanel extends JPanel implements MouseListener{
         addMouseListener(this);
     }
 
-    @Override
     public void paint(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
@@ -69,7 +68,6 @@ public class DisplayPanel extends JPanel implements MouseListener{
 
     }
 
-
     public void mousePressed(MouseEvent e) {
         Point clicked=new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY()));
         if(window.wait.get(window.choicesPan.person)) {
@@ -92,11 +90,10 @@ public class DisplayPanel extends JPanel implements MouseListener{
     public void mouseClicked (MouseEvent e){}
 
 
-
+    /*Scale*/
     public double scaleX(){
         return (getWidth()/(double)window.simulation.WIDTH);
     }
-
     public double scaleY(){
         return (getHeight()/(double)window.simulation.HEIGHT);
     }
