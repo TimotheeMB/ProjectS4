@@ -88,7 +88,7 @@ public class Window extends JFrame implements ActionListener{
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            simulation = (Simulation) ois.readObject(); // 4
+            simulation = (Simulation) ois.readObject();
             ois.close();
         } catch (Exception eu) {
             eu.printStackTrace();

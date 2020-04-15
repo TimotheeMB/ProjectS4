@@ -17,7 +17,7 @@ public class Simulation implements Serializable, ActionListener {
 
     Timer timer;
     long time;
-    int stepDuration;
+
 
     final int NORMAL_STEP_DURATION=72;//Corresponds to a speed of 10km/h
 
@@ -36,8 +36,7 @@ public class Simulation implements Serializable, ActionListener {
             }
         }
 
-        this.stepDuration = NORMAL_STEP_DURATION;
-        this.timer = new Timer(stepDuration,this);
+        this.timer = new Timer(NORMAL_STEP_DURATION,this);
         this.time=0;
     }
 
@@ -47,11 +46,17 @@ public class Simulation implements Serializable, ActionListener {
 
     public void addObstacle(Point a, Point b){
         obstacles.add(new Obstacle(a,b,this));
+        if(this.isRunning()){
+            dijkstra();
+        }
     }
 
     public void addExit(Point e){
         Exit exit = new Exit (e, this);
         this.exits.add(exit);
+        if(this.isRunning()){
+            dijkstra();
+        }
     }
 
     public void nextStep(){
@@ -144,23 +149,16 @@ public class Simulation implements Serializable, ActionListener {
     }
 
     public void speedPlus(double step){
-        boolean isRunning;
-        if(timer.isRunning()){
-            timer.stop();
-            isRunning=true;
-        }else{
-            isRunning=false;
-        }
-        stepDuration= (int) (stepDuration*(1/step));
-        timer=new Timer(stepDuration,this);
-        if (isRunning) {
-            timer.start();
-        }
+        timer.setDelay((int)(timer.getDelay()*(1/step)));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         time += NORMAL_STEP_DURATION; // On incrémente le temps
         nextStep();
+    }
+
+    public boolean isRunning(){
+        return timer.isRunning();
     }
 }
