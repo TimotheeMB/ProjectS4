@@ -193,6 +193,16 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
     }
     
     public void actionPerformed(ActionEvent e) {
+
+        if(vx*0.5<0.1){
+            slow.setEnabled(false);
+        }else if (vx*1.5>20){
+            speed.setEnabled(false);
+        }else{
+            slow.setEnabled(true);
+            speed.setEnabled(true);
+        }
+
         //If we press start...
         if (e.getSource() == start) {
             instructions.setText("Computing paths...");

@@ -154,6 +154,7 @@ public class Simulation implements Serializable, ActionListener {
         }
         time=0;
     }
+
     public void speedTimes(double factor){
         timer.setDelay((int)(timer.getDelay()*(1/factor)));
     }
