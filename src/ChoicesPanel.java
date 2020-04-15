@@ -212,15 +212,15 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         }
 
         else if (e.getSource() == slow) {
-            window.simulation.speedPlus(0.5);
+            window.simulation.speedTimes(0.5);
             vx *= 0.5;
-            instructions.setText("The simulation is running at a speed : Vx"+vx);
+            instructions.setText("x"+vx);
         }
 
         else if (e.getSource() == speed) {
-            window.simulation.speedPlus(1.5);
+            window.simulation.speedTimes(1.5);
             vx *= 1.5;
-            instructions.setText("The simulation is running at a speed : Vx"+vx);
+            instructions.setText("x"+vx);
         }
 
         else if (e.getSource() == restart) {
@@ -254,7 +254,6 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         else{
             window.wait.forEach((button,bool)->{
                 if(button==e.getSource()){
-                    System.out.println("You pressed the button : "+e.getSource());
                     button.setBackground(beautyGreenBlue);
                     window.wait.put(button,true);
                     instructions.setText(text.get(button));

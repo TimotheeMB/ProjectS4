@@ -25,7 +25,7 @@ public class Person extends Entity{
         removePrint();//I disappear from my last position
 
         if(panic){
-            Point randomPosition = position[(int)(Math.random()*20)];
+            Point randomPosition = position[(int)(Math.random()*21)];
             if(simulation.emptyAround(randomPosition)){
                 position = randomPosition.around(true);
             }

@@ -154,8 +154,8 @@ public class Simulation implements Serializable, ActionListener {
         }
         time=0;
     }
-    public void speedPlus(double step){
-        timer.setDelay((int)(timer.getDelay()*(1/step)));
+    public void speedTimes(double factor){
+        timer.setDelay((int)(timer.getDelay()*(1/factor)));
     }
     public void actionPerformed(ActionEvent e) {
         time += NORMAL_STEP_DURATION; // On incrémente le temps
