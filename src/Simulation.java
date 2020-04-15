@@ -46,17 +46,11 @@ public class Simulation implements Serializable, ActionListener {
 
     public void addObstacle(Point a, Point b){
         obstacles.add(new Obstacle(a,b,this));
-        if(this.isRunning()){
-            dijkstra();
-        }
     }
 
     public void addExit(Point e){
         Exit exit = new Exit (e, this);
         this.exits.add(exit);
-        if(this.isRunning()){
-            dijkstra();
-        }
     }
 
     public void nextStep(){
