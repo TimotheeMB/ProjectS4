@@ -98,9 +98,9 @@ public class Simulation implements Serializable, ActionListener {
                     if(inBounds(p)&&signAt(p)!=2) {
                         int new_cost = distAt(source);
                         if (i % 2 == 0) {
-                            new_cost += 10;
+                            new_cost += 10;//1*10
                         } else {
-                            new_cost += 15;
+                            new_cost += 14;//sqrt(2)*10
                         }
                         if (new_cost < distAt(p)) {
                             setDist(p, new_cost);

@@ -14,12 +14,12 @@ public abstract class Entity implements Serializable {
         for (Point point:position) {
             simulation.setSign(point,signature);
         }
-    };
+    }
 
     public void removePrint(){
         for (Point point:position) {
             simulation.setSign(point,0);
         }
-    };
+    }
 
 }

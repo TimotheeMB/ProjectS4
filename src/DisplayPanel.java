@@ -39,11 +39,9 @@ public class DisplayPanel extends JPanel implements MouseListener{
             for (int x = 0; x <window.simulation.width ; x++) {
                 for (int y = 0; y <window.simulation.height ; y++) {
                     int sign =window.simulation.distAt(new Point(x,y));
-                    if(sign%200==0){
-                        try {
-                            g.setColor(Color.black);
-                            g.fillRect((int) (x * scaleX()), (int) (y * scaleY()), (int) (scaleX() + 1), (int) (scaleY() + 1));
-                        }catch (Exception e){}
+                    if(sign%200<10&&sign%200>0){
+                        g.setColor(Color.black);
+                        g.fillRect((int) (x * scaleX()), (int) (y * scaleY()), (int) (scaleX() + 1), (int) (scaleY() + 1));
                     }
                 }
             }
@@ -60,10 +58,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
         }
         g.setColor(beautyGreen);
         for(Exit exit : window.simulation.exits) {
-            try {
-                g.fillOval((int) (exit.position[0].x * scaleX() - 2.5 * scaleX()), (int) (exit.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
-            } catch (Exception e) {
-            }
+            g.fillOval((int) (exit.position[0].x * scaleX() - 2.5 * scaleX()), (int) (exit.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
         }
 
     }
