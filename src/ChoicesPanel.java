@@ -243,17 +243,10 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         }
 
         else if (e.getSource() == roomChoice){
-            if (roomChoice.getSelectedItem() == "Your simulation"){
-                window.setSimulation("Rooms/UserDefined.ser");
-            }else if(roomChoice.getSelectedItem() == "A classroom") {
-                window.setSimulation("Rooms/Classroom.ser");
-            }else if(roomChoice.getSelectedItem() == "+ New simulation"){
-                //String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
-                //System.out.println("Size = "+size);
-                //System.out.println("new");
+            if(roomChoice.getSelectedItem() == "+ New simulation"){
                 window.setSimulation(new Simulation(true));
-            }else if(roomChoice.getSelectedItem() == "The beurk"){
-                window.setSimulation("Rooms/Beurk.ser");
+            }else{
+                window.setSimulation("Rooms/"+roomChoice.getSelectedItem()+".ser");
             }
         }
 
@@ -261,8 +254,9 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             String nameRoom =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
             if (nameRoom != null){
                 JOptionPane.showMessageDialog(null, "You choose to name your room: " + nameRoom, "Name your room", JOptionPane.INFORMATION_MESSAGE);
+                roomChoice.addItem(nameRoom);
                 try {
-                    FileOutputStream fs = new FileOutputStream("Rooms/UserDefined.ser");
+                    FileOutputStream fs = new FileOutputStream("Rooms/"+nameRoom+".ser");
                     ObjectOutputStream os = new ObjectOutputStream(fs);
                     os.writeObject(window.simulation); // 3
                     os.close();
