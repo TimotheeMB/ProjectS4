@@ -32,10 +32,10 @@ public class Window extends JFrame implements ActionListener{
     public Window(){
 
         //Default simulation
-        setSimulation(new Simulation(500,500));
+        setSimulation(new Simulation(false));
 
         //Window initialization
-        this.setTitle(" Welcome to our Crowd Simulator");
+        this.setTitle("Crowd Simulator");
         this.setSize(1400, 770);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -79,8 +79,7 @@ public class Window extends JFrame implements ActionListener{
 
         this.setVisible(true);
 
-        String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
-        System.out.println("Size = "+size);
+        setSimulation(new Simulation(true));
     }
 
     public void setSimulation(String fileName){

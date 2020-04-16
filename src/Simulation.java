@@ -14,8 +14,8 @@ public class Simulation implements Serializable, ActionListener {
     ArrayList<Exit> exits;
 
     /*Map*/
-    final int WIDTH;
-    final int HEIGHT;
+    int width;
+    int height;
     public int [][][] map;
     final int INFINITY=Integer.MAX_VALUE;
 
@@ -26,18 +26,42 @@ public class Simulation implements Serializable, ActionListener {
 
 
 
-    public Simulation(int width, int height) {
+    public Simulation(boolean askSize) {
         /*Entities*/
         exits= new ArrayList<>();
         persons= new ArrayList<>();
         obstacles= new ArrayList<>();
 
         /*Map*/
-        WIDTH = width;
-        HEIGHT = height;
-        map = new int[WIDTH][HEIGHT][2];
-        for (int i = 0; i <WIDTH; i++) {
-            for (int j = 0; j <HEIGHT ; j++) {
+        width=500;
+        height=500;
+        if(askSize){
+            String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
+            if(size!=null&&!size.equals("")){
+                String[] dimension = {"",""};
+                int k = 0;
+                for (int i = 0; i < size.length(); i++) {
+                    if (size.charAt(i) == 'x') {
+                        k++;
+                    } else {
+                        dimension[k] += size.charAt(i);
+                    }
+                }
+                try {
+                    width = Integer.parseInt(dimension[0]) * 10;//convert meters in # of cases
+                    if(dimension[1].equals("")){
+                        height=width;
+                    }else {
+                        height = Integer.parseInt(dimension[1]) * 10;
+                    }
+                }catch (Exception e){
+                    System.out.println("not valid");
+                }
+            }
+        }
+        map = new int[width][height][2];
+        for (int i = 0; i <width; i++) {
+            for (int j = 0; j <height ; j++) {
                 map[i][j][0]=0;
             }
         }
@@ -58,8 +82,8 @@ public class Simulation implements Serializable, ActionListener {
 
     //famous algorithm used here to compute the distance to the closest exit at every point on the map
     public void dijkstra(){
-        for (int i = 0; i <WIDTH; i++) {
-            for (int j = 0; j <HEIGHT ; j++) {
+        for (int i = 0; i <width; i++) {
+            for (int j = 0; j <height ; j++) {
                 map[i][j][1]=INFINITY;
             }
         }
@@ -128,7 +152,7 @@ public class Simulation implements Serializable, ActionListener {
 
     /*Tests*/
     public boolean inBounds(Point p){
-        return (p.x>=0 && p.x<WIDTH && p.y>=0 && p.y<HEIGHT);
+        return (p.x>=0 && p.x<width && p.y>=0 && p.y<height);
     }
     public boolean emptyAround(Point p) {
         for (Point d: p.around(true)) {
@@ -137,6 +161,9 @@ public class Simulation implements Serializable, ActionListener {
             }
         }
         return true;
+    }
+    public boolean isRunning(){
+        return timer.isRunning();
     }
 
 

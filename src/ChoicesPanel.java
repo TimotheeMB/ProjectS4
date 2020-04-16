@@ -248,10 +248,10 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             }else if(roomChoice.getSelectedItem() == "A classroom") {
                 window.setSimulation("Rooms/Classroom.ser");
             }else if(roomChoice.getSelectedItem() == "+ New simulation"){
-                String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
-                System.out.println("Size = "+size);
-                System.out.println("new");
-                window.setSimulation(new Simulation(500,500));
+                //String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
+                //System.out.println("Size = "+size);
+                //System.out.println("new");
+                window.setSimulation(new Simulation(true));
             }else if(roomChoice.getSelectedItem() == "The beurk"){
                 window.setSimulation("Rooms/Beurk.ser");
             }
@@ -289,9 +289,15 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == color) {
             window.drawColor = (e.getStateChange() == ItemEvent.SELECTED);
+            if(!window.simulation.isRunning()) {
+                window.simulation.dijkstra();
+            }
         }
         else if (e.getSource() == equi) {
             window.drawEqui = (e.getStateChange() == ItemEvent.SELECTED);
+            if(!window.simulation.isRunning()) {
+                window.simulation.dijkstra();
+            }
         }
         else if (e.getSource() == panic){
             window.simulation.setPanic(e.getStateChange() == ItemEvent.SELECTED);

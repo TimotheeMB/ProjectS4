@@ -23,8 +23,8 @@ public class DisplayPanel extends JPanel implements MouseListener{
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
         if(window.drawColor){
-            for (int x = 0; x <window.simulation.WIDTH ; x+=5) {
-                for (int y = 0; y <window.simulation.HEIGHT ; y+=5) {
+            for (int x = 0; x <window.simulation.width ; x+=5) {
+                for (int y = 0; y <window.simulation.height ; y+=5) {
                     int sign =window.simulation.distAt(new Point(x,y));
                     try {
                         g.setColor(new Color((int)(sign*0.02), (int)(255-sign*0.02), 255));
@@ -36,8 +36,8 @@ public class DisplayPanel extends JPanel implements MouseListener{
             }
         }
         if(window.drawEqui){
-            for (int x = 0; x <window.simulation.WIDTH ; x++) {
-                for (int y = 0; y <window.simulation.HEIGHT ; y++) {
+            for (int x = 0; x <window.simulation.width ; x++) {
+                for (int y = 0; y <window.simulation.height ; y++) {
                     int sign =window.simulation.distAt(new Point(x,y));
                     if(sign%200==0){
                         try {
@@ -76,12 +76,18 @@ public class DisplayPanel extends JPanel implements MouseListener{
             this.beginningObstacle = clicked;
         }else if (window.wait.get(window.choicesPan.exit)) {
             window.simulation.addExit(clicked);
+            if(!window.simulation.isRunning()&&(window.drawColor||window.drawEqui)){
+                window.simulation.dijkstra();
+            }
         }
     }
 
     public void mouseReleased(MouseEvent e) {
         if (window.wait.get(window.choicesPan.obstacle)) {
             window.simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY())));
+            if(!window.simulation.isRunning()&&(window.drawColor||window.drawEqui)){
+                window.simulation.dijkstra();
+            }
         }
     }
 
@@ -92,10 +98,10 @@ public class DisplayPanel extends JPanel implements MouseListener{
 
     /*Scale*/
     public double scaleX(){
-        return (getWidth()/(double)window.simulation.WIDTH);
+        return (getWidth()/(double)window.simulation.width);
     }
     public double scaleY(){
-        return (getHeight()/(double)window.simulation.HEIGHT);
+        return (getHeight()/(double)window.simulation.height);
     }
 
 
