@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
@@ -72,7 +73,13 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.gridy = 3;
         add(exit,gbc);
 
-        roomChoice = new JComboBox<>(new String[]{"+ New simulation", "Your simulation", "The beurk", "A classroom"});
+        roomChoice = new JComboBox<>();
+        roomChoice.addItem("+ New simulation");
+        File simulationsDirectory=new File("Simulations");
+        File[] simulations=simulationsDirectory.listFiles();
+        for(File simulation: simulations){
+            roomChoice.addItem(simulation.getName().replace(".ser",""));
+        }
         roomChoice.setSelectedIndex(0);
         roomChoice.setEditable(false);
         gbc.gridx = 0;
@@ -175,6 +182,26 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         addListener();
     }
 
+    private void restart() {
+        //booleans for selected button
+        text.forEach((button,bool)->{
+            window.wait.put(button,false);
+            button.setEnabled(true);
+        });
+
+        color.setSelected(false);
+        panic.setSelected(false);
+        equi.setSelected(false);
+
+        speed.setEnabled(true);
+        slow.setEnabled(true);
+
+        vx=1;
+
+        start.setVisible(true);
+        pause.setVisible(false);
+    }
+
     public void addListener() {
         person.addActionListener(this);
         obstacle.addActionListener(this);
@@ -245,29 +272,32 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         else if (e.getSource() == roomChoice){
             if(roomChoice.getSelectedItem() == "+ New simulation"){
                 window.setSimulation(new Simulation(true));
+                instructions.setText("new simulation charged");
             }else{
-                window.setSimulation("Rooms/"+roomChoice.getSelectedItem()+".ser");
+                window.setSimulation("Simulations/"+roomChoice.getSelectedItem()+".ser");
+                instructions.setText(roomChoice.getSelectedItem()+" charged");
             }
+            this.restart();
         }
 
         else if (e.getSource() == save){
-            String nameRoom =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
-            if (nameRoom != null){
-                JOptionPane.showMessageDialog(null, "You choose to name your room: " + nameRoom, "Name your room", JOptionPane.INFORMATION_MESSAGE);
-                roomChoice.addItem(nameRoom);
+            String nameSimulation =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
+            if (nameSimulation != null){
+                JOptionPane.showMessageDialog(null, "You choose to name your simulation: " + nameSimulation, "Name your room", JOptionPane.INFORMATION_MESSAGE);
+                roomChoice.addItem(nameSimulation);
                 try {
-                    FileOutputStream fs = new FileOutputStream("Rooms/"+nameRoom+".ser");
+                    FileOutputStream fs = new FileOutputStream("Simulations/"+nameSimulation+".ser");
                     ObjectOutputStream os = new ObjectOutputStream(fs);
                     os.writeObject(window.simulation); // 3
                     os.close();
                 } catch (Exception et) {
                     et.printStackTrace();
                 }
-                instructions.setText("Simulation saved ;)");
+                instructions.setText("Simulation saved");
             }
         }
         else{
-            window.wait.forEach((button,bool)->{
+            text.forEach((button,bool)->{
                 if(button==e.getSource()){
                     button.setBackground(beautyGreenBlue);
                     window.wait.put(button,true);

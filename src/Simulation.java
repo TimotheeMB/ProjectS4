@@ -75,8 +75,8 @@ public class Simulation implements Serializable, ActionListener {
     /*Main methods*/
 
     public void nextStep(){
-        for (Person p: persons) {
-            p.nextStep();
+        for (int i = 0; i <persons.size() ; i++) {
+            persons.get(i).nextStep();
         }
     }
 

@@ -45,6 +45,11 @@ public class Person extends Entity{
                 panic = true;
             }
         }
-        addPrint();//I appear in my new position
+
+        if(simulation.distAt(position[0])>55) {
+            addPrint();//I appear in my new position
+        }else{
+            simulation.persons.remove(this);
+        }
     }
 }
