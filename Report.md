@@ -1,4 +1,4 @@
-Crowd simulator
+# Crowd simulator
 
 ## Specifications
 The main goal of our crowd simulator is to observe the displacements of people in a room in the special case where they all want to reach the exit as soon as possible (for example because of a fire inside a building).
@@ -37,43 +37,66 @@ Icons:
 classDiagram
 
 Window *-- DisplayPanel
-Window *-- ChoicesPanel
 Window *-- Simulation
-Entity <|-- Obstacle
+Window: +Simulation simulation
+Window: +int DisplayInterval
+Window: +Timer timer
+Window: +JLabel timing
+Window: +DisplayPanel displayPan
+Window: +JButton person
+Window: +JButton obstacle
+Window: +JButton start
+Window: +JButton exit
+Window: +JButton stop
+Window: +void actionPerformed(ActionEvent e)
+DisplayPanel: +Simulation simulation
+DisplayPanel: +boolean waitAddPerson
+DisplayPanel: +boolean waitAddExit
+DisplayPanel: +boolean waitAddObstacle
+DisplayPanel: +Point beginningObstacle
+DisplayPanel: +void paint(Graphics g)
+DisplayPanel: +void mousePressed(MouseEvent e)
+DisplayPanel: +void mouseReleased(MouseEvent e)
+Simulation *-- Room
+Simulation: +Room room
+Simulation: +Timer timer
+Simulation: +long time
+Simulation: +int StepDuration
+Simulation: +void start()
+Simulation: +void actionPerformed(ActionEvent e)
+Entity -- *Room
+Room: +int SIZE
+Room: +int [][] map
+Room: +ArrayList<Person> persons
+Room: +ArrayList<Obstacle> obstacles
+Room: +ArrayList<Exit> exits
+Room: +int signaturePerson
+Room: +int signatureObstacle
+Room: +void addPerson(Point center)
+Room: +void addObstacle(Point a, Point b)
+Room: +void addExit(Point e)
+Room: +void nextStep()
+Room: +void computePathways()
+Entity: +Point[] position
+Entity: +int signature
+Entity: +Room room
+Entity: +void addPrint()
+Entity: +void removePrint()
 Entity <|-- Exit
 Entity <|-- Person
-Simulation -- *Entity
+Person: +Point[] initPosition
+Person: +void nextStep()
+Entity <|-- Obstacle
+Obstacle: +Point[] vertices
+Obstacle: +int length()
+Obstacle: +int height()
+
 Point --* Entity
 Point<|--ValuedPoint
 
-Window:
-
-DisplayPanel:
-
-Simulation:+ persons: ArrayList<Person> 
-Simulation:+ obstacles: ArrayList<Obstacle>
-Simulation:+ exits: ArrayList<Exit>
-Simulation:+ width: int
-Simulation:+ height: int
-Simulation:+ map: int[][][]
-Simulation:+ ININITY: int
-Simulation:+ timer: Timer
-Simulation:+ time: long
-Simulation:+ NORMAL_STEP_DURATION: int
-Simulation:+ panic: boolean
-
-Simulation:+nextStep()
-
-
-Entity:
-
-Person:
-
-Obstacle:
-
-Exit:
-
-Point:
+Point: +int x
+Point: +int y
+Point: +Point[] around(boolean large)
 
 ValuedPoint: +int value
 ```
@@ -82,14 +105,15 @@ ValuedPoint: +int value
 - think about the dimensions of the room and the speed of the people so that they are coherent
 - break button
 - refresh button
+- 
 
 ## Diary
 
  We have got the idea of a crowd simulator by looking at the emergency stairs of the canteen. We wanted to code a tool that would compute things that we can. In this case the trajectory of a high number of people and the time
  We have done some researches and chosen to use git with a github repository to work together more easily. We have written a first idea of the wanted [specifications](#Specifications).
 
-**At the beginning 
 
+**At the beggining** 
 - Claire is in charge of the Window.
 - Violaine thinks about the principle to code the motion of people and the special cases to solve
 - Timothée starts to write the "Person" class
@@ -99,8 +123,7 @@ ValuedPoint: +int value
 - Timothée coded the displacement of people and the parameters of the room
 - Violaine was in charge of the obstacle class and wrote the report 
 
-**First steps of the program**
-
+**First steps of the programm**
 1. create several persons which move toward the exit as well as a simple user interface
 2. create obstacles and buttons to choose what to add : a person or an obstacle
 3. test different algorithms to make the people go toward the exit
