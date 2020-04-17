@@ -236,7 +236,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             fast.setEnabled(true);
         }
 
-        //If we press start...
+        //If we press start, pause, restart, slow, fast...
         if (e.getSource() == start) {
             instructions.setText("Computing paths...");
             window.simulation.dijkstra();
@@ -249,7 +249,6 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             exit.setEnabled(false);
         }
 
-        //If we press pause...
         else if (e.getSource() == pause) {
             window.simulation.pause();
             start.setVisible(true);
@@ -275,6 +274,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             window.simulation.restart();
         }
 
+        //If we choose a simulation
         else if (e.getSource() == simulationChoice){
             if(simulationChoice.getSelectedItem() == "+ New simulation"){
                 window.chargeSimulation(new Simulation(true));
@@ -286,9 +286,12 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             this.restart();
         }
 
+        //If we press save
         else if (e.getSource() == save){
             window.saveSimulation();
         }
+
+        //If we press person, obstacle or exit
         else{
             text.forEach((button,bool)->{
                 if(button==e.getSource()){
@@ -303,6 +306,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         }
     }
 
+    // For the Check Boxes
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == distanceToExit) {
             window.drawDistanceToExit = (e.getStateChange() == ItemEvent.SELECTED);
