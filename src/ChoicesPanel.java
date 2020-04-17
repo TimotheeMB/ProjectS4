@@ -281,6 +281,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
                 window.chargeSimulation(new Simulation(true));
                 instructions.setText("new simulation charged");
             }else{
+                instructions.setText("The simulation is loading");
                 window.chargeSimulation("Simulations/"+ simulationChoice.getSelectedItem()+".ser");
                 instructions.setText(simulationChoice.getSelectedItem()+" charged");
             }
