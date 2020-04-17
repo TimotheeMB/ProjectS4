@@ -46,36 +46,31 @@ Simulation -- *Entity
 Point --* Entity
 Point<|--ValuedPoint
 
-Window:
+Simulation: +persons: ArrayList<Person> 
+Simulation: +obstacles: ArrayList<Obstacle>
+Simulation: +exits: ArrayList<Exit>
+Simulation: +width: int
+Simulation: +height: int
+Simulation: +map: int[][][]
+Simulation: +ININITY: int
+Simulation: +timer: Timer
+Simulation: +time: long
+Simulation: +NORMAL_STEP_DURATION: int
+Simulation: +panic: boolean
+Simulation: +nextStep()
+Simulation: +dijkstra()
+Simulation: +addPerson()
+Simulation: +addObstacle()
+Simulation: +addExit()
+Simulation: +inBounds(Point)
+Simulation: +emptyAround(Point)
+Simulation: +isRunning()
+Simulation: +start()
+Simulation: +pause()
+Simulation: +restart()
+Simulation: +speedTimes(double)
+Simulation: +actionPerformed(ActionEvent)
 
-DisplayPanel:
-
-Simulation:+ persons: ArrayList<Person> 
-Simulation:+ obstacles: ArrayList<Obstacle>
-Simulation:+ exits: ArrayList<Exit>
-Simulation:+ width: int
-Simulation:+ height: int
-Simulation:+ map: int[][][]
-Simulation:+ ININITY: int
-Simulation:+ timer: Timer
-Simulation:+ time: long
-Simulation:+ NORMAL_STEP_DURATION: int
-Simulation:+ panic: boolean
-
-Simulation:+nextStep()
-
-
-Entity:
-
-Person:
-
-Obstacle:
-
-Exit:
-
-Point:
-
-ValuedPoint: +int value
 ```
 
 ## Possible improvements, bugs ...
