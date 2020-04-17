@@ -46,7 +46,7 @@ public class Person extends Entity{
             }
         }
 
-        if(simulation.distAt(position[0])>55) {
+        if(simulation.distAt(position[0])>40) {
             addPrint();//I appear in my new position
         }
     }

@@ -63,6 +63,7 @@ public class Simulation implements Serializable, ActionListener {
         for (int i = 0; i <width; i++) {
             for (int j = 0; j <height ; j++) {
                 map[i][j][0]=0;
+                map[i][j][1]=INFINITY;
             }
         }
 

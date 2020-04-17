@@ -48,7 +48,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
         }
         g.setColor(beautyRed);
         for (Person kevin: window.simulation.persons) {
-            if(window.simulation.distAt(kevin.position[0])>55) {
+            if(window.simulation.distAt(kevin.position[0])>40) {
                 g.fillOval((int) (kevin.position[0].x * scaleX() - 2.5 * scaleX()), (int) (kevin.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
             }
         }

@@ -133,7 +133,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.fill = GridBagConstraints.BOTH;
         add(timing, gbc);
 
-        save = new JButton("Save the current simulation as \"Your simulation\"",new ImageIcon("Icons/save24.png"));
+        save = new JButton("Save the current simulation",new ImageIcon("Icons/save24.png"));
         save.setLayout(null);
         gbc.gridx = 0;
         gbc.gridy = 9;
@@ -187,6 +187,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         text.forEach((button,bool)->{
             window.wait.put(button,false);
             button.setEnabled(true);
+            button.setBackground(new JButton().getBackground());
         });
 
         color.setSelected(false);
@@ -283,13 +284,15 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         else if (e.getSource() == save){
             String nameSimulation =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
             if (nameSimulation != null){
-                JOptionPane.showMessageDialog(null, "You choose to name your simulation: " + nameSimulation, "Name your room", JOptionPane.INFORMATION_MESSAGE);
-                roomChoice.addItem(nameSimulation);
+                JOptionPane.showMessageDialog(null, "You choose to name your simulation: " + nameSimulation, "Name your simulation", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     FileOutputStream fs = new FileOutputStream("Simulations/"+nameSimulation+".ser");
                     ObjectOutputStream os = new ObjectOutputStream(fs);
                     os.writeObject(window.simulation); // 3
                     os.close();
+                    if(((DefaultComboBoxModel)roomChoice.getModel()).getIndexOf(nameSimulation)==-1){//If not already in the comboBox
+                        roomChoice.addItem(nameSimulation);
+                    }
                 } catch (Exception et) {
                     et.printStackTrace();
                 }
