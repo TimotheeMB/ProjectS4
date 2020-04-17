@@ -27,8 +27,6 @@ public class Simulation implements Serializable, ActionListener {
     /*panic*/
     boolean panic;
 
-
-
     public Simulation(boolean askSize) {
         /*Entities*/
         exits= new ArrayList<>();
@@ -39,26 +37,33 @@ public class Simulation implements Serializable, ActionListener {
         width=500;
         height=500;
         if(askSize){
-            String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
-            if(size!=null&&!size.equals("")){
-                String[] dimension = {"",""};
-                int k = 0;
-                for (int i = 0; i < size.length(); i++) {
-                    if (size.charAt(i) == 'x') {
-                        k++;
-                    } else {
-                        dimension[k] += size.charAt(i);
+            boolean correctAnswer = false;
+            while (!correctAnswer){
+                String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
+                if(size!=null&&!size.equals("")){
+                    String[] dimension = {"",""};
+                    int k = 0;
+                    for (int i = 0; i < size.length(); i++) {
+                        if (size.charAt(i) == 'x') {
+                            k++;
+                        } else {
+                            dimension[k] += size.charAt(i);
+                        }
                     }
-                }
-                try {
-                    width = Integer.parseInt(dimension[0]) * 10;//convert meters in # of cases
-                    if(dimension[1].equals("")){
-                        height=width;
-                    }else {
-                        height = Integer.parseInt(dimension[1]) * 10;
+                    correctAnswer = true;
+                    try {
+                        width = Integer.parseInt(dimension[0]) * 10;//convert meters in # of cases
+                        if(dimension[1].equals("")){
+                            height = width;
+                        }else {
+                            height = Integer.parseInt(dimension[1]) * 10;
+                        }
+                    }catch (Exception e){
+                        System.out.println("not valid");
+                        correctAnswer = false;
                     }
-                }catch (Exception e){
-                    System.out.println("not valid");
+                }else{
+                    correctAnswer = true;
                 }
             }
         }
@@ -69,7 +74,6 @@ public class Simulation implements Serializable, ActionListener {
                 map[i][j][1]=INFINITY;
             }
         }
-
         /*Time*/
         this.timer = new Timer(NORMAL_STEP_DURATION,this);
         this.time=0;
