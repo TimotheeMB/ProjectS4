@@ -95,10 +95,26 @@ DisplayPanel: +scaleY()
 
 ChoicesPanel: +window: Window
 ChoicesPanel: +text: HashMap<JButton, String>
-ChoicesPanel: +person
-ChoicesPanel: +obstcle
-ChoicesPanel: +
-ChoicesPanel: +
+ChoicesPanel: +person: JButton
+ChoicesPanel: +obstacle: JButton
+ChoicesPanel: +start: JButton
+ChoicesPanel: +exit: JButton
+ChoicesPanel: +pause: JButton
+ChoicesPanel: +save: JButton
+ChoicesPanel: +restart: JButton
+ChoicesPanel: +fast: JButton
+ChoicesPanel: +slow: JButton
+ChoicesPanel: +panic: JCheckBox
+ChoicesPanel: +equidistant: JCheckBox
+ChoicesPanel: +distanceToExit: JCheckBox
+ChoicesPanel: +simulationChoice: JComboBox<String>
+ChoicesPanel: +instructions: TextComponent
+ChoicesPanel: +timing: TextComponent
+ChoicesPanel: +vx: double
+ChoicesPanel: +restart()
+ChoicesPanel: +addListener()
+ChoicesPanel: +actionPerformed(ActionEvent)
+ChoicesPanel: +itemStateChanged(ItemEvent e)
 
 ```
 
