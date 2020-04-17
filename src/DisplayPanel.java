@@ -25,9 +25,9 @@ public class DisplayPanel extends JPanel implements MouseListener{
         if(window.drawColor){
             for (int x = 0; x <window.simulation.width ; x+=5) {
                 for (int y = 0; y <window.simulation.height ; y+=5) {
-                    int sign =window.simulation.distAt(new Point(x,y));
+                    int distance =window.simulation.distAt(new Point(x,y));
                     try {
-                        g.setColor(new Color((int)(sign*0.02), (int)(255-sign*0.02), 100));
+                        g.setColor(new Color((int)(distance *0.02), (int)(255- distance *0.02), 100));
                     }catch (Exception e){
                         g.setColor(new Color(255, 0, 100));
                     }

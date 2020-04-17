@@ -39,12 +39,12 @@ public class Simulation implements Serializable, ActionListener {
         if(askSize){
             boolean correctAnswer = false;
             while (!correctAnswer){
-                String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
+                String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (in the form WidthxHeight ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
                 if(size!=null&&!size.equals("")){
                     String[] dimension = {"",""};
                     int k = 0;
                     for (int i = 0; i < size.length(); i++) {
-                        if (size.charAt(i) == 'x') {
+                        if (size.charAt(i) == 'x' || size.charAt(i) == 'X' || size.charAt(i) =='*') {
                             k++;
                         } else {
                             dimension[k] += size.charAt(i);

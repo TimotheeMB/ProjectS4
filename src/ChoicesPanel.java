@@ -111,7 +111,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
 
         //How to play
         gbc.insets = new Insets(5, 5, 5, 5);
-        Font e = new Font( "Cambria", Font.PLAIN, 18);
+        Font e = new Font( "Cambria", Font.BOLD, 12);
         instructions = new TextArea (10, 10);
         instructions.setFont(e);
         instructions.setEditable(false);
