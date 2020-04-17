@@ -22,7 +22,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
     public void paint(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
-        if(window.drawColor){
+        if(window.drawDistanceToExit){
             for (int x = 0; x <window.simulation.width ; x+=5) {
                 for (int y = 0; y <window.simulation.height ; y+=5) {
                     int distance =window.simulation.distAt(new Point(x,y));
@@ -35,7 +35,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
                 }
             }
         }
-        if(window.drawEqui){
+        if(window.drawEquidistant){
             for (int x = 0; x <window.simulation.width ; x++) {
                 for (int y = 0; y <window.simulation.height ; y++) {
                     int sign =window.simulation.distAt(new Point(x,y));
@@ -72,7 +72,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
             this.beginningObstacle = clicked;
         }else if (window.wait.get(window.choicesPan.exit)) {
             window.simulation.addExit(clicked);
-            if(!window.simulation.isRunning()&&(window.drawColor||window.drawEqui)){
+            if(!window.simulation.isRunning()&&(window.drawDistanceToExit ||window.drawEquidistant)){
                 window.simulation.dijkstra();
             }
         }
@@ -81,7 +81,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
     public void mouseReleased(MouseEvent e) {
         if (window.wait.get(window.choicesPan.obstacle)) {
             window.simulation.addObstacle(this.beginningObstacle, new Point((int)(e.getX()/scaleX()), (int)(e.getY()/scaleY())));
-            if(!window.simulation.isRunning()&&(window.drawColor||window.drawEqui)){
+            if(!window.simulation.isRunning()&&(window.drawDistanceToExit ||window.drawEquidistant)){
                 window.simulation.dijkstra();
             }
         }

@@ -10,10 +10,14 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 public class ChoicesPanel extends JPanel implements ActionListener, ItemListener {
+//Attributes
 
     Color beautyGreenBlue = new Color (120,250,180);
+
+    //Stock the text of the instructions corresponding to the button we click on.
     HashMap<JButton, String> text;
 
+    //The window in which the panel will be displayed.
     public Window window;
 
     //Buttons
@@ -24,21 +28,24 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
     public JButton pause;
     public JButton save;
     public JButton restart;
-    public JButton speed;
+    public JButton fast;
     public JButton slow;
 
+    //Check Boxes
     public JCheckBox panic;
-    public JCheckBox equi;
-    public JCheckBox color;
+    public JCheckBox equidistant;
+    public JCheckBox distanceToExit;
 
-    public JComboBox<String> roomChoice;
+    //Combo Box to choose the simulation
+    public JComboBox<String> simulationChoice;
 
     public TextComponent instructions;// Display of the explanations
     public JLabel timing;// Display of the time of the simulation
 
-    public double vx;
+    public double vx; //To display the speed
 
     public ChoicesPanel(Window window) {
+
         setBackground(beautyGreenBlue);
         vx = 1;
         this.window = window;
@@ -73,18 +80,18 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.gridy = 3;
         add(exit,gbc);
 
-        roomChoice = new JComboBox<>();
-        roomChoice.addItem("+ New simulation");
-        File simulationsDirectory=new File("Simulations");
-        File[] simulations=simulationsDirectory.listFiles();
+        simulationChoice = new JComboBox<>();
+        simulationChoice.addItem("+ New simulation");
+        File simulationsDirectory=new File("Simulations"); //where the saved simulations are
+        File[] simulations=simulationsDirectory.listFiles();//Put all the simulations in a array of files
         for(File simulation: simulations){
-            roomChoice.addItem(simulation.getName().replace(".ser",""));
+            simulationChoice.addItem(simulation.getName().replace(".ser",""));
         }
-        roomChoice.setSelectedIndex(0);
-        roomChoice.setEditable(false);
+        simulationChoice.setSelectedIndex(0);
+        simulationChoice.setEditable(false);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(roomChoice, gbc);
+        add(simulationChoice, gbc);
 
         gbc.insets = new Insets(0, 5, 0, 5);
         panic = new JCheckBox("Panic mode");
@@ -95,23 +102,23 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.weighty = 0.01;
         add(panic,gbc);
 
-        equi = new JCheckBox("Display Equipotentials");
-        equi.setSelected(false);
-        equi.setBackground(beautyGreenBlue);
+        equidistant = new JCheckBox("Display Equipotentials");
+        equidistant.setSelected(false);
+        equidistant.setBackground(beautyGreenBlue);
         gbc.gridx = 0;
         gbc.gridy = 5;
-        add(equi,gbc);
+        add(equidistant,gbc);
 
-        color = new JCheckBox("Display distance to the exit");
-        color.setSelected(false);
-        color.setBackground(beautyGreenBlue);
+        distanceToExit = new JCheckBox("Display distance to the exit");
+        distanceToExit.setSelected(false);
+        distanceToExit.setBackground(beautyGreenBlue);
         gbc.gridx = 0;
         gbc.gridy = 6;
-        add(color,gbc);
+        add(distanceToExit,gbc);
 
-        //How to play
+        //Display information
         gbc.insets = new Insets(5, 5, 5, 5);
-        Font e = new Font( "Cambria", Font.BOLD, 12);
+        Font e = new Font( "Cambrian", Font.BOLD, 12);
         instructions = new TextArea (10, 10);
         instructions.setFont(e);
         instructions.setEditable(false);
@@ -133,6 +140,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.fill = GridBagConstraints.BOTH;
         add(timing, gbc);
 
+        //Button to save a simulation
         save = new JButton("Save the current simulation",new ImageIcon("Icons/save24.png"));
         save.setLayout(null);
         gbc.gridx = 0;
@@ -140,7 +148,6 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         add(save,gbc);
 
         //Start, pause, speed up, slow down, restart buttons for the simulation
-
         restart = new JButton(new ImageIcon("Icons/refresh.png"));
         restart.setLayout(null);
         gbc.gridx = 0;
@@ -161,11 +168,11 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.gridy = 10;
         add(slow,gbc);
 
-        speed = new JButton(new ImageIcon("Icons/forward.png"));
-        speed.setLayout(null);
+        fast = new JButton(new ImageIcon("Icons/forward.png"));
+        fast.setLayout(null);
         gbc.gridx = 3;
         gbc.gridy = 10;
-        add(speed,gbc);
+        add(fast,gbc);
 
         pause = new JButton(new ImageIcon("Icons/pause.png"));
         pause.setLayout(null);
@@ -190,11 +197,11 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             button.setBackground(new JButton().getBackground());
         });
 
-        color.setSelected(false);
+        distanceToExit.setSelected(false);
         panic.setSelected(false);
-        equi.setSelected(false);
+        equidistant.setSelected(false);
 
-        speed.setEnabled(true);
+        fast.setEnabled(true);
         slow.setEnabled(true);
 
         vx=1;
@@ -207,16 +214,16 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         person.addActionListener(this);
         obstacle.addActionListener(this);
         exit.addActionListener(this);
-        roomChoice.addItemListener(this);
-        roomChoice.addActionListener(this);
+        simulationChoice.addItemListener(this);
+        simulationChoice.addActionListener(this);
         panic.addItemListener(this);
-        equi.addItemListener(this);
-        color.addItemListener(this);
+        equidistant.addItemListener(this);
+        distanceToExit.addItemListener(this);
         save.addActionListener(this);
         restart.addActionListener(this);
         start.addActionListener(this);
         slow.addActionListener(this);
-        speed.addActionListener(this);
+        fast.addActionListener(this);
         pause.addActionListener(this);
     }
     
@@ -225,10 +232,10 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         if(vx*0.5<0.1){
             slow.setEnabled(false);
         }else if (vx*1.5>20){
-            speed.setEnabled(false);
+            fast.setEnabled(false);
         }else{
             slow.setEnabled(true);
-            speed.setEnabled(true);
+            fast.setEnabled(true);
         }
 
         //If we press start...
@@ -260,7 +267,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             instructions.setText("x"+vx);
         }
 
-        else if (e.getSource() == speed) {
+        else if (e.getSource() == fast) {
             window.simulation.speedTimes(1.5);
             vx *= 1.5;
             instructions.setText("x"+vx);
@@ -270,13 +277,13 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             window.simulation.restart();
         }
 
-        else if (e.getSource() == roomChoice){
-            if(roomChoice.getSelectedItem() == "+ New simulation"){
+        else if (e.getSource() == simulationChoice){
+            if(simulationChoice.getSelectedItem() == "+ New simulation"){
                 window.setSimulation(new Simulation(true));
                 instructions.setText("new simulation charged");
             }else{
-                window.setSimulation("Simulations/"+roomChoice.getSelectedItem()+".ser");
-                instructions.setText(roomChoice.getSelectedItem()+" charged");
+                window.setSimulation("Simulations/"+ simulationChoice.getSelectedItem()+".ser");
+                instructions.setText(simulationChoice.getSelectedItem()+" charged");
             }
             this.restart();
         }
@@ -290,8 +297,8 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
                     ObjectOutputStream os = new ObjectOutputStream(fs);
                     os.writeObject(window.simulation); // 3
                     os.close();
-                    if(((DefaultComboBoxModel)roomChoice.getModel()).getIndexOf(nameSimulation)==-1){//If not already in the comboBox
-                        roomChoice.addItem(nameSimulation);
+                    if(((DefaultComboBoxModel) simulationChoice.getModel()).getIndexOf(nameSimulation)==-1){//If not already in the comboBox
+                        simulationChoice.addItem(nameSimulation);
                     }
                 } catch (Exception et) {
                     et.printStackTrace();
@@ -314,14 +321,14 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
     }
 
     public void itemStateChanged(ItemEvent e) {
-        if (e.getSource() == color) {
-            window.drawColor = (e.getStateChange() == ItemEvent.SELECTED);
+        if (e.getSource() == distanceToExit) {
+            window.drawDistanceToExit = (e.getStateChange() == ItemEvent.SELECTED);
             if(!window.simulation.isRunning()) {
                 window.simulation.dijkstra();
             }
         }
-        else if (e.getSource() == equi) {
-            window.drawEqui = (e.getStateChange() == ItemEvent.SELECTED);
+        else if (e.getSource() == equidistant) {
+            window.drawEquidistant = (e.getStateChange() == ItemEvent.SELECTED);
             if(!window.simulation.isRunning()) {
                 window.simulation.dijkstra();
             }

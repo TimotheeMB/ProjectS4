@@ -23,8 +23,8 @@ public class Window extends JFrame implements ActionListener{
     public JPanel total;
 
     //booleans used across the window
-    public boolean drawEqui;
-    public boolean drawColor;
+    public boolean drawEquidistant;
+    public boolean drawDistanceToExit;
     HashMap<JButton, Boolean> wait;
 
 
