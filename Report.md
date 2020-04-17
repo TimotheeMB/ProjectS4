@@ -23,7 +23,7 @@ It works as follow : we initialize the exit to be at a nil distance to the exit.
 There is no more problems of persons being not being able to reach an exit.
 
 
-## Bibliography
+## Bibliographaaaïïïïïï
 Informations on Dijkstra:
 - idea of *Diana Nurbakova* + [Wikipedia] (https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
 - Lecture of *Jilles S. Dibangoye* 
@@ -70,6 +70,35 @@ Simulation: +pause()
 Simulation: +restart()
 Simulation: +speedTimes(double)
 Simulation: +actionPerformed(ActionEvent)
+
+Window: +simulation: Simulation
+Window: +displayInterval: int
+Window: +timer: Timer
+Window: +displayPan: DisplayPanel
+Window: +choicesPan: ChoicesPanel
+Window: +total: JPanel
+Window: +drawEquidistant: boolean
+Window: +drawDistanceToExit: boolean
+Window: +wait: HashMap<JButton,Boolean>
+Window: +chargeSimulation(String)
+Window: +chargeSimulation(Simulation)
+Window: +saveSimulation()
+Window: +actionPerformed(ActionEvent)
+
+DisplayPanel: +window: Window
+DisplayPanel: +beginningObstacle: Point
+DisplayPanel: +paint(Graphics)
+DisplayPanel: +mousePressed(MouseEvent)
+DisplayPanel: +mouseReleased(MouseEvent)
+DisplayPanel: +scaleX()
+DisplayPanel: +scaleY()
+
+ChoicesPanel: +window: Window
+ChoicesPanel: +text: HashMap<JButton, String>
+ChoicesPanel: +person
+ChoicesPanel: +obstcle
+ChoicesPanel: +
+ChoicesPanel: +
 
 ```
 
