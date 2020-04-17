@@ -7,7 +7,7 @@ public class DisplayPanel extends JPanel implements MouseListener{
 
     public Window window;
 
-    Color beautyRed = new Color (250,100,70);
+    Color beautyRed = new Color (200,20,70);
     Color beautyBlue = new Color (70,50,140);
     Color beautyGreen = new Color(80, 210, 120);
 
