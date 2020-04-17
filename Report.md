@@ -74,9 +74,8 @@ Simulation: +actionPerformed(ActionEvent)
 ```
 
 ## Possible improvements, bugs ...
-- think about the dimensions of the room and the speed of the people so that they are coherent
-- break button
-- refresh button
+The main problem of our crowd simulator is that when we create an obstacle very close to the boundary of the room, without touching it, if the person is too big to go through the space, it will stay blocked behind the obstacle. Indeed, the algorithm computes that there is available space, however, the person can't.
+We could display a message if you use several times the same name for simulations you want to save. 
 
 ## Diary
 
@@ -90,9 +89,9 @@ Simulation: +actionPerformed(ActionEvent)
 - Timothée starts to write the "Person" class
 
 **Through the weeks** 
-- Claire continued the Window class
+- Claire continued the graphical interface
 - Timothée coded the displacement of people and the parameters of the room
-- Violaine was in charge of the obstacle class and wrote the report 
+- Violaine was in charge of the obstacle class and wrote the report, she also participated in the global aspect of the crowd simulator
 
 **First steps of the program**
 
@@ -109,7 +108,11 @@ Simulation: +actionPerformed(ActionEvent)
 3. correct the bugs linked to the people that leave the room due to the panic mode
 4. add the equipotential lines and the color to traduce the distance to the exit
 5. compute the speed of the persons so that it is coherent with the size of the room
-6. add a break button
+6. add a window to choose the size of the room
+7. add a break button 
+8. add buttons to modify the speed of the simulation
+9. add a button to be able to save a simulation and create model simulations
+
 
 ## Implication of the members
 
