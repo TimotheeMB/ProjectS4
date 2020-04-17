@@ -116,6 +116,24 @@ ChoicesPanel: +addListener()
 ChoicesPanel: +actionPerformed(ActionEvent)
 ChoicesPanel: +itemStateChanged(ItemEvent e)
 
+Entity: +position: Point[]
+Entity: +signature: int
+Entity: +simulation: Simulation
+Entity: +addPrint()
+Entity: +removePrint()
+
+Person: +initPosition: Point[]
+Person: +nextStep()
+
+Obstacle: +vertices: Point[]
+Obstacle: +length()
+Obstacle: +height()
+
+Point: +x: int
+Point: +y: int
+Point: +around(boolean)
+
+ValuedPoint: +value: int 
 ```
 
 ## Possible improvements, bugs ...
