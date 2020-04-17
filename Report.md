@@ -1,4 +1,4 @@
-Crowd simulator
+# Crowd simulator
 
 ## Specifications
 The main goal of our crowd simulator is to observe the displacements of people in a room in the special case where they all want to reach the exit as soon as possible (for example because of a fire inside a building).
