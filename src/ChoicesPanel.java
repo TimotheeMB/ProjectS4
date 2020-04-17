@@ -208,6 +208,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         pause.setVisible(false);
     }
 
+    //Add a listener to the needed components
     public void addListener() {
         person.addActionListener(this);
         obstacle.addActionListener(this);
@@ -306,7 +307,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         }
     }
 
-    // For the Check Boxes
+    /* Check Boxes */
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == distanceToExit) {
             window.drawDistanceToExit = (e.getStateChange() == ItemEvent.SELECTED);
