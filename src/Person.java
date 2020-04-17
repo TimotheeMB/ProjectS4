@@ -2,8 +2,6 @@ public class Person extends Entity{
 
     public Point[] initPosition;
 
-
-    /* ================================================ */
     /* CONSTRUCTOR */
     public Person(Point center, Simulation simulation) {
 
@@ -17,9 +15,7 @@ public class Person extends Entity{
     }
 
 
-    /* ================================================ */
-    /* METHODS */
-
+    /* METHOD */
     public void nextStep(){
         removePrint();//I disappear from my last position
 

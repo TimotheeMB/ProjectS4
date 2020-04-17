@@ -9,23 +9,23 @@ import java.util.PriorityQueue;
 public class Simulation implements Serializable, ActionListener {
 
     /*Entities*/
-    ArrayList<Person> persons;
-    ArrayList<Obstacle> obstacles;
-    ArrayList<Exit> exits;
+    public ArrayList<Person> persons;
+    public ArrayList<Obstacle> obstacles;
+    public ArrayList<Exit> exits;
 
     /*Map*/
-    int width;
-    int height;
+    public int width;
+    public int height;
     public int [][][] map;
-    final int INFINITY=Integer.MAX_VALUE;
+    public final int INFINITY=Integer.MAX_VALUE;
 
     /*Time*/
-    Timer timer;
-    long time;
-    final int NORMAL_STEP_DURATION=72;//Corresponds to a speed of 10km/h
+    public Timer timer;
+    public long time;
+    public final int NORMAL_STEP_DURATION=72;//Corresponds to a speed of 10km/h
 
     /*panic*/
-    boolean panic;
+    public boolean panic;
 
     public Simulation(boolean askSize) {
         /*Entities*/
