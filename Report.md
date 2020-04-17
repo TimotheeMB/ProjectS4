@@ -23,7 +23,7 @@ It works as follow : we initialize the exit to be at a nil distance to the exit.
 There is no more problems of persons being not being able to reach an exit.
 
 
-## Bibliographaaaïïïïïï
+## Bibliography
 Informations on Dijkstra:
 - idea of *Diana Nurbakova* + [Wikipedia] (https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
 - Lecture of *Jilles S. Dibangoye* 
