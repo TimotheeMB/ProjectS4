@@ -126,11 +126,9 @@ public class Simulation implements Serializable, ActionListener {
     public void addPerson(Point center){
         persons.add(new Person(center,this));
     }
-
     public void addObstacle(Point a, Point b){
         obstacles.add(new Obstacle(a,b,this));
     }
-
     public void addExit(Point e){
         Exit exit = new Exit (e, this);
         this.exits.add(exit);
@@ -187,7 +185,6 @@ public class Simulation implements Serializable, ActionListener {
         }
         time=0;
     }
-
     public void speedTimes(double factor){
         timer.setDelay((int)(timer.getDelay()*(1/factor)));
     }

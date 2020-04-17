@@ -46,36 +46,31 @@ Simulation -- *Entity
 Point --* Entity
 Point<|--ValuedPoint
 
-Window:
+Simulation: +persons: ArrayList<Person> 
+Simulation: +obstacles: ArrayList<Obstacle>
+Simulation: +exits: ArrayList<Exit>
+Simulation: +width: int
+Simulation: +height: int
+Simulation: +map: int[][][]
+Simulation: +ININITY: int
+Simulation: +timer: Timer
+Simulation: +time: long
+Simulation: +NORMAL_STEP_DURATION: int
+Simulation: +panic: boolean
+Simulation: +nextStep()
+Simulation: +dijkstra()
+Simulation: +addPerson()
+Simulation: +addObstacle()
+Simulation: +addExit()
+Simulation: +inBounds(Point)
+Simulation: +emptyAround(Point)
+Simulation: +isRunning()
+Simulation: +start()
+Simulation: +pause()
+Simulation: +restart()
+Simulation: +speedTimes(double)
+Simulation: +actionPerformed(ActionEvent)
 
-DisplayPanel:
-
-Simulation:+ persons: ArrayList<Person> 
-Simulation:+ obstacles: ArrayList<Obstacle>
-Simulation:+ exits: ArrayList<Exit>
-Simulation:+ width: int
-Simulation:+ height: int
-Simulation:+ map: int[][][]
-Simulation:+ ININITY: int
-Simulation:+ timer: Timer
-Simulation:+ time: long
-Simulation:+ NORMAL_STEP_DURATION: int
-Simulation:+ panic: boolean
-
-Simulation:+nextStep()
-
-
-Entity:
-
-Person:
-
-Obstacle:
-
-Exit:
-
-Point:
-
-ValuedPoint: +int value
 ```
 
 ## Possible improvements, bugs ...
@@ -88,14 +83,14 @@ ValuedPoint: +int value
  We have got the idea of a crowd simulator by looking at the emergency stairs of the canteen. We wanted to code a tool that would compute things that we can. In this case the trajectory of a high number of people and the time
  We have done some researches and chosen to use git with a github repository to work together more easily. We have written a first idea of the wanted [specifications](#Specifications).
 
-**At the beginning and through the weeks
+**At the beginning 
 
-- Claire is in charge of the window
+- Claire is in charge of the Window.
 - Violaine thinks about the principle to code the motion of people and the special cases to solve
 - Timothée starts to write the "Person" class
 
 **Through the weeks** 
-- Claire does the graphical interface
+- Claire continued the Window class
 - Timothée coded the displacement of people and the parameters of the room
 - Violaine was in charge of the obstacle class and wrote the report 
 
