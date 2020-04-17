@@ -46,16 +46,16 @@ public class DisplayPanel extends JPanel implements MouseListener{
                 }
             }
         }
-        g.setColor(beautyRed);
-        for (Person kevin: window.simulation.persons) {
-            if(window.simulation.distAt(kevin.position[0])>40) {
-                g.fillOval((int) (kevin.position[0].x * scaleX() - 2.5 * scaleX()), (int) (kevin.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
+        g.setColor(window.drawDistanceToExit? Color.white : beautyRed);
+        for (Person brian : window.simulation.persons) {
+            if(window.simulation.distAt(brian.position[0])>40) {
+                g.fillOval((int) (brian.position[0].x * scaleX() - 2.5 * scaleX()), (int) (brian.position[0].y * scaleY() - 2.5 * scaleY()), (int) (5 * scaleX()), (int) (5 * scaleY()));
             }
         }
         g.setColor(beautyBlue);
-        for (Obstacle bob:window.simulation.obstacles
+        for (Obstacle obstacle:window.simulation.obstacles
              ) {
-            g.fillRect((int)((bob.vertices[0].x)*scaleX()),(int)((bob.vertices[0].y)*scaleY()),(int)((bob.length())*scaleX()),(int)((bob.height())*scaleY()));
+            g.fillRect((int)((obstacle.vertices[0].x)*scaleX()),(int)((obstacle.vertices[0].y)*scaleY()),(int)((obstacle.length())*scaleX()),(int)((obstacle.height())*scaleY()));
         }
         g.setColor(beautyGreen);
         for(Exit exit : window.simulation.exits) {

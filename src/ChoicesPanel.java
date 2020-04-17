@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 public class ChoicesPanel extends JPanel implements ActionListener, ItemListener {
@@ -279,32 +277,17 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
 
         else if (e.getSource() == simulationChoice){
             if(simulationChoice.getSelectedItem() == "+ New simulation"){
-                window.setSimulation(new Simulation(true));
+                window.chargeSimulation(new Simulation(true));
                 instructions.setText("new simulation charged");
             }else{
-                window.setSimulation("Simulations/"+ simulationChoice.getSelectedItem()+".ser");
+                window.chargeSimulation("Simulations/"+ simulationChoice.getSelectedItem()+".ser");
                 instructions.setText(simulationChoice.getSelectedItem()+" charged");
             }
             this.restart();
         }
 
         else if (e.getSource() == save){
-            String nameSimulation =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
-            if (nameSimulation != null){
-                JOptionPane.showMessageDialog(null, "You choose to name your simulation: " + nameSimulation, "Name your simulation", JOptionPane.INFORMATION_MESSAGE);
-                try {
-                    FileOutputStream fs = new FileOutputStream("Simulations/"+nameSimulation+".ser");
-                    ObjectOutputStream os = new ObjectOutputStream(fs);
-                    os.writeObject(window.simulation); // 3
-                    os.close();
-                    if(((DefaultComboBoxModel) simulationChoice.getModel()).getIndexOf(nameSimulation)==-1){//If not already in the comboBox
-                        simulationChoice.addItem(nameSimulation);
-                    }
-                } catch (Exception et) {
-                    et.printStackTrace();
-                }
-                instructions.setText("Simulation saved");
-            }
+            window.saveSimulation();
         }
         else{
             text.forEach((button,bool)->{
