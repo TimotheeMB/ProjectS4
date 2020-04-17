@@ -2,7 +2,6 @@ public class Person extends Entity{
 
     public Point[] initPosition;
 
-    boolean panic;
 
     /* ================================================ */
     /* CONSTRUCTOR */
@@ -24,7 +23,7 @@ public class Person extends Entity{
     public void nextStep(){
         removePrint();//I disappear from my last position
 
-        if(panic){
+        if(simulation.panic||simulation.distAt(position[0])==Integer.MAX_VALUE){
             Point randomPosition = position[(int)(Math.random()*21)];
             if(simulation.emptyAround(randomPosition)){
                 position = randomPosition.around(true);
@@ -41,9 +40,6 @@ public class Person extends Entity{
                 }
             }
             position= position[index].around(true);
-            if(simulation.distAt(position[0])==Integer.MAX_VALUE){
-                panic = true;
-            }
         }
 
         if(simulation.distAt(position[0])>40) {

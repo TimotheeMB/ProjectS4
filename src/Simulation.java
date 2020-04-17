@@ -24,6 +24,9 @@ public class Simulation implements Serializable, ActionListener {
     long time;
     final int NORMAL_STEP_DURATION=72;//Corresponds to a speed of 10km/h
 
+    /*panic*/
+    boolean panic;
+
 
 
     public Simulation(boolean askSize) {
@@ -145,9 +148,7 @@ public class Simulation implements Serializable, ActionListener {
         map[p.x][p.y][1]=dist;
     }
     public void setPanic(boolean panic){
-        for (Person p:persons) {
-            p.panic=panic;
-        }
+        this.panic=panic;
     }
 
 

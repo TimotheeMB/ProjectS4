@@ -177,7 +177,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         text=new HashMap<>();
         text.put(this.person,"To add a person, you just have\nto click somewhere in the simulation,\na point representing that person\nwill appear.");
         text.put(this.obstacle,"You can create rectangular shaped\nobstacles.To do so, you will give\n2 vertices, press your mouse,\nand release it where you want");
-        text.put(this.exit,"As for adding a person\njust click somewhere on the simulation\nto add the exit.");
+        text.put(this.exit,"Just click somewhere on the simulation\nto add the exit.");
 
         addListener();
     }
