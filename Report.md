@@ -71,6 +71,17 @@ Simulation: +restart()
 Simulation: +speedTimes(double)
 Simulation: +actionPerformed(ActionEvent)
 
+Window: +simulation: Simulation
+Window: +displayInterval: int
+Window: +timer: Timer
+Window: +displayPan: DisplayPanel
+Window: +choicesPan: ChoicesPanel
+Window: +total: JPanel
+Window: +drawEquidistant: boolean
+Window: +drawDistanceToExit: boolean
+Window: +wait: HashMap<JButton,Boolean>
+Window: +actionPerformed(ActionEvent)
+
 ```
 
 ## Possible improvements, bugs ...

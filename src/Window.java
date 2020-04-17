@@ -3,7 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 public class Window extends JFrame implements ActionListener{
@@ -32,7 +34,7 @@ public class Window extends JFrame implements ActionListener{
     public Window(){
 
         //Default simulation
-        setSimulation(new Simulation(false));
+        chargeSimulation(new Simulation(false));
 
         //Window initialization
         this.setTitle("Crowd Simulator");
@@ -79,10 +81,10 @@ public class Window extends JFrame implements ActionListener{
 
         this.setVisible(true);
 
-        setSimulation(new Simulation(true));
+        chargeSimulation(new Simulation(true));
     }
 
-    public void setSimulation(String fileName){
+    public void chargeSimulation(String fileName){
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -92,8 +94,27 @@ public class Window extends JFrame implements ActionListener{
             eu.printStackTrace();
         }
     }
-    public void setSimulation(Simulation simulation){
+    public void chargeSimulation(Simulation simulation){
         this.simulation=simulation;
+    }
+
+    public void saveSimulation(){
+        String nameSimulation =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
+        if (nameSimulation != null){
+            JOptionPane.showMessageDialog(null, "You choose to name your simulation: " + nameSimulation, "Name your simulation", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                FileOutputStream fs = new FileOutputStream("Simulations/"+nameSimulation+".ser");
+                ObjectOutputStream os = new ObjectOutputStream(fs);
+                os.writeObject(simulation); // 3
+                os.close();
+                if(((DefaultComboBoxModel) choicesPan.simulationChoice.getModel()).getIndexOf(nameSimulation)==-1){//If not already in the comboBox
+                    choicesPan.simulationChoice.addItem(nameSimulation);
+                }
+                choicesPan.instructions.setText("Simulation saved");
+            } catch (Exception et) {
+                et.printStackTrace();
+            }
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
