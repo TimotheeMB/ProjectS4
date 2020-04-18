@@ -34,6 +34,17 @@ public class Point implements Serializable {
                     new Point(this.x, this.y+2),
                     new Point(this.x+1, this.y+2)
             };
+            /* |----|----|----|----|----|
+               |    | 14 | 13 | 12 |    |
+               |----|----|----|----|----|
+               | 15 | 4  | 3  | 2  | 11 |
+               |----|----|----|----|----|
+               | 16 | 5  | 0  | 1  | 10 |
+               |----|----|----|----|----|
+               | 17 | 6  | 7  | 8  | 9  |
+               |----|----|----|----|----|
+               |    | 18 | 19 | 20 |    |
+               |----|----|----|----|----| */
         }else{
             return new Point[]{
                     new Point(this.x + 1, this.y),
@@ -45,6 +56,13 @@ public class Point implements Serializable {
                     new Point(this.x, this.y + 1),
                     new Point(this.x + 1, this.y + 1),
             };
+            /* |-----|-----|-----|
+               |  4  |  3  |  2  |
+               |-----|-----|-----|
+               |  5  |  0  |  1  |
+               |-----|-----|-----|
+               |  6  |  7  |  8  |
+               |-----|-----|-----| */
         }
     }
 
