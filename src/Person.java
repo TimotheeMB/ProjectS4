@@ -1,14 +1,15 @@
 public class Person extends Entity{
+/*** Hello my name is Brian, I'm an instance of that class, and I will explain you how I work ***/
 
     public Point[] initPosition;
 
-    /* CONSTRUCTOR */
+    /* My birth */
     public Person(Point center, Simulation simulation) {
 
         /*I set my attributes*/
         super(simulation,1);
         this.position = center.around(true);
-        this.initPosition = position;
+        this.initPosition = position;// I do not forget where I come from
 
         /*I put myself in the simulation*/
         addPrint();

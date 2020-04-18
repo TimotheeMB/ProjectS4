@@ -16,7 +16,7 @@ public class Simulation implements Serializable, ActionListener {
     /*Map*/
     public int width;
     public int height;
-    public int [][][] map;
+    public int [][][] map;// the map of the "room" of the simulation
     public final int INFINITY=Integer.MAX_VALUE;
 
     /*Time*/
@@ -25,7 +25,7 @@ public class Simulation implements Serializable, ActionListener {
     public final int NORMAL_STEP_DURATION=72;//Corresponds to a speed of 10km/h
 
     /*panic*/
-    public boolean panic;
+    public boolean panic;//If true all the persons in the simulation we behave like crazy
 
     public Simulation(boolean askSize) {
         /*Entities*/
@@ -34,15 +34,16 @@ public class Simulation implements Serializable, ActionListener {
         obstacles= new ArrayList<>();
 
         /*Map*/
-        width=500;
+        width=500;//default size: 50m
         height=500;
-        if(askSize){
+        if(askSize){ //A pop-up window will appear to ask the size of the new simulation room
             boolean correctAnswer = false;
             while (!correctAnswer){
-                String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (in the form WidthxHeight ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);
-                if(size!=null&&!size.equals("")){
+                String size = JOptionPane.showInputDialog(null, "Choose the size of your room in m^2 (in the form WidthxHeight ex: 20x10) : ", "Parametrization", JOptionPane.QUESTION_MESSAGE);//the pop-up itself
+                if(size!=null&&!size.equals("")){//If real size given
                     String[] dimension = {"",""};
                     int k = 0;
+                    //before the 'x' will be dimension[0] (width) and after dimention[1] (height)
                     for (int i = 0; i < size.length(); i++) {
                         if (size.charAt(i) == 'x' || size.charAt(i) == 'X' || size.charAt(i) =='*') {
                             k++;
@@ -53,16 +54,16 @@ public class Simulation implements Serializable, ActionListener {
                     correctAnswer = true;
                     try {
                         width = Integer.parseInt(dimension[0]) * 10;//convert meters in # of cases
-                        if(dimension[1].equals("")){
+                        if(dimension[1].equals("")){//if only one dimention given make a square room
                             height = width;
                         }else {
                             height = Integer.parseInt(dimension[1]) * 10;
                         }
-                    }catch (Exception e){
-                        System.out.println("not valid");
+                    }catch (Exception e){//If the answer is not valid
+                        System.out.println("Not valid answer");
                         correctAnswer = false;
                     }
-                }else{
+                }else{//If no answer make the room with default size
                     correctAnswer = true;
                 }
             }
@@ -88,37 +89,44 @@ public class Simulation implements Serializable, ActionListener {
         }
     }
 
-    //famous algorithm used here to compute the distance to the closest exit at every point on the map
+    /**famous algorithm used here to compute the distance to the closest exit at every point on the map,
+     * so that every person in the simulation can find his/her way avoid obstacles...
+     * and still be free to avoid other persons because they will not have a precise path to follow
+     * just a kind of guideline (the knowledge of the distance to the exit at every point)
+     */
     public void dijkstra(){
+        //Initialize the distance to the closer exit at infinity every where
         for (int i = 0; i <width; i++) {
             for (int j = 0; j <height ; j++) {
                 map[i][j][1]=INFINITY;
             }
         }
+        //Then for each exit...
         for (Exit exit:exits) {
-            PriorityQueue<ValuedPoint> priority = new PriorityQueue<>(new ValuedPointComparator());
-            priority.add( new ValuedPoint(exit.position[0], 0) );
-            setDist(exit.position[0],0);
-            while( !priority.isEmpty() ){
-                Point source = priority.poll();
-                for (int i = 0; i <source.around(false).length ; i++) {
+            PriorityQueue<ValuedPoint> priority = new PriorityQueue<>(new ValuedPointComparator());//This will store the points to be examined by order of distance
+            priority.add( new ValuedPoint(exit.position[0], 0) );// We start with the exit, with obviously a distance 0
+            setDist(exit.position[0],0);//We store the distance in the map
+            while( !priority.isEmpty() ){//While there is still points to analyze
+                Point source = priority.poll();//We pick the closer point (call it A)
+                for (int i = 0; i <source.around(false).length ; i++) {//We look every point around that point (call them B_i)
                     Point p = source.around(false)[i];
-                    if(inBounds(p)&&signAt(p)!=2) {
-                        int new_cost = distAt(source);
+                    if(inBounds(p)&&signAt(p)!=2) {//If B_i is in the map and with no obstacle
+                        //we will compute the length of the path passing by the point
+                        int newDist = distAt(source);// It is equal to the dist of point A to the exit +
                         if (i % 2 == 0) {
-                            new_cost += 10;//1*10
+                            newDist += 10;//1*10 if B_i as a "side" in common with A
                         } else {
-                            new_cost += 14;//sqrt(2)*10
+                            newDist += 14;//~sqrt(2)*10 if B_i as a "vertex" in common with A
                         }
-                        if (new_cost < distAt(p)) {
-                            setDist(p, new_cost);
-                            priority.offer(new ValuedPoint(p, new_cost));
+                        if (newDist < distAt(p)) {//If the path passing by A is closer than the previously computed one (Infinity if no previously computed path)
+                            setDist(p, newDist);//We update the closer distance to the exit
+                            priority.offer(new ValuedPoint(p, newDist));//And we put it in the list to examined, so that we can take it as a point A
                         }
                     }
                 }
             }
         }
-
+        //by doing that for each exit we will, obviously, replace the distance of a point only if the exit is closer to that point than the previous ones...
     }
 
 
