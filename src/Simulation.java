@@ -90,12 +90,12 @@ public class Simulation implements Serializable, ActionListener {
     }
 
     /**famous algorithm used here to compute the distance to the closest exit at every point on the map,
-     * so that every person in the simulation can find his/her way avoid obstacles...
+     * so that every person in the simulation can find his/her way avoiding obstacles...
      * and still be free to avoid other persons because they will not have a precise path to follow
-     * just a kind of guideline (the knowledge of the distance to the exit at every point)
+     * just a kind of guideline (the knowledge of the distance to the exit at every points)
      */
     public void dijkstra(){
-        //Initialize the distance to the closer exit at infinity every where
+        //Initialize the distance to the closest exit at infinity every where
         for (int i = 0; i <width; i++) {
             for (int j = 0; j <height ; j++) {
                 map[i][j][1]=INFINITY;
@@ -104,22 +104,22 @@ public class Simulation implements Serializable, ActionListener {
         //Then for each exit...
         for (Exit exit:exits) {
             PriorityQueue<ValuedPoint> priority = new PriorityQueue<>(new ValuedPointComparator());//This will store the points to be examined by order of distance
-            priority.add( new ValuedPoint(exit.position[0], 0) );// We start with the exit, with obviously a distance 0
+            priority.add( new ValuedPoint(exit.position[0], 0) );// We start with the exit, with a distance 0
             setDist(exit.position[0],0);//We store the distance in the map
             while( !priority.isEmpty() ){//While there is still points to analyze
-                Point source = priority.poll();//We pick the closer point (call it A)
-                for (int i = 0; i <source.around(false).length ; i++) {//We look every point around that point (call them B_i)
+                Point source = priority.poll();//We pick the closest point (call it A)
+                for (int i = 0; i <source.around(false).length ; i++) {//We look at every points around that point (call them B_i)
                     Point p = source.around(false)[i];
-                    if(inBounds(p)&&signAt(p)!=2) {//If B_i is in the map and with no obstacle
-                        //we will compute the length of the path passing by the point
-                        int newDist = distAt(source);// It is equal to the dist of point A to the exit +
+                    if(inBounds(p)&&signAt(p)!=2) {//If B_i is in the map and with no obstacles on it
+                        //we will compute the length of the path passing by the point A
+                        int newDist = distAt(source);//It is equal to the distance of point A to the exit + ...
                         if (i % 2 == 0) {
-                            newDist += 10;//1*10 if B_i as a "side" in common with A
+                            newDist += 10;// ... 1*10 if B_i as a "side" in common with A
                         } else {
                             newDist += 14;//~sqrt(2)*10 if B_i as a "vertex" in common with A
                         }
                         if (newDist < distAt(p)) {//If the path passing by A is closer than the previously computed one (Infinity if no previously computed path)
-                            setDist(p, newDist);//We update the closer distance to the exit
+                            setDist(p, newDist);//We update the closest distance to the exit
                             priority.offer(new ValuedPoint(p, newDist));//And we put it in the list to examined, so that we can take it as a point A
                         }
                     }
