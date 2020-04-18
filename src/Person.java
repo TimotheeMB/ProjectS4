@@ -5,7 +5,7 @@ public class Person extends Entity{
     /* CONSTRUCTOR */
     public Person(Point center, Simulation simulation) {
 
-        /*I computePaths my attributes*/
+        /*I set my attributes*/
         super(simulation,1);
         this.position = center.around(true);
         this.initPosition = position;
@@ -19,23 +19,24 @@ public class Person extends Entity{
     public void nextStep(){
         removePrint();//I disappear from my last position
 
-        if(simulation.panic||simulation.distAt(position[0])==Integer.MAX_VALUE){
-            Point randomPosition = position[(int)(Math.random()*21)];
-            if(simulation.emptyAround(randomPosition)){
-                position = randomPosition.around(true);
+        if(simulation.panic||simulation.distAt(position[0])==Integer.MAX_VALUE){//If there is panic in the room or if there is no way I can reach the exit
+            Point randomPosition = position[(int)(Math.random()*21)]; // I choose my next position randomly
+            if(simulation.emptyAround(randomPosition)){// And if I can..
+                position = randomPosition.around(true); //I go to that position
             }
         }else {
+            //here I will choose the point of my position which is the closer to the exit (and where I can go)
             int minDist= simulation.distAt(position[0]);
             int index=0;
             for (int i = 0; i <position.length ; i++) {
-                if (simulation.emptyAround(position[i])) {
+                if (simulation.emptyAround(position[i])) {//check if I can go
                     if (simulation.distAt(position[i]) < minDist) {
                         minDist = simulation.distAt(position[i]);
                         index = i;
                     }
                 }
             }
-            position= position[index].around(true);
+            position= position[index].around(true);//I go to that position
         }
 
         if(simulation.distAt(position[0])>40) {
