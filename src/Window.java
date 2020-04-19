@@ -103,7 +103,7 @@ public class Window extends JFrame implements ActionListener{
         String nameSimulation =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
         if (nameSimulation != null){//If there is a name
             //A pop-up just to confirm the name
-            JOptionPane.showMessageDialog(null, "You choose to name your simulation: " + nameSimulation, "Name your simulation", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You chose to name your simulation: " + nameSimulation, "Name your simulation", JOptionPane.INFORMATION_MESSAGE);
             simulation.timer.setDelay(simulation.NORMAL_STEP_DURATION);//We don't want to save the simulation going fast
             try {
                 FileOutputStream fs = new FileOutputStream("Simulations/"+nameSimulation+".ser");//we will save the simulation in the folder Simulations, in a file with its name
