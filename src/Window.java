@@ -84,7 +84,7 @@ public class Window extends JFrame implements ActionListener{
         chargeSimulation(new Simulation(true));
     }
 
-    public void chargeSimulation(String fileName){
+    public void chargeSimulation(String fileName){ //this will charge the simulation with this given file path.
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -99,16 +99,19 @@ public class Window extends JFrame implements ActionListener{
     }
 
     public void saveSimulation(){
+        //A pop-up to ask the name of the simulation to save
         String nameSimulation =  JOptionPane.showInputDialog(null, "Choose a name for this simulation : ", "Save the simulation!", JOptionPane.QUESTION_MESSAGE);
-        if (nameSimulation != null){
+        if (nameSimulation != null){//If there is a name
+            //A pop-up just to confirm the name
             JOptionPane.showMessageDialog(null, "You choose to name your simulation: " + nameSimulation, "Name your simulation", JOptionPane.INFORMATION_MESSAGE);
+            simulation.timer.setDelay(simulation.NORMAL_STEP_DURATION);//We don't want to save the simulation going fast
             try {
-                FileOutputStream fs = new FileOutputStream("Simulations/"+nameSimulation+".ser");
+                FileOutputStream fs = new FileOutputStream("Simulations/"+nameSimulation+".ser");//we will save the simulation in the folder Simulations, in a file with its name
                 ObjectOutputStream os = new ObjectOutputStream(fs);
                 os.writeObject(simulation); // 3
                 os.close();
                 if(((DefaultComboBoxModel) choicesPan.simulationChoice.getModel()).getIndexOf(nameSimulation)==-1){//If not already in the comboBox
-                    choicesPan.simulationChoice.addItem(nameSimulation);
+                    choicesPan.simulationChoice.addItem(nameSimulation);//We add the new simulation it the comboBox
                 }
                 choicesPan.instructions.setText("Simulation saved");
             } catch (Exception et) {

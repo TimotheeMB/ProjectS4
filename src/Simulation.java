@@ -53,7 +53,7 @@ public class Simulation implements Serializable, ActionListener {
                     }
                     correctAnswer = true;
                     try {
-                        width = Integer.parseInt(dimension[0]) * 10;//convert meters in # of cases
+                        width = Integer.parseInt(dimension[0]) * 10;//convert meters in number of cases
                         if(dimension[1].equals("")){//if only one dimention given make a square room
                             height = width;
                         }else {

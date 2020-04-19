@@ -80,12 +80,13 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
 
         simulationChoice = new JComboBox<>();
         simulationChoice.addItem("+ New simulation");
+        //We will add all the previously saved simulation in the comboBox
         File simulationsDirectory=new File("Simulations"); //where the saved simulations are
         File[] simulations=simulationsDirectory.listFiles();//Put all the simulations in a array of files
         for(File simulation: simulations){
             simulationChoice.addItem(simulation.getName().replace(".ser",""));
         }
-        simulationChoice.setSelectedIndex(0);
+        simulationChoice.setSelectedIndex(0);//by default "+ new simulation"
         simulationChoice.setEditable(false);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -100,7 +101,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.weighty = 0.01;
         add(panic,gbc);
 
-        equidistant = new JCheckBox("Display Equipotentials");
+        equidistant = new JCheckBox("Display Equidistant");
         equidistant.setSelected(false);
         equidistant.setBackground(beautyGreenBlue);
         gbc.gridx = 0;
@@ -295,7 +296,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
 
         //If we press person, obstacle or exit
         else{
-            text.forEach((button,bool)->{
+            text.forEach((button,bool)->{ //In order the manage the "selection" of the button to add entities
                 if(button==e.getSource()){
                     button.setBackground(beautyGreenBlue);
                     window.wait.put(button,true);
@@ -311,15 +312,25 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
     /* Check Boxes */
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == distanceToExit) {
-            window.drawDistanceToExit = (e.getStateChange() == ItemEvent.SELECTED);
-            if(!window.simulation.isRunning()) {
-                window.simulation.dijkstra();
+            if(e.getStateChange() == ItemEvent.SELECTED) {
+                window.drawDistanceToExit = true;
+                instructions.setText("Greener is closer\nRedder is farther");
+                if (!window.simulation.isRunning()) {
+                    window.simulation.dijkstra();
+                }
+            }else{
+                window.drawDistanceToExit = false;
             }
         }
         else if (e.getSource() == equidistant) {
-            window.drawEquidistant = (e.getStateChange() == ItemEvent.SELECTED);
-            if(!window.simulation.isRunning()) {
-                window.simulation.dijkstra();
+            if(e.getStateChange() == ItemEvent.SELECTED) {
+                window.drawEquidistant = true;
+                instructions.setText("All the points on the same line are at\nthe same distance to the exit\n\nThese lines are spaced by 2m");
+                if (!window.simulation.isRunning()) {
+                    window.simulation.dijkstra();
+                }
+            }else{
+                window.drawEquidistant = false;
             }
         }
         else if (e.getSource() == panic){
