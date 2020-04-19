@@ -334,7 +334,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
             }
         }
         else if (e.getSource() == panic){
-            window.simulation.setPanic(e.getStateChange() == ItemEvent.SELECTED);
+            //window.simulation.setPanic(1);
         }
     }
 }

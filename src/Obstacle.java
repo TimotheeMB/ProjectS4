@@ -9,11 +9,11 @@ public class Obstacle extends Entity {
         super(simulation, 2);
 
 
-        if ((one.x < two.x) && (one.y < two.y)) { //upper left to lower right corner
+        if ((one.x <= two.x) && (one.y <= two.y)) { //upper left to lower right corner
             vertices = new Point[]{new Point(one.x,one.y), new Point(two.x, one.y),new Point(two.x,two.y), new Point(one.x, two.y)};
-        } else if ((one.x > two.x) && (one.y > two.y)) {//lower right to upper left corner
+        } else if ((one.x >= two.x) && (one.y >= two.y)) {//lower right to upper left corner
             vertices = new Point[]{new Point(two.x,two.y), new Point(one.x, two.y),new Point(one.x,one.y), new Point(two.x, one.y)};
-        } else if ((one.x < two.x)&& (one.y > two.y)) {//lower left to upper right corner
+        } else if ((one.x <= two.x)&& (one.y >= two.y)) {//lower left to upper right corner
             vertices = new Point[]{new Point(one.x,two.y), new Point(two.x,two.y), new Point(two.x, one.y), new Point(two.x,two.y)};
         }else{//upper right to lower left corner
             vertices = new Point[]{new Point(two.x, one.y), new Point(one.x,one.y), new Point(one.x, two.y), new Point(two.x,two.y)};

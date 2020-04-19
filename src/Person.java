@@ -20,7 +20,7 @@ public class Person extends Entity{
     public void nextStep(){
         removePrint();//I disappear from my last position
 
-        if(simulation.panic||simulation.distAt(position[0])==Integer.MAX_VALUE){//If there is panic in the room or if there is no way I can reach the exit
+        if(((int)(Math.random()*(1/simulation.panic))==0)||(simulation.distAt(position[0])==Integer.MAX_VALUE)){//If there is panic in the room or if there is no way I can reach the exit
             Point randomPosition = position[(int)(Math.random()*21)]; // I choose my next position randomly
             if(simulation.emptyAround(randomPosition)){// And if I can..
                 position = randomPosition.around(true); //I go to that position
