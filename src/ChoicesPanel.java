@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +9,7 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.HashMap;
 
-public class ChoicesPanel extends JPanel implements ActionListener, ItemListener {
+public class ChoicesPanel extends JPanel implements ActionListener, ItemListener, ChangeListener {
 //Attributes
 
     Color beautyGreenBlue = new Color (120,250,180);
@@ -30,7 +32,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
     public JButton slow;
 
     //Check Boxes
-    public JCheckBox panic;
+    public JSlider panic;
     public JCheckBox equidistant;
     public JCheckBox distanceToExit;
 
@@ -93,17 +95,34 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         add(simulationChoice, gbc);
 
         gbc.insets = new Insets(0, 5, 0, 5);
-        panic = new JCheckBox("Panic mode");
-        panic.setSelected(false);
+        panic = new JSlider();
+        panic.setMaximum(100);
+        panic.setMinimum(0);
+        panic.setValue(0);
+        panic.setPaintTicks(true);
+        panic.setPaintLabels(true);
+        panic.setMinorTickSpacing(10);
+        panic.setMajorTickSpacing(50);
         panic.setBackground(beautyGreenBlue);
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 4;
+        gbc.gridwidth = 3;
+        gbc.weightx = 0.8;
         gbc.weighty = 0.01;
         add(panic,gbc);
+
+        JLabel namePanic = new JLabel("Panic degree: ");
+        namePanic.setBackground(beautyGreenBlue);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0.2;
+        add(namePanic,gbc);
 
         equidistant = new JCheckBox("Display Equidistant");
         equidistant.setSelected(false);
         equidistant.setBackground(beautyGreenBlue);
+        gbc.gridwidth = 4;
+        gbc.weightx = 1;
         gbc.gridx = 0;
         gbc.gridy = 5;
         add(equidistant,gbc);
@@ -197,11 +216,12 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         });
 
         distanceToExit.setSelected(false);
-        panic.setSelected(false);
         equidistant.setSelected(false);
 
         fast.setEnabled(true);
         slow.setEnabled(true);
+
+        panic.setValue((int)(window.simulation.panic*100));
 
         vx=1;
 
@@ -216,7 +236,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         exit.addActionListener(this);
         simulationChoice.addItemListener(this);
         simulationChoice.addActionListener(this);
-        panic.addItemListener(this);
+        panic.addChangeListener(this);
         equidistant.addItemListener(this);
         distanceToExit.addItemListener(this);
         save.addActionListener(this);
@@ -333,8 +353,9 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
                 window.drawEquidistant = false;
             }
         }
-        else if (e.getSource() == panic){
-            //window.simulation.setPanic(1);
-        }
+    }
+
+    public void stateChanged(ChangeEvent e) {
+        window.simulation.setPanic(((JSlider)e.getSource()).getValue()/100.0);
     }
 }
