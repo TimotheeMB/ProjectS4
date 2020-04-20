@@ -17,24 +17,41 @@ With more details, we also wanted to :
 We almost reached all our goals, but for the different types of behaviors, we in fact just have the possibility to choose the "panic degree" in the room. We also added a few more functionalities:
 
 - Save and reload multiple rooms
+- Time management (play, pause, faster, slower, restart)
+- Resizable window
+- Display the distance to the closer exit thanks to color or equidistant lines
 
 ## Description of the problem
 We knew we would have difficulties in making the people go to a special point avoiding being stuck by an obstacle.
 
 
 ## Principle of the algorithm
+### Our first idea
+
 The principle is the following : for each person created, before they make any move, the algorithm computes the shortest path to the chosen exit.
 Then 2 options follow : if the path is free, the person goes to the exit. If not, we add as an intermediate target the closest vertex of the obstacle. Then, we repeat the same method. When the whole path is computed, the point follows it.
-We still have problems with this method since for special configurations, people get stuck behind obstacles. It might happen when a person is at the same distance from several vertices of an obstacle or when the obstacle touches the boundary of the room.
+We still have problems with this method since for special configurations, people get stuck behind obstacles. It might happen when there is a lot of obstacles or when an obstacle touches the boundary of the room or another obstacle.
 
-All the attempts to solve these problems failed and as the code were being more and more complicated we chose to change the method and use the one proposed by our teacher. It is called Dijkstra's algorithm. It allows to compute the shortest path between two points. This is exactly what we need.
-It works as follow : we initialize the exit to be at a nil distance to the exit. Then we take all the points around the exit and give the value 1 to the closest to the person, the other points around the exit have the value infinity. We do the same around this new point of value 1 and give the value 2 to the closest point from the person. We give infinite values to obstacles. At the end, the person follows the path (or recompute it not to meet people).  
-There is no more problems of persons being not being able to reach an exit.
+### The final solution
+
+All the attempts to solve these problems failed and as the code were getting more and more complicated we chose to change the method and use the one proposed by our teacher. It is called Dijkstra's algorithm.
+
+> "**Dijkstra's algorithm** (or **Dijkstra's Shortest Path First algorithm**, **SPF algorithm**)[[2\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-2) is an [algorithm](https://en.wikipedia.org/wiki/Algorithm) for finding the [shortest paths](https://en.wikipedia.org/wiki/Shortest_path_problem) between [nodes](https://en.wikipedia.org/wiki/Vertex_(graph_theory)) in a [graph](https://en.wikipedia.org/wiki/Graph_(abstract_data_type)), which may represent, for example, [road networks](https://en.wikipedia.org/wiki/Road_network).  It was conceived by [computer scientist](https://en.wikipedia.org/wiki/Computer_scientist) [Edsger W. Dijkstra](https://en.wikipedia.org/wiki/Edsger_W._Dijkstra) in 1956 and published three years later.[[3\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-3)[[4\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-Dijkstra_Interview-4)[[5\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-Dijkstra1959-5)" [Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+
+The complete Dijkstra's algorithm allows to compute precisely the shorter path from a point to another, that's not exactly what we want because the persons still need to adapt to there immediate environment while moving (i.e., avoid other people). Hence we will just use the part that is dedicated to computing the distance to a given point (here an exit) in every point of the graph (here the map). But we will use it several times (for each exit) so that the persons can go to the closest exit from there position (accounting for obstacles).
+
+You can find a more precise description of the functioning of the Dijkstra's algorithm adapted to our situation in the source code (Class: ``Simulation`` , Method: ``dijkstra()``)
+
+There is no more problems of persons not being able to reach an exit and we can superimpose obstacles as much as we want, they can even touch the border of the simulation. This algorithm can take a certain time when we press play ``computing paths...`` especially if the room is bigger or if there is a lot of exits ([see improvements](##Possible improvements, bugs ...)).
+
+Thanks to this algorithm we can display the distance to the exit in the simulation (equidistant lines, colors).
+
+*Note: this algorithm is called each time we press ``play`` but also each time we add an exit or an obstacle if we are currently displaying the distance to the exit or the equidistant lines. This way the display of the distance can stay up to date.*
 
 
-## Bibliographaaaïïïïïï
-Informations on Dijkstra:
-- idea of *Diana Nurbakova* + [Wikipedia] (https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
+## Bibliography
+Information on Dijkstra:
+- Idea of *Diana Nurbakova* + [Wikipedia](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
 - Lecture of *Jilles S. Dibangoye* 
 
 Icons:
@@ -89,8 +106,8 @@ Window: +total: JPanel
 Window: +drawEquidistant: boolean
 Window: +drawDistanceToExit: boolean
 Window: +wait: HashMap<JButton,Boolean>
-Window: +chargeSimulation(String)
-Window: +chargeSimulation(Simulation)
+Window: +loadSimulation(String)
+Window: +loadSimulation(Simulation)
 Window: +saveSimulation()
 Window: +actionPerformed(ActionEvent)
 
@@ -146,15 +163,16 @@ ValuedPoint: +value: int
 ```
 
 ## Possible improvements, bugs ...
-The main problem of our crowd simulator is that when we create an obstacle very close to the boundary of the room, without touching it, if the person is too big to go through the space, it will stay blocked behind the obstacle. Indeed, the algorithm computes that there is available space, however, the person can't.
-We could display a message if you use several times the same name for simulations you want to save. 
+- The main problem of our crowd simulator is that when we create an obstacle very close to the boundary of the room, without touching it, if the person is too big to go through the space, it will stay blocked behind the obstacle. Indeed, the algorithm computes that there is available space, however, the person can't.
+- We could display a message if you use several times the same name for simulations you want to save (to avoid overwriting them).
+- We could add an ```Undo``` *(ctrl+z)* option.
+- We could improved the efficiency of our piece of software by not using Dijkstra's algorithm when pressing ``play`` if any obstacle or exit have been added. And don't re-compute the algorithm for every exit when we just add one.
 
 ## Diary
 
- We have got the idea of a crowd simulator by looking at the emergency stairs of the canteen. We wanted to code a tool that would compute things that we can. In this case the trajectory of a high number of people and the time
- We have done some researches and chosen to use git with a github repository to work together more easily. We have written a first idea of the wanted [specifications](#Specifications).
+We got the idea of a crowd simulator by looking at the emergency stairs of the canteen. We wanted to code a tool that would compute things that we can't. In this case the trajectory of a high number of people and the time to leave a building. We have done some researches and chosen to use *git* with a *github* repository to work together more easily. We have written a first idea of the wanted [specifications](#Specifications).
 
-**At the beginning 
+**At the beginning**
 
 - Claire is in charge of the Window.
 - Violaine thinks about the principle to code the motion of people and the special cases to solve

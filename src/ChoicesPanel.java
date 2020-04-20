@@ -118,7 +118,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         gbc.weightx = 0.2;
         add(namePanic,gbc);
 
-        equidistant = new JCheckBox("Display Equidistant");
+        equidistant = new JCheckBox("Display equidistant lines");
         equidistant.setSelected(false);
         equidistant.setBackground(beautyGreenBlue);
         gbc.gridwidth = 4;
