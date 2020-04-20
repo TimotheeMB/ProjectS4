@@ -299,12 +299,12 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         //If we choose a simulation
         else if (e.getSource() == simulationChoice){
             if(simulationChoice.getSelectedItem() == "+ New simulation"){
-                window.chargeSimulation(new Simulation(true));
-                instructions.setText("new simulation charged");
+                window.loadSimulation(new Simulation(true));
+                instructions.setText("New simulation created");
             }else{
                 instructions.setText("The simulation is loading");
-                window.chargeSimulation("Simulations/"+ simulationChoice.getSelectedItem()+".ser");
-                instructions.setText(simulationChoice.getSelectedItem()+" charged");
+                window.loadSimulation("Simulations/"+ simulationChoice.getSelectedItem()+".ser");
+                instructions.setText(simulationChoice.getSelectedItem()+" loaded");
             }
             this.restart();
         }

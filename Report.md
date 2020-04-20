@@ -1,6 +1,8 @@
 # Crowd simulator
 
 ## Specifications
+### The first idea
+
 The main goal of our crowd simulator is to observe the displacements of people in a room in the special case where they all want to reach the exit as soon as possible (for example because of a fire inside a building).
 With more details, we also wanted to :
 
@@ -8,6 +10,13 @@ With more details, we also wanted to :
 - Choose where to put the obstacles, the exit and the danger
 - Choose the number of people inside, their position
 - Choose different types of behaviors (panic, calm, selfish, aware of their environment)
+- Be able to time the evacuation
+
+### The final specifications
+
+We almost reached all our goals, but for the different types of behaviors, we in fact just have the possibility to choose the "panic degree" in the room. We also added a few more functionalities:
+
+- Save and reload multiple rooms
 
 ## Description of the problem
 We knew we would have difficulties in making the people go to a special point avoiding being stuck by an obstacle.

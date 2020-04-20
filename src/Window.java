@@ -34,7 +34,7 @@ public class Window extends JFrame implements ActionListener{
     public Window(){
 
         //Default simulation
-        chargeSimulation(new Simulation(false));
+        loadSimulation(new Simulation(false));
 
         //Window initialization
         this.setTitle("Crowd Simulator");
@@ -81,10 +81,10 @@ public class Window extends JFrame implements ActionListener{
 
         this.setVisible(true);
 
-        chargeSimulation(new Simulation(true));
+        loadSimulation(new Simulation(true));
     }
 
-    public void chargeSimulation(String fileName){ //this will charge the simulation with this given file path.
+    public void loadSimulation(String fileName){ //this will load the simulation with this given file path.
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -94,7 +94,7 @@ public class Window extends JFrame implements ActionListener{
             eu.printStackTrace();
         }
     }
-    public void chargeSimulation(Simulation simulation){
+    public void loadSimulation(Simulation simulation){
         this.simulation=simulation;
     }
 
