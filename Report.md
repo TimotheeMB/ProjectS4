@@ -42,7 +42,7 @@ The complete Dijkstra's algorithm allows to compute precisely the shorter path f
 
 You can find a more precise description of the functioning of the Dijkstra's algorithm adapted to our situation in the source code (Class: ``Simulation`` , Method: ``dijkstra()``)
 
-There is no more problems of persons not being able to reach an exit and we can superimpose obstacles as much as we want, they can even touch the border of the simulation. This algorithm can take a certain time when we press play ``computing paths...`` especially if the room is bigger or if there is a lot of exits ([see improvements](##Possible improvements, bugs ...)).
+There is no more problems of persons not being able to reach an exit and we can superimpose obstacles as much as we want, they can even touch the border of the simulation. This algorithm can take a certain time when we press ``play`` (``computing paths...``) especially if the room is big or if there is a lot of exits ([see improvements](##Possible improvements, bugs ...)).
 
 Thanks to this algorithm we can display the distance to the exit in the simulation (equidistant lines, colors).
 
@@ -82,7 +82,7 @@ Simulation: +ININITY: int
 Simulation: +timer: Timer
 Simulation: +time: long
 Simulation: +NORMAL_STEP_DURATION: int
-Simulation: +panic: boolean
+Simulation: +panic: double
 Simulation: +nextStep()
 Simulation: +dijkstra()
 Simulation: +addPerson()
@@ -130,7 +130,7 @@ ChoicesPanel: +save: JButton
 ChoicesPanel: +restart: JButton
 ChoicesPanel: +fast: JButton
 ChoicesPanel: +slow: JButton
-ChoicesPanel: +panic: JCheckBox
+ChoicesPanel: +panic: JSlider
 ChoicesPanel: +equidistant: JCheckBox
 ChoicesPanel: +distanceToExit: JCheckBox
 ChoicesPanel: +simulationChoice: JComboBox<String>
@@ -140,7 +140,8 @@ ChoicesPanel: +vx: double
 ChoicesPanel: +restart()
 ChoicesPanel: +addListener()
 ChoicesPanel: +actionPerformed(ActionEvent)
-ChoicesPanel: +itemStateChanged(ItemEvent e)
+ChoicesPanel: +itemStateChanged(ItemEvent)
+ChoicesPanel: +stateChanged(ChangeEvent)
 
 Entity: +position: Point[]
 Entity: +signature: int
@@ -163,7 +164,7 @@ ValuedPoint: +value: int
 ```
 
 ## Possible improvements, bugs ...
-- The main problem of our crowd simulator is that when we create an obstacle very close to the boundary of the room, without touching it, if the person is too big to go through the space, it will stay blocked behind the obstacle. Indeed, the algorithm computes that there is available space, however, the person can't.
+- The main problem of our crowd simulator is that when there is a small space between two obstacles or an obstacle and the boundary of the room the people try to pass even though their are too big and the get **stuck**. Indeed, the algorithm computes that there is available space, however, the person can't.
 - We could display a message if you use several times the same name for simulations you want to save (to avoid overwriting them).
 - We could add an ```Undo``` *(ctrl+z)* option.
 - We could improved the efficiency of our piece of software by not using Dijkstra's algorithm when pressing ``play`` if any obstacle or exit have been added. And don't re-compute the algorithm for every exit when we just add one.
@@ -196,12 +197,14 @@ We got the idea of a crowd simulator by looking at the emergency stairs of the c
 1. add a refresh button
 2. add a panic mode that makes the person take random paths
 3. correct the bugs linked to the people that leave the room due to the panic mode
-4. add the equipotential lines and the color to traduce the distance to the exit
+4. add the equidistant lines and the color to traduce the distance to the exit
 5. compute the speed of the persons so that it is coherent with the size of the room
-6. add a window to choose the size of the room
-7. add a break button 
+6. add a dialogue window to choose the size of the room
+7. add a pause and restart buttons 
 8. add buttons to modify the speed of the simulation
-9. add a button to be able to save a simulation and create model simulations
+9. add a button to be able to save a simulation
+10. add a ``ComboBox`` to load the simulations
+11. Create "model" simulations
 
 
 ## Implication of the members
