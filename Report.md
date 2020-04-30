@@ -1,4 +1,5 @@
 # Crowd simulator
+***A software developed by Violaine Gonzalez, Claire Joubert and Timothée Ménard Bédiant***
 
 ## Specifications
 ### The first idea

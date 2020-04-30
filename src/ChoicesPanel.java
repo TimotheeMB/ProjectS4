@@ -159,7 +159,7 @@ public class ChoicesPanel extends JPanel implements ActionListener, ItemListener
         add(timing, gbc);
 
         //Button to save a simulation
-        save = new JButton("Save the current simulation",new ImageIcon("Icons/save24.png"));
+        save = new JButton("Save the current simulation",new ImageIcon("Icons/save.png"));
         save.setLayout(null);
         gbc.gridx = 0;
         gbc.gridy = 9;
