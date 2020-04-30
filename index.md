@@ -1,7 +1,3 @@
-# Download links
-- [zip from github](https://github.com/TimotheeMB/ProjectS4/archive/master.zip)
-- [zip from Google Drive](https://drive.google.com/open?id=1yFcYA1ECLKwilTkcTXPUERWimJ5f2QF0)
-
 # Description
 This is a small project for school. The idea is to simulate the movement of a crowd in case of emergency.
 
@@ -10,3 +6,8 @@ We use [dijstra's algorithm](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstr
 
 # Screenshots
 ![alt text](Screenshots\CS picture.png)
+
+# Download links
+- [zip from github](https://github.com/TimotheeMB/ProjectS4/archive/master.zip)
+- [zip from Google Drive](https://drive.google.com/open?id=1yFcYA1ECLKwilTkcTXPUERWimJ5f2QF0)
+
