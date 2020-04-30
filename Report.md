@@ -37,7 +37,7 @@ We still have problems with this method since for special configurations, people
 
 All the attempts to solve these problems failed and as the code were getting more and more complicated we chose to change the method and use the one proposed by our teacher. It is called Dijkstra's algorithm.
 
-> "**Dijkstra's algorithm** (or **Dijkstra's Shortest Path First algorithm**, **SPF algorithm**)[[2\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-2) is an [algorithm](https://en.wikipedia.org/wiki/Algorithm) for finding the [shortest paths](https://en.wikipedia.org/wiki/Shortest_path_problem) between [nodes](https://en.wikipedia.org/wiki/Vertex_(graph_theory)) in a [graph](https://en.wikipedia.org/wiki/Graph_(abstract_data_type)), which may represent, for example, [road networks](https://en.wikipedia.org/wiki/Road_network).  It was conceived by [computer scientist](https://en.wikipedia.org/wiki/Computer_scientist) [Edsger W. Dijkstra](https://en.wikipedia.org/wiki/Edsger_W._Dijkstra) in 1956 and published three years later.[[3\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-3)[[4\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-Dijkstra_Interview-4)[[5\]](https://en.wikipedia.org/wiki/Dijkstra's_algorithm#cite_note-Dijkstra1959-5)" [Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+> "**Dijkstra's algorithm** (or **Dijkstra's Shortest Path First algorithm**, **SPF algorithm**) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. It was conceived by computer scientist Edsger W. Dijkstra in 1956 and published three years later" [Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 
 The complete Dijkstra's algorithm allows to compute precisely the shorter path from a point to another, that's not exactly what we want because the persons still need to adapt to there immediate environment while moving (i.e., avoid other people). Hence we will just use the part that is dedicated to computing the distance to a given point (here an exit) in every point of the graph (here the map). But we will use it several times (for each exit) so that the persons can go to the closest exit from there position (accounting for obstacles).
 
@@ -48,15 +48,6 @@ There is no more problems of persons not being able to reach an exit and we can 
 Thanks to this algorithm we can display the distance to the exit in the simulation (equidistant lines, colors).
 
 *Note: this algorithm is called each time we press ``play`` but also each time we add an exit or an obstacle if we are currently displaying the distance to the exit or the equidistant lines. This way the display of the distance can stay up to date.*
-
-
-## Bibliography
-Information on Dijkstra:
-- Idea of *Diana Nurbakova* + [Wikipedia](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
-- Lecture of *Jilles S. Dibangoye* 
-
-Icons:
-- Icons made by <a href="https://www.flaticon.com/authors/xnimrodx" title="xnimrodx">xnimrodx</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com </a>
 
 ## UML diagram
 
@@ -170,6 +161,7 @@ ValuedPoint: +int value
 - We could display a message if you use several times the same name for simulations you want to save (to avoid overwriting them).
 - We could add an ```Undo``` *(ctrl+z)* option.
 - We could improved the efficiency of our piece of software by not using Dijkstra's algorithm when pressing ``play`` if any obstacle or exit have been added. And don't re-compute the algorithm for every exit when we just add one.
+- We could allow the user to visualize the obstacle, while he/she is creating it.
 
 ## Diary
 
@@ -216,3 +208,12 @@ We got the idea of a crowd simulator by looking at the emergency stairs of the c
 | Violaine | 33,3333% |
 | Claire   | 33,3333% |
 | Timothée | 33,3333% |
+
+
+## Bibliography
+Information on Dijkstra:
+- Idea of *Diana Nurbakova* + [Wikipedia](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra)
+- Lecture of *Jilles S. Dibangoye* 
+
+Icons:
+- Icons made by <a href="https://www.flaticon.com/authors/xnimrodx" title="xnimrodx">xnimrodx</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com </a>
