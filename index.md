@@ -5,5 +5,5 @@ This is a small project for school. The idea is to simulate the movement of a cr
 We use [dijstra's algorithm](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra) to compute the distance to the exit in every point, then the persons moves by aiming for the smaller distance.
 
 # Screenshots
-![alt text](Screenshots\CS picture.PNG)
+![alt text](Screenshots\CS picture.png)
 
