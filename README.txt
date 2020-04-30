@@ -6,7 +6,6 @@ Content of the archive:
 4. Simulations: The saved simulations
 5. Icons: The icons for the buttons
 6. Crowd Simulator.bat: The file containing the command to run the code
-7. out/production/ProjectS4: The compiled code
 
         ---------------------------------
 
