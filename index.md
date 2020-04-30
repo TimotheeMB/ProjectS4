@@ -1,5 +1,6 @@
 # Download links
-[download from Google Drive](https://drive.google.com/open?id=1yFcYA1ECLKwilTkcTXPUERWimJ5f2QF0)
+- [.zip](https://github.com/TimotheeMB/ProjectS4/archive/master.zip)
+- [from Google Drive](https://drive.google.com/open?id=1yFcYA1ECLKwilTkcTXPUERWimJ5f2QF0)
 
 # Description
 This is a small project for school. The idea is to simulate the movement of a crowd in case of emergency.
