@@ -73,95 +73,96 @@ Simulation -- *Entity
 Point --* Entity
 Point<|--ValuedPoint
 
-Simulation: +persons: ArrayList<Person> 
-Simulation: +obstacles: ArrayList<Obstacle>
-Simulation: +exits: ArrayList<Exit>
-Simulation: +width: int
-Simulation: +height: int
-Simulation: +map: int[][][]
-Simulation: +ININITY: int
-Simulation: +timer: Timer
-Simulation: +time: long
-Simulation: +NORMAL_STEP_DURATION: int
-Simulation: +panic: double
+Simulation: +ArrayList<Person> persons  
+Simulation: +ArrayList<Obstacle> obstacles 
+Simulation: +ArrayList<Exit> exits
+Simulation: +int width 
+Simulation: +int height
+Simulation: +int[][][] map
+Simulation: +int ININITY
+Simulation: +Timer timer
+Simulation: +long time
+Simulation: +int NORMAL_STEP_DURATION
+Simulation: +double panic
 Simulation: +nextStep()
 Simulation: +dijkstra()
-Simulation: +addPerson()
-Simulation: +addObstacle()
-Simulation: +addExit()
-Simulation: +inBounds(Point)
-Simulation: +emptyAround(Point)
-Simulation: +isRunning()
+Simulation: +addPerson(Point)
+Simulation: +addObstacle(Point, Point)
+Simulation: +addExit(Point)
+Simulation: +boolean inBounds(Point)
+Simulation: +boolean emptyAround(Point)
+Simulation: +boolean isRunning()
 Simulation: +start()
 Simulation: +pause()
 Simulation: +restart()
 Simulation: +speedTimes(double)
 Simulation: +actionPerformed(ActionEvent)
 
-Window: +simulation: Simulation
-Window: +displayInterval: int
-Window: +timer: Timer
-Window: +displayPan: DisplayPanel
-Window: +choicesPan: ChoicesPanel
-Window: +total: JPanel
-Window: +drawEquidistant: boolean
-Window: +drawDistanceToExit: boolean
+Window: +Simulation simulation
+Window: +int displayInterval
+Window: +Timer timer
+Window: +DisplayPanel displayPan
+Window: +ChoicesPanel choicesPan
+Window: +JPanel total
+Window: +boolean drawEquidistant
+Window: +boolean drawDistanceToExit
 Window: +wait: HashMap<JButton,Boolean>
 Window: +loadSimulation(String)
 Window: +loadSimulation(Simulation)
 Window: +saveSimulation()
 Window: +actionPerformed(ActionEvent)
+Window: +main(String[])
 
-DisplayPanel: +window: Window
-DisplayPanel: +beginningObstacle: Point
+DisplayPanel: +Window window
+DisplayPanel: +Point beginningObstacle
 DisplayPanel: +paint(Graphics)
 DisplayPanel: +mousePressed(MouseEvent)
 DisplayPanel: +mouseReleased(MouseEvent)
-DisplayPanel: +scaleX()
-DisplayPanel: +scaleY()
+DisplayPanel: +double scaleX()
+DisplayPanel: +double scaleY()
 
-ChoicesPanel: +window: Window
-ChoicesPanel: +text: HashMap<JButton, String>
-ChoicesPanel: +person: JButton
-ChoicesPanel: +obstacle: JButton
-ChoicesPanel: +start: JButton
-ChoicesPanel: +exit: JButton
-ChoicesPanel: +pause: JButton
-ChoicesPanel: +save: JButton
-ChoicesPanel: +restart: JButton
-ChoicesPanel: +fast: JButton
-ChoicesPanel: +slow: JButton
-ChoicesPanel: +panic: JSlider
-ChoicesPanel: +equidistant: JCheckBox
-ChoicesPanel: +distanceToExit: JCheckBox
-ChoicesPanel: +simulationChoice: JComboBox<String>
-ChoicesPanel: +instructions: TextComponent
-ChoicesPanel: +timing: TextComponent
-ChoicesPanel: +vx: double
+ChoicesPanel: +Window window
+ChoicesPanel: +HashMap<JButton, String> text
+ChoicesPanel: +JButton person 
+ChoicesPanel: +JButton obstacle 
+ChoicesPanel: +JButton start 
+ChoicesPanel: +JButton exit
+ChoicesPanel: +JButton pause 
+ChoicesPanel: +JButton save 
+ChoicesPanel: +JButton restart 
+ChoicesPanel: +JButton fast
+ChoicesPanel: +JButton slow
+ChoicesPanel: +JSlider panic
+ChoicesPanel: +JCheckBox equidistant
+ChoicesPanel: +JCheckBox distanceToExit
+ChoicesPanel: +JComboBox<String> simulationChoice 
+ChoicesPanel: +TextComponent instructions 
+ChoicesPanel: +JLabel timing
+ChoicesPanel: +double vx
 ChoicesPanel: +restart()
 ChoicesPanel: +addListener()
 ChoicesPanel: +actionPerformed(ActionEvent)
 ChoicesPanel: +itemStateChanged(ItemEvent)
 ChoicesPanel: +stateChanged(ChangeEvent)
 
-Entity: +position: Point[]
-Entity: +signature: int
-Entity: +simulation: Simulation
+Entity: +Point[] position
+Entity: +int signature
+Entity: +Simulation simulation
 Entity: +addPrint()
 Entity: +removePrint()
 
-Person: +initPosition: Point[]
+Person: +Point[] initPosition
 Person: +nextStep()
 
-Obstacle: +vertices: Point[]
-Obstacle: +length()
-Obstacle: +height()
+Obstacle: +Point[] vertices
+Obstacle: +int length()
+Obstacle: +int height()
 
-Point: +x: int
-Point: +y: int
-Point: +around(boolean)
+Point: +int x
+Point: +int y 
+Point: +Point[] around(boolean)
 
-ValuedPoint: +value: int 
+ValuedPoint: +int value 
 ```
 
 ## Possible improvements, bugs ...
