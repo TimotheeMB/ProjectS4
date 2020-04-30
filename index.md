@@ -7,7 +7,7 @@ We use [dijstra's algorithm](https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstr
 # Screenshots
 ![alt text](Screenshots\CS picture.png)
 
-# Download links
-- [zip from github](https://github.com/TimotheeMB/ProjectS4/archive/master.zip)
-- [zip from Google Drive](https://drive.google.com/open?id=1yFcYA1ECLKwilTkcTXPUERWimJ5f2QF0)
+# Links
+- [The github repository we used]()
+- [The final .zip (Google Drive)](https://drive.google.com/open?id=1yFcYA1ECLKwilTkcTXPUERWimJ5f2QF0)
 
