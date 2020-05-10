@@ -158,29 +158,31 @@ ValuedPoint: +int value
 
 **GUI classes :** 
 
-- Window: The main window of the software
-- DisplayPanel: The panel where the simulation is displayed (on the left)
-- ChoicesPanel: The panel where all the buttons, checkboxes, sliders and comboboxes are displayed (on the right)
+- *Window*: The main window of the software
+- *DisplayPanel*: The panel where the simulation is displayed (on the left)
+- *ChoicesPanel*: The panel where all the buttons, checkboxes, sliders and comboboxes are displayed (on the right)
 
 **Simulation classes :**
 
-- Simulation: The main simulation class, this is where the "entities" are where the paths of people are computed
-- Entities: It is an abstract mother class regrouping every elements that can be put in a simulation (persons, obstacles, and exits)
-- Person
-- Obstacle
-- Exit
+- *Simulation*: The main simulation class, this is where the *Entity*·s are where the paths of people are computed
+- *Entity*: It is an abstract mother class regrouping every elements that can be put in a simulation (persons, obstacles, and exits)
+- *Person*
+- *Obstacle*
+- *Exit*
 
 **Useful classes :**
 
-- Point: Mathematical point with (x,y) coordinates, that is used to refer to a "position in the map"
-- ValuedPoint: A point with a integer value used in the priority queue of the Dijkstra's algorithm (we need to sort the points by distance to the exit)
-- ValuedPointComparator *(not represented in the UML diagram)*: The comparator used in the priority queue to compare the points in order to sort them
+- *Point*: Mathematical point with (x,y) coordinates, that is used to refer to a "position in the map"
+- *ValuedPoint*: A point with a integer value used in the priority queue of the Dijkstra's algorithm (we need to sort the points by distance to the exit)
+- *ValuedPointComparator* ***(not represented in the UML diagram)***: The comparator used in the priority queue to compare the points in order to sort them
 
 **Simplified global functioning :**
 
-The ChoicesPanel of the Window listen to the action of the used and manage the simulation of the window consequently: Compute the paths using Dijkstra's algorithm, Start it, Stop it....
+The *ChoicesPanel* of the *Window* listen to the action of the used and manage the *Simulation* of the *Window* consequently: Compute the paths using Dijkstra's algorithm, Start it, Stop it....
 
-This same simulation is then displayed in the DisplayPanel of the Window.
+This same *Simulation* is then displayed in the *DisplayPanel* of the *Window*.
+
+The *Simulation* computes the paths of the *Person*·s taking into account its *Obstacle*·s and *Exit*·s. And then makes the *Person*·s move by calling the method ``nextStep()`` of each *Person*.
 
 ## Possible improvements, bugs ...
 
