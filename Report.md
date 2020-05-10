@@ -156,7 +156,34 @@ Point: +Point[] around(boolean)
 ValuedPoint: +int value 
 ```
 
+**GUI classes :** 
+
+- Window: The main window of the software
+- DisplayPanel: The panel where the simulation is displayed (on the left)
+- ChoicesPanel: The panel where all the buttons, checkboxes, sliders and comboboxes are displayed (on the right)
+
+**Simulation classes :**
+
+- Simulation: The main simulation class, this is where the "entities" are where the paths of people are computed
+- Entities: It is an abstract mother class regrouping every elements that can be put in a simulation (persons, obstacles, and exits)
+- Person
+- Obstacle
+- Exit
+
+**Useful classes :**
+
+- Point: Mathematical point with (x,y) coordinates, that is used to refer to a "position in the map"
+- ValuedPoint: A point with a integer value used in the priority queue of the Dijkstra's algorithm (we need to sort the points by distance to the exit)
+- ValuedPointComparator *(not represented in the UML diagram)*: The comparator used in the priority queue to compare the points in order to sort them
+
+**Simplified global functioning :**
+
+The ChoicesPanel of the Window listen to the action of the used and manage the simulation of the window consequently: Compute the paths using Dijkstra's algorithm, Start it, Stop it....
+
+This same simulation is then displayed in the DisplayPanel of the Window.
+
 ## Possible improvements, bugs ...
+
 - The main problem of our crowd simulator is that when there is a small space between two obstacles or an obstacle and the boundary of the room the people try to pass even though their are too big and the get **stuck**. Indeed, the algorithm computes that there is available space, however, the person can't.
 - We could display a message if you use several times the same name for simulations you want to save (to avoid overwriting them).
 - We could add an ```Undo``` *(ctrl+z)* option.
